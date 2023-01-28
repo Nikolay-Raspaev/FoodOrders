@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrders", "FoodOrders\FoodOrders.csproj", "{5EBC4A03-F86E-493B-9BAF-E75FED9389FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodOrders", "FoodOrders\FoodOrders.csproj", "{5EBC4A03-F86E-493B-9BAF-E75FED9389FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodOrdersDataModels", "FoodOrdersDataModels\FoodOrdersDataModels.csproj", "{8B4020EF-5761-489C-8958-9B37F4D7FECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5EBC4A03-F86E-493B-9BAF-E75FED9389FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EBC4A03-F86E-493B-9BAF-E75FED9389FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EBC4A03-F86E-493B-9BAF-E75FED9389FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B4020EF-5761-489C-8958-9B37F4D7FECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4020EF-5761-489C-8958-9B37F4D7FECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4020EF-5761-489C-8958-9B37F4D7FECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4020EF-5761-489C-8958-9B37F4D7FECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
