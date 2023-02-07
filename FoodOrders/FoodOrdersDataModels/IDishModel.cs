@@ -1,9 +1,9 @@
 ﻿
 namespace FoodOrdersDataModels.Models
 {
-    public interface IComponentModel : IId
+    public interface IDishModel : IId
     {
-        string ComponentName { get; }
+        string DishName { get; }
         double Cost { get; }
     }
 }
