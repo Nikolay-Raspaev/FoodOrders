@@ -8,8 +8,8 @@ namespace FoodOrdersView
     public partial class FormListSetOfDishes : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
-        public FormListSetOfDishes(ILogger<FormListSetOfDishes> logger, IDishLogic logic)
+        private readonly ISetOfDishesLogic _logic;
+        public FormListSetOfDishes(ILogger<FormListSetOfDishes> logger, ISetOfDishesLogic logic)
         {
             InitializeComponent();
             _logger = logger;
@@ -29,7 +29,7 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["ProdyctName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["SetOfDishesName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["SetOfDishesDishes"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка набор блюд");
@@ -79,7 +79,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление набор блюд");
                     try
                     {
-                        if (!_logic.Delete(new DishBindingModel
+                        if (!_logic.Delete(new SetOfDishesBindingModel
                         {
                             Id = id
                         }))

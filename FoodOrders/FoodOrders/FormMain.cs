@@ -50,8 +50,8 @@ namespace FoodOrdersView
         }
         private void SetOfDishesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSetOfDishes));
-            if (service is FormSetOfDishes form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormListSetOfDishes));
+            if (service is FormListSetOfDishes form)
             {
                 form.ShowDialog();
             }
