@@ -16,7 +16,7 @@ namespace FoodOrdersFileImplement.Implements
         }
         public List<OrderViewModel> GetFullList()
         {
-            return _source.Orders.Select(x => x.GetViewModel).ToList();
+            return _source.Orders.Select(x => GetViewModel(x)).ToList();
         }
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
@@ -24,7 +24,7 @@ namespace FoodOrdersFileImplement.Implements
             {
                 return new();
             }
-            return _source.Orders.Where(x => x.Id == model.Id).Select(x => x.GetViewModel).ToList();
+            return _source.Orders.Where(x => x.Id == model.Id).Select(x => GetViewModel(x)).ToList();
         }
 
         public OrderViewModel? GetElement(OrderSearchModel model)
@@ -40,11 +40,11 @@ namespace FoodOrdersFileImplement.Implements
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var iceCream in _source.Dishes)
+            foreach (var dish in _source.Dishes)
             {
-                if (iceCream.Id == order.DishId)
+                if (dish.Id == order.DishId)
                 {
-                    viewModel.DishName = iceCream.DishName;
+                    viewModel.DishName = dish.DishName;
                     break;
                 }
             }
