@@ -10,7 +10,7 @@ namespace FoodOrdersContracts.ViewModels
 
         public int DishId { get; set; }
 
-        [DisplayName("Изделие")]
+        [DisplayName("Набор")]
         public string DishName { get; set; } = string.Empty;
 
         [DisplayName("Количество")]
