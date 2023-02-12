@@ -63,11 +63,11 @@ namespace FoodOrdersListImplement.Implements
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var iceCream in _source.Dish)
+            foreach (var dish in _source.Dish)
             {
-                if (iceCream.Id == order.DishId)
+                if (dish.Id == order.DishId)
                 {
-                    viewModel.DishName = iceCream.DishName;
+                    viewModel.DishName = dish.DishName;
                     break;
                 }
             }
