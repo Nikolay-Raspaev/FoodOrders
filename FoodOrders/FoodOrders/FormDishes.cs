@@ -5,17 +5,17 @@ using Microsoft.Extensions.Logging;
 
 namespace FoodOrdersView
 {
-    public partial class FormDishes : Form
+    public partial class FormComponents : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
-        public FormDishes(ILogger<FormDishes> logger, IDishLogic logic)
+        private readonly IComponentLogic _logic;
+        public FormComponents(ILogger<FormComponents> logger, IComponentLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
         }
-        private void FormDishes_Load(object sender, EventArgs e)
+        private void FormComponents_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -28,7 +28,7 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["DishName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["ComponentName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 _logger.LogInformation("Загрузка Блюд");
             }
@@ -41,8 +41,8 @@ namespace FoodOrdersView
         }
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDish));
-            if (service is FormDish form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
+            if (service is FormComponent form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -54,8 +54,8 @@ namespace FoodOrdersView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormDish));
-                if (service is FormDish form)
+                var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
+                if (service is FormComponent form)
                 {
                     form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -75,7 +75,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление блюда");
                     try
                     {
-                        if (!_logic.Delete(new DishBindingModel
+                        if (!_logic.Delete(new ComponentBindingModel
                         {
                             Id = id
                         }))

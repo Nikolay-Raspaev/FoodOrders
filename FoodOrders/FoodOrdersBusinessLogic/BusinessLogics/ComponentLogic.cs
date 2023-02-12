@@ -4,30 +4,25 @@ using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodOrdersBusinessLogic.BusinessLogics
 {
-    public class DishLogic : IDishLogic
+    public class ComponentLogic : IComponentLogic
     {
         private readonly ILogger _logger;
-        private readonly IDishStorage _dishStorage;
-        public DishLogic(ILogger<DishLogic> logger, IDishStorage dishStorage)
+        private readonly IComponentStorage _componentStorage;
+        public ComponentLogic(ILogger<ComponentLogic> logger, IComponentStorage
+       ComponentStorage)
         {
             _logger = logger;
-            _dishStorage = dishStorage;
+            _componentStorage = ComponentStorage;
         }
-
-        public List<DishViewModel>? ReadList(DishSearchModel? model)
+        public List<ComponentViewModel>? ReadList(ComponentSearchModel? model)
         {
-            _logger.LogInformation("ReadList. DishName:{DishName}. Id:{Id}",
-                model?.DishName, model?.Id);
-            var list = model == null ? _dishStorage.GetFullList() :
-                _dishStorage.GetFilteredList(model);
+            _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}",
+                model?.ComponentName, model?.Id);
+            var list = model == null ? _componentStorage.GetFullList() :
+                _componentStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList return null list");
@@ -36,15 +31,14 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _logger.LogInformation("ReadList. Count:{Count}", list.Count);
             return list;
         }
-
-        public DishViewModel? ReadElement(DishSearchModel model)
+        public ComponentViewModel? ReadElement(ComponentSearchModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. DishName:{DishName}. Id:{Id}", model.DishName, model.Id);
-            var element = _dishStorage.GetElement(model);
+            _logger.LogInformation("ReadElement. ComponentName:{ComponentName}. Id:{Id}", model.ComponentName, model.Id);
+        var element = _componentStorage.GetElement(model);
             if (element == null)
             {
                 _logger.LogWarning("ReadElement element not found");
@@ -53,40 +47,39 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _logger.LogInformation("ReadElement find. Id:{Id}", element.Id);
             return element;
         }
-
-        public bool Create(DishBindingModel model)
+        public bool Create(ComponentBindingModel model)
         {
             CheckModel(model);
-            if (_dishStorage.Insert(model) == null)
+            if (_componentStorage.Insert(model) == null)
             {
                 _logger.LogWarning("Insert operation failed");
                 return false;
             }
             return true;
         }
-
-        public bool Update(DishBindingModel model)
+        public bool Update(ComponentBindingModel model)
         {
             CheckModel(model);
-            if (_dishStorage.Update(model) == null)
+            if (_componentStorage.Update(model) == null)
             {
                 _logger.LogWarning("Update operation failed");
                 return false;
             }
             return true;
         }
-        public bool Delete(DishBindingModel model)
+        public bool Delete(ComponentBindingModel model)
         {
             CheckModel(model, false);
             _logger.LogInformation("Delete. Id:{Id}", model.Id);
-            if (_dishStorage.Delete(model) == null)
+            if (_componentStorage.Delete(model) == null)
             {
                 _logger.LogWarning("Delete operation failed");
                 return false;
             }
             return true;
         }
-        private void CheckModel(DishBindingModel model, bool withParams = true)
+        private void CheckModel(ComponentBindingModel model, bool withParams =
+       true)
         {
             if (model == null)
             {
@@ -96,22 +89,23 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 return;
             }
-            if (string.IsNullOrEmpty(model.DishName))
+            if (string.IsNullOrEmpty(model.ComponentName))
             {
-                throw new ArgumentNullException("Нет названия компонента", nameof(model.DishName));
+                throw new ArgumentNullException("Нет названия компонента",
+               nameof(model.ComponentName));
             }
-            if (model.Price <= 0)
+            if (model.Cost <= 0)
             {
-                throw new ArgumentNullException("Цена компонента должна быть больше 0", nameof(model.Price));
+                throw new ArgumentNullException("Цена компонента должна быть больше 0", nameof(model.Cost));
             }
-            _logger.LogInformation("Dish. DishName:{DishName}. Price:{Price}. Id:{Id}", model.DishName, model.Price, model.Id);
-            var element = _dishStorage.GetElement(new DishSearchModel
-            {
-                DishName = model.DishName
-            });
+            _logger.LogInformation("Component. ComponentName:{ComponentName}. Cost:{ Cost}. Id:{Id}", model.ComponentName, model.Cost, model.Id);
+        var element = _componentStorage.GetElement(new ComponentSearchModel
+        {
+            ComponentName = model.ComponentName
+        });
             if (element != null && element.Id != model.Id)
             {
-                throw new InvalidOperationException("Прдукт с таким названием уже есть");
+                throw new InvalidOperationException("Компонент с таким названием уже есть");
             }
         }
     }

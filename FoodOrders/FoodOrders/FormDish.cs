@@ -5,34 +5,34 @@ using FoodOrdersContracts.BindingModels;
 
 namespace FoodOrdersView
 {
-    public partial class FormDish : Form
+    public partial class FormComponent : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
+        private readonly IComponentLogic _logic;
         private int? _id;
         public int Id { set { _id = value; } }
 
-        public FormDish(ILogger<FormDish> logger, IDishLogic logic)
+        public FormComponent(ILogger<FormComponent> logger, IComponentLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
         }
 
-        private void FormDish_Load(object sender, EventArgs e)
+        private void FormComponent_Load(object sender, EventArgs e)
         {
             if (_id.HasValue)
             {
                 try
                 {
                     _logger.LogInformation("Получение блюда");
-                    var view = _logic.ReadElement(new DishesearchModel
+                    var view = _logic.ReadElement(new ComponentSearchModel
                     {
                         Id = _id.Value
                     });
                     if (view != null)
                     {
-                        textBoxName.Text = view.DishName;
+                        textBoxName.Text = view.ComponentName;
                         textBoxCost.Text = view.Cost.ToString();
                     }
                 }
@@ -55,10 +55,10 @@ namespace FoodOrdersView
             _logger.LogInformation("Сохранение блюда");
             try
             {
-                var model = new DishBindingModel
+                var model = new ComponentBindingModel
                 {
                     Id = _id ?? 0,
-                    DishName = textBoxName.Text,
+                    ComponentName = textBoxName.Text,
                     Cost = Convert.ToDouble(textBoxCost.Text)
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);

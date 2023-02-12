@@ -20,7 +20,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
         {
-            _logger.LogInformation("ReadList. DishName:{DishName}. Id:{Id}", model?.Id);
+            _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}", model?.Id);
             var list = model == null ? _orderStorage.GetFullList() :
                 _orderStorage.GetFilteredList(model);
             if (list == null)
@@ -87,7 +87,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 throw new ArgumentNullException("Сумма заказа должна быть больше 0", nameof(model.Sum));
             }
-            _logger.LogInformation("Order. OrderID:{Id}. Sum:{ Sum}. SetOfDishesId: { SetOfDishesId}", model.Id, model.Sum, model.Id);
+            _logger.LogInformation("Order. OrderID:{Id}. Sum:{ Sum}. DishId: { DishId}", model.Id, model.Sum, model.Id);
         }
 
         //???

@@ -7,36 +7,36 @@ using Microsoft.Extensions.Logging;
 
 namespace FoodOrdersView
 {
-    public partial class FormSetOfDishes : Form
+    public partial class FormDish : Form
     {
         private readonly ILogger _logger;
-        private readonly ISetOfDishesLogic _logic;
+        private readonly IDishLogic _logic;
         private int? _id;
-        private Dictionary<int, (IDishModel, int)> _set_of_dishesDishes;
+        private Dictionary<int, (IComponentModel, int)> _dishComponents;
         public int Id { set { _id = value; } }
-        public FormSetOfDishes(ILogger<FormSetOfDishes> logger, ISetOfDishesLogic logic)
+        public FormDish(ILogger<FormDish> logger, IDishLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            _set_of_dishesDishes = new Dictionary<int, (IDishModel, int)>();
+            _dishComponents = new Dictionary<int, (IComponentModel, int)>();
         }
-        private void FormSetOfDishes_Load(object sender, EventArgs e)
+        private void FormDish_Load(object sender, EventArgs e)
         {
             if (_id.HasValue)
             {
                 _logger.LogInformation("Загрузка набор блюд");
                 try
                 {
-                    var view = _logic.ReadElement(new SetOfDishesearchModel
+                    var view = _logic.ReadElement(new DishSearchModel
                     {
                         Id = _id.Value
                     });
                     if (view != null)
                     {
-                        textBoxName.Text = view.SetOfDishesName;
+                        textBoxName.Text = view.DishName;
                         textBoxPrice.Text = view.Price.ToString();
-                        _set_of_dishesDishes = view.SetOfDishesDishes ?? new Dictionary<int, (IDishModel, int)>();
+                        _dishComponents = view.DishComponents ?? new Dictionary<int, (IComponentModel, int)>();
                         LoadData();
                     }
                 }
@@ -53,12 +53,12 @@ namespace FoodOrdersView
             _logger.LogInformation("Загрузка Блюдо набор блюд");
             try
             {
-                if (_set_of_dishesDishes != null)
+                if (_dishComponents != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var sc in _set_of_dishesDishes)
+                    foreach (var sc in _dishComponents)
                     {
-                        dataGridView.Rows.Add(new object[] { sc.Key, sc.Value.Item1.DishName, sc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { sc.Key, sc.Value.Item1.ComponentName, sc.Value.Item2 });
                     }
                     textBoxPrice.Text = CalcPrice().ToString();
                 }
@@ -71,8 +71,8 @@ namespace FoodOrdersView
         }
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSetOfDishesDishes));
-            if (service is FormSetOfDishesDishes form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormDishComponents));
+            if (service is FormDishComponents form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -80,15 +80,15 @@ namespace FoodOrdersView
                     {
                         return;
                     }
-                    _logger.LogInformation("Добавление нового блюда: { DishName} - { Count}", form.ComponentModel.DishName, form.Count);
-                    if (_set_of_dishesDishes.ContainsKey(form.Id))
+                    _logger.LogInformation("Добавление нового блюда: { ComponentName} - { Count}", form.ComponentModel.ComponentName, form.Count);
+                    if (_dishComponents.ContainsKey(form.Id))
                     {
-                        _set_of_dishesDishes[form.Id] = (form.ComponentModel,
+                        _dishComponents[form.Id] = (form.ComponentModel,
                        form.Count);
                     }
                     else
                     {
-                        _set_of_dishesDishes.Add(form.Id, (form.ComponentModel,
+                        _dishComponents.Add(form.Id, (form.ComponentModel,
                        form.Count));
                     }
                     LoadData();
@@ -99,21 +99,21 @@ namespace FoodOrdersView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormSetOfDishesDishes));
-                if (service is FormSetOfDishesDishes form)
+                var service = Program.ServiceProvider?.GetService(typeof(FormDishComponents));
+                if (service is FormDishComponents form)
                 {
                     int id =
                    Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     form.Id = id;
-                    form.Count = _set_of_dishesDishes[id].Item2;
+                    form.Count = _dishComponents[id].Item2;
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         if (form.ComponentModel == null)
                         {
                             return;
                         }
-                        _logger.LogInformation("Изменение блюда: { DishName} - { Count} ", form.ComponentModel.DishName, form.Count);
-                        _set_of_dishesDishes[form.Id] = (form.ComponentModel, form.Count);
+                        _logger.LogInformation("Изменение блюда: { ComponentName} - { Count} ", form.ComponentModel.ComponentName, form.Count);
+                        _dishComponents[form.Id] = (form.ComponentModel, form.Count);
                         LoadData();
                     }
                 }
@@ -128,8 +128,8 @@ namespace FoodOrdersView
                 {
                     try
                     {
-                        _logger.LogInformation("Удаление блюда: { DishName} - { Count} ", 
-                            dataGridView.SelectedRows[0].Cells[1].Value); _set_of_dishesDishes?.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
+                        _logger.LogInformation("Удаление блюда: { ComponentName} - { Count} ", 
+                            dataGridView.SelectedRows[0].Cells[1].Value); _dishComponents?.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
                     catch (Exception ex)
                     {
@@ -158,7 +158,7 @@ namespace FoodOrdersView
                MessageBoxIcon.Error);
                 return;
             }
-            if (_set_of_dishesDishes == null || _set_of_dishesDishes.Count == 0)
+            if (_dishComponents == null || _dishComponents.Count == 0)
             {
                 MessageBox.Show("Заполните Блюда", "Ошибка",
                MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -167,12 +167,12 @@ namespace FoodOrdersView
             _logger.LogInformation("Сохранение набор блюд");
             try
             {
-                var model = new SetOfDishesBindingModel
+                var model = new DishBindingModel
                 {
                     Id = _id ?? 0,
-                    SetOfDishesName = textBoxName.Text,
+                    DishName = textBoxName.Text,
                     Price = Convert.ToDouble(textBoxPrice.Text),
-                    SetOfDishesDishes = _set_of_dishesDishes
+                    DishComponents = _dishComponents
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                 if (!operationResult)
@@ -197,7 +197,7 @@ namespace FoodOrdersView
         private double CalcPrice()
         {
             double price = 0;
-            foreach (var elem in _set_of_dishesDishes)
+            foreach (var elem in _dishComponents)
             {
                 price += ((elem.Value.Item1?.Cost ?? 0) * elem.Value.Item2);
             }

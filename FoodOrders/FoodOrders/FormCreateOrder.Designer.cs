@@ -32,7 +32,7 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxSum = new System.Windows.Forms.TextBox();
             this.textBoxCount = new System.Windows.Forms.TextBox();
-            this.comboBoxSetOfDishes = new System.Windows.Forms.ComboBox();
+            this.comboBoxDish = new System.Windows.Forms.ComboBox();
             this.labelSum = new System.Windows.Forms.Label();
             this.labelCount = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
@@ -77,15 +77,15 @@
             this.textBoxCount.TabIndex = 12;
             this.textBoxCount.TextChanged += new System.EventHandler(this.TextBoxCount_TextChanged);
             // 
-            // comboBoxSetOfDishes
+            // comboBoxDish
             // 
-            this.comboBoxSetOfDishes.FormattingEnabled = true;
-            this.comboBoxSetOfDishes.Location = new System.Drawing.Point(93, 9);
-            this.comboBoxSetOfDishes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxSetOfDishes.Name = "comboBoxSetOfDishes";
-            this.comboBoxSetOfDishes.Size = new System.Drawing.Size(230, 23);
-            this.comboBoxSetOfDishes.TabIndex = 11;
-            this.comboBoxSetOfDishes.SelectedIndexChanged += new System.EventHandler(this.ComboBoxSetOfDishes_SelectedIndexChanged);
+            this.comboBoxDish.FormattingEnabled = true;
+            this.comboBoxDish.Location = new System.Drawing.Point(93, 9);
+            this.comboBoxDish.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxDish.Name = "comboBoxDish";
+            this.comboBoxDish.Size = new System.Drawing.Size(230, 23);
+            this.comboBoxDish.TabIndex = 11;
+            this.comboBoxDish.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDish_SelectedIndexChanged);
             // 
             // labelSum
             // 
@@ -123,7 +123,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.textBoxCount);
-            this.Controls.Add(this.comboBoxSetOfDishes);
+            this.Controls.Add(this.comboBoxDish);
             this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.labelName);
@@ -141,7 +141,7 @@
         private Button buttonSave;
         private TextBox textBoxSum;
         private TextBox textBoxCount;
-        private ComboBox comboBoxSetOfDishes;
+        private ComboBox comboBoxDish;
         private Label labelSum;
         private Label labelCount;
         private Label labelName;

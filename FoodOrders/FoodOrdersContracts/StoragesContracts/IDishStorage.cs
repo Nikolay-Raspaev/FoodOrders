@@ -4,11 +4,11 @@ using FoodOrdersContracts.ViewModels;
 
 namespace FoodOrdersContracts.StoragesContracts
 {
-    public interface IDishestorage
+    public interface IDishStorage
     {
         List<DishViewModel> GetFullList();
-        List<DishViewModel> GetFilteredList(DishesearchModel model);
-        DishViewModel? GetElement(DishesearchModel model);
+        List<DishViewModel> GetFilteredList(DishSearchModel model);
+        DishViewModel? GetElement(DishSearchModel model);
         DishViewModel? Insert(DishBindingModel model);
         DishViewModel? Update(DishBindingModel model);
         DishViewModel? Delete(DishBindingModel model);

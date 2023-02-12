@@ -9,8 +9,8 @@ namespace FoodOrdersListImplement.Models
     public class Order : IOrderModel
     {
         public int Id { get; private set; }
-        public int SetOfDishesId { get; private set; }
-        public string SetOfDishesName { get; private set; } = string.Empty;
+        public int DishId { get; private set; }
+        public string DishName { get; private set; } = string.Empty;
         public int Count { get; private set; }
         public double Sum { get; private set; }
         public OrderStatus Status { get; private set; }
@@ -26,8 +26,8 @@ namespace FoodOrdersListImplement.Models
             return new Order()
             {
                 Id = model.Id,
-                SetOfDishesId = model.SetOfDishesId,
-                SetOfDishesName = model.SetOfDishesName,
+                DishId = model.DishId,
+                DishName = model.DishName,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -41,8 +41,8 @@ namespace FoodOrdersListImplement.Models
             {
                 return;
             }
-            SetOfDishesId = model.SetOfDishesId;
-            SetOfDishesName = model.SetOfDishesName;
+            DishId = model.DishId;
+            DishName = model.DishName;
             Count = model.Count;
             Sum = model.Sum;
             Status = model.Status;
@@ -52,8 +52,8 @@ namespace FoodOrdersListImplement.Models
         public OrderViewModel GetViewModel => new()
         {
             Id = Id,
-            SetOfDishesId = SetOfDishesId,
-            SetOfDishesName = SetOfDishesName,
+            DishId = DishId,
+            DishName = DishName,
             Count = Count,
             Sum = Sum,
             Status = Status,

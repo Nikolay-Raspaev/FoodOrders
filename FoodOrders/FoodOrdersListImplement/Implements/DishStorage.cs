@@ -6,23 +6,23 @@ using FoodOrdersContracts.ViewModels;
 
 namespace FoodOrdersListImplement.Implements
 {
-    public class Dishestorage : IDishestorage
+    public class DishStorage : IDishStorage
     {
         private readonly DataListSingleton _source;
-        public Dishestorage()
+        public DishStorage()
         {
             _source = DataListSingleton.GetInstance();
         }
         public List<DishViewModel> GetFullList()
         {
             var result = new List<DishViewModel>();
-            foreach (var dish in _source.Dishes)
+            foreach (var dish in _source.Dish)
             {
                 result.Add(dish.GetViewModel);
             }
             return result;
         }
-        public List<DishViewModel> GetFilteredList(DishesearchModel
+        public List<DishViewModel> GetFilteredList(DishSearchModel
        model)
         {
             var result = new List<DishViewModel>();
@@ -30,7 +30,7 @@ namespace FoodOrdersListImplement.Implements
             {
                 return result;
             }
-            foreach (var dish in _source.Dishes)
+            foreach (var dish in _source.Dish)
             {
                 if (dish.DishName.Contains(model.DishName))
                 {
@@ -39,13 +39,13 @@ namespace FoodOrdersListImplement.Implements
             }
             return result;
         }
-        public DishViewModel? GetElement(DishesearchModel model)
+        public DishViewModel? GetElement(DishSearchModel model)
         {
             if (string.IsNullOrEmpty(model.DishName) && !model.Id.HasValue)
             {
                 return null;
             }
-            foreach (var dish in _source.Dishes)
+            foreach (var dish in _source.Dish)
             {
                 if ((!string.IsNullOrEmpty(model.DishName) &&
                 dish.DishName == model.DishName) ||
@@ -59,7 +59,7 @@ namespace FoodOrdersListImplement.Implements
         public DishViewModel? Insert(DishBindingModel model)
         {
             model.Id = 1;
-            foreach (var dish in _source.Dishes)
+            foreach (var dish in _source.Dish)
             {
                 if (model.Id <= dish.Id)
                 {
@@ -71,12 +71,12 @@ namespace FoodOrdersListImplement.Implements
             {
                 return null;
             }
-            _source.Dishes.Add(newDish);
+            _source.Dish.Add(newDish);
             return newDish.GetViewModel;
         }
         public DishViewModel? Update(DishBindingModel model)
         {
-            foreach (var dish in _source.Dishes)
+            foreach (var dish in _source.Dish)
             {
                 if (dish.Id == model.Id)
                 {
@@ -88,12 +88,12 @@ namespace FoodOrdersListImplement.Implements
         }
         public DishViewModel? Delete(DishBindingModel model)
         {
-            for (int i = 0; i < _source.Dishes.Count; ++i)
+            for (int i = 0; i < _source.Dish.Count; ++i)
             {
-                if (_source.Dishes[i].Id == model.Id)
+                if (_source.Dish[i].Id == model.Id)
                 {
-                    var element = _source.Dishes[i];
-                    _source.Dishes.RemoveAt(i);
+                    var element = _source.Dish[i];
+                    _source.Dish.RemoveAt(i);
                     return element.GetViewModel;
                 }
             }

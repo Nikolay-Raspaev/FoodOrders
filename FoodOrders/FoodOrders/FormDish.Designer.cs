@@ -1,11 +1,11 @@
 ﻿namespace FoodOrdersView
 {
-    partial class FormDish
+    partial class FormComponent
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer Dishes = null;
+        private System.ComponentModel.IContainer Components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (Dishes != null))
+            if (disposing && (Components != null))
             {
-                Dishes.Dispose();
+                Components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -92,7 +92,7 @@
             this.labelBlankName.TabIndex = 6;
             this.labelBlankName.Text = "Название:";
             // 
-            // FormDish
+            // FormComponent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -103,9 +103,9 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelBlankName);
-            this.Name = "FormDish";
+            this.Name = "FormComponent";
             this.Text = "Блюдо";
-            this.Load += new System.EventHandler(this.FormDish_Load);
+            this.Load += new System.EventHandler(this.FormComponent_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

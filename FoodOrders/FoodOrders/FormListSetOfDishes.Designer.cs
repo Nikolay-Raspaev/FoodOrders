@@ -1,11 +1,11 @@
 ﻿namespace FoodOrdersView
 {
-    partial class FormListSetOfDishes
+    partial class FormListDish
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer Dishes = null;
+        private System.ComponentModel.IContainer Components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (Dishes != null))
+            if (disposing && (Components != null))
             {
-                Dishes.Dispose();
+                Components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -93,7 +93,7 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
-            // FormListSetOfDishes
+            // FormListDish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -103,7 +103,7 @@
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAdd);
-            this.Name = "FormListSetOfDishes";
+            this.Name = "FormListDish";
             this.Text = "Список набор блюд";
             this.Load += new System.EventHandler(this.FormDocuments_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

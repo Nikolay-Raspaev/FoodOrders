@@ -1,9 +1,9 @@
 ﻿
 namespace FoodOrdersContracts.SearchModels
 {
-    public class SetOfDishesearchModel
+    public class ComponentSearchModel
     {
         public int? Id { get; set; }
-        public string? SetOfDishesName { get; set; }
+        public string? ComponentName { get; set; }
     }
 }

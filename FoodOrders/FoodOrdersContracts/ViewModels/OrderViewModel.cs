@@ -8,10 +8,10 @@ namespace FoodOrdersContracts.ViewModels
         [DisplayName("Номер")]
         public int Id { get; set; }
 
-        public int SetOfDishesId { get; set; }
+        public int DishId { get; set; }
 
         [DisplayName("Изделие")]
-        public string SetOfDishesName { get; set; } = string.Empty;
+        public string DishName { get; set; } = string.Empty;
 
         [DisplayName("Количество")]
         public int Count { get; set; }

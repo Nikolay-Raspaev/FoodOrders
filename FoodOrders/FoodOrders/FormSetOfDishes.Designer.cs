@@ -1,11 +1,11 @@
 ﻿namespace FoodOrdersView
 {
-    partial class FormSetOfDishes
+    partial class FormDish
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer Dishes = null;
+        private System.ComponentModel.IContainer Components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (Dishes != null))
+            if (disposing && (Components != null))
             {
-                Dishes.Dispose();
+                Components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -32,7 +32,7 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelPrice = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
-            this.groupBoxDishes = new System.Windows.Forms.GroupBox();
+            this.groupBoxComponents = new System.Windows.Forms.GroupBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
@@ -41,9 +41,9 @@
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnDishName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnComponentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBoxDishes.SuspendLayout();
+            this.groupBoxComponents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -81,24 +81,24 @@
             this.labelName.TabIndex = 4;
             this.labelName.Text = "Название:";
             // 
-            // groupBoxDishes
+            // groupBoxComponents
             // 
-            this.groupBoxDishes.Controls.Add(this.buttonCancel);
-            this.groupBoxDishes.Controls.Add(this.buttonSave);
-            this.groupBoxDishes.Controls.Add(this.buttonUpdate);
-            this.groupBoxDishes.Controls.Add(this.buttonDelete);
-            this.groupBoxDishes.Controls.Add(this.buttonEdit);
-            this.groupBoxDishes.Controls.Add(this.buttonAdd);
-            this.groupBoxDishes.Controls.Add(this.dataGridView);
-            this.groupBoxDishes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBoxDishes.Location = new System.Drawing.Point(0, 70);
-            this.groupBoxDishes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBoxDishes.Name = "groupBoxDishes";
-            this.groupBoxDishes.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBoxDishes.Size = new System.Drawing.Size(592, 206);
-            this.groupBoxDishes.TabIndex = 8;
-            this.groupBoxDishes.TabStop = false;
-            this.groupBoxDishes.Text = "Компоненты";
+            this.groupBoxComponents.Controls.Add(this.buttonCancel);
+            this.groupBoxComponents.Controls.Add(this.buttonSave);
+            this.groupBoxComponents.Controls.Add(this.buttonUpdate);
+            this.groupBoxComponents.Controls.Add(this.buttonDelete);
+            this.groupBoxComponents.Controls.Add(this.buttonEdit);
+            this.groupBoxComponents.Controls.Add(this.buttonAdd);
+            this.groupBoxComponents.Controls.Add(this.dataGridView);
+            this.groupBoxComponents.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBoxComponents.Location = new System.Drawing.Point(0, 70);
+            this.groupBoxComponents.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBoxComponents.Name = "groupBoxComponents";
+            this.groupBoxComponents.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBoxComponents.Size = new System.Drawing.Size(592, 206);
+            this.groupBoxComponents.TabIndex = 8;
+            this.groupBoxComponents.TabStop = false;
+            this.groupBoxComponents.Text = "Компоненты";
             // 
             // buttonCancel
             // 
@@ -171,7 +171,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.ColumnDishName,
+            this.ColumnComponentName,
             this.ColumnCount});
             this.dataGridView.Location = new System.Drawing.Point(5, 20);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -189,14 +189,14 @@
             this.ID.Visible = false;
             this.ID.Width = 125;
             // 
-            // ColumnDishName
+            // ColumnComponentName
             // 
-            this.ColumnDishName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.ColumnDishName.HeaderText = "Блюдо";
-            this.ColumnDishName.MinimumWidth = 6;
-            this.ColumnDishName.Name = "ColumnDishName";
-            this.ColumnDishName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColumnDishName.Width = 312;
+            this.ColumnComponentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ColumnComponentName.HeaderText = "Блюдо";
+            this.ColumnComponentName.MinimumWidth = 6;
+            this.ColumnComponentName.Name = "ColumnComponentName";
+            this.ColumnComponentName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnComponentName.Width = 312;
             // 
             // ColumnCount
             // 
@@ -205,20 +205,20 @@
             this.ColumnCount.Name = "ColumnCount";
             this.ColumnCount.Width = 125;
             // 
-            // FormSetOfDishes
+            // FormDish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 276);
-            this.Controls.Add(this.groupBoxDishes);
+            this.Controls.Add(this.groupBoxComponents);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelName);
-            this.Name = "FormSetOfDishes";
+            this.Name = "FormDish";
             this.Text = "Набор блюд";
-            this.Load += new System.EventHandler(this.FormSetOfDishes_Load);
-            this.groupBoxDishes.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.FormDish_Load);
+            this.groupBoxComponents.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -231,7 +231,7 @@
         private TextBox textBoxName;
         private Label labelPrice;
         private Label labelName;
-        private GroupBox groupBoxDishes;
+        private GroupBox groupBoxComponents;
         private Button buttonUpdate;
         private Button buttonDelete;
         private Button buttonEdit;
@@ -240,7 +240,7 @@
         private Button buttonCancel;
         private Button buttonSave;
         private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn ColumnDishName;
+        private DataGridViewTextBoxColumn ColumnComponentName;
         private DataGridViewTextBoxColumn ColumnCount;
     }
 }

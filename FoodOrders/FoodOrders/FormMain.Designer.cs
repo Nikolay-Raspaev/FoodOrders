@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer Dishes = null;
+        private System.ComponentModel.IContainer Components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (Dishes != null))
+            if (disposing && (Components != null))
             {
-                Dishes.Dispose();
+                Components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -66,14 +66,14 @@
             this.БлюдаToolStripMenuItem.Name = "БлюдаToolStripMenuItem";
             this.БлюдаToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.БлюдаToolStripMenuItem.Text = "Блюда";
-            this.БлюдаToolStripMenuItem.Click += new System.EventHandler(this.DishesToolStripMenuItem_Click);
+            this.БлюдаToolStripMenuItem.Click += new System.EventHandler(this.ComponentsToolStripMenuItem_Click);
             // 
             // набор блюдToolStripMenuItem
             // 
             this.наборблюдToolStripMenuItem.Name = "набор блюдToolStripMenuItem";
             this.наборблюдToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.наборблюдToolStripMenuItem.Text = "Набор блюд";
-            this.наборблюдToolStripMenuItem.Click += new System.EventHandler(this.SetOfDishesToolStripMenuItem_Click);
+            this.наборблюдToolStripMenuItem.Click += new System.EventHandler(this.DishToolStripMenuItem_Click);
             // 
             // buttonUpdate
             // 

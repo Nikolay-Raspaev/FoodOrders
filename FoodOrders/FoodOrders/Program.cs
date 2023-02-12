@@ -37,19 +37,19 @@ namespace FoodOrders
                 option.SetMinimumLevel(LogLevel.Information);
                 option.AddNLog("nlog.config");
             });
-            services.AddTransient<IDishestorage, Dishestorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
-            services.AddTransient<ISetOfDishestorage, SetOfDishestorage>();
-            services.AddTransient<IDishLogic, DishLogic>();
+            services.AddTransient<IDishStorage, DishStorage>();
+            services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
-            services.AddTransient<ISetOfDishesLogic, SetOfDishesLogic>();
+            services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<FormMain>();
-            services.AddTransient<FormDish>();
-            services.AddTransient<FormDishes>();
+            services.AddTransient<FormComponent>();
+            services.AddTransient<FormComponents>();
             services.AddTransient<FormCreateOrder>();
-            services.AddTransient<FormSetOfDishes>();
-            services.AddTransient<FormSetOfDishesDishes>();
-            services.AddTransient<FormListSetOfDishes>();
+            services.AddTransient<FormDish>();
+            services.AddTransient<FormDishComponents>();
+            services.AddTransient<FormListDish>();
         }
     }
 }

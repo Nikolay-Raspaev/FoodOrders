@@ -30,7 +30,7 @@ namespace FoodOrdersView
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
-                    dataGridView.Columns["SetOfDishesId"].Visible = false;
+                    dataGridView.Columns["DishId"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка заказов");
             }
@@ -40,18 +40,18 @@ namespace FoodOrdersView
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void DishesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDishes));
-            if (service is FormDishes form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormComponents));
+            if (service is FormComponents form)
             {
                 form.ShowDialog();
             }
         }
-        private void SetOfDishesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormListSetOfDishes));
-            if (service is FormListSetOfDishes form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormListDish));
+            if (service is FormListDish form)
             {
                 form.ShowDialog();
             }
@@ -76,8 +76,8 @@ namespace FoodOrdersView
                     var operationResult = _orderLogic.TakeOrderInWork(new OrderBindingModel
                     {
                         Id = id,
-                        SetOfDishesId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["SetOfDishesId"].Value),
-                        SetOfDishesName = dataGridView.SelectedRows[0].Cells["SetOfDishesName"].Value.ToString(),
+                        DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
+                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),
@@ -107,8 +107,8 @@ namespace FoodOrdersView
                     var operationResult = _orderLogic.FinishOrder(new OrderBindingModel 
                     {
                         Id = id,
-                        SetOfDishesId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["SetOfDishesId"].Value),
-                        SetOfDishesName = dataGridView.SelectedRows[0].Cells["SetOfDishesName"].Value.ToString(),
+                        DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
+                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),
@@ -138,8 +138,8 @@ namespace FoodOrdersView
                     var operationResult = _orderLogic.DeliveryOrder(new OrderBindingModel
                     {
                         Id = id,
-                        SetOfDishesId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["SetOfDishesId"].Value),
-                        SetOfDishesName = dataGridView.SelectedRows[0].Cells["SetOfDishesName"].Value.ToString(),
+                        DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
+                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),

@@ -1,11 +1,11 @@
 ﻿namespace FoodOrdersView
 {
-    partial class FormSetOfDishesDishes
+    partial class FormDishComponents
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer Dishes = null;
+        private System.ComponentModel.IContainer Components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (Dishes != null))
+            if (disposing && (Components != null))
             {
-                Dishes.Dispose();
+                Components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -31,9 +31,9 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxCount = new System.Windows.Forms.TextBox();
-            this.comboBoxDish = new System.Windows.Forms.ComboBox();
+            this.comboBoxComponent = new System.Windows.Forms.ComboBox();
             this.labelCount = new System.Windows.Forms.Label();
-            this.labelDish = new System.Windows.Forms.Label();
+            this.labelComponent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -66,14 +66,14 @@
             this.textBoxCount.Size = new System.Drawing.Size(283, 23);
             this.textBoxCount.TabIndex = 9;
             // 
-            // comboBoxDish
+            // comboBoxComponent
             // 
-            this.comboBoxDish.FormattingEnabled = true;
-            this.comboBoxDish.Location = new System.Drawing.Point(116, 11);
-            this.comboBoxDish.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBoxDish.Name = "comboBoxDish";
-            this.comboBoxDish.Size = new System.Drawing.Size(282, 23);
-            this.comboBoxDish.TabIndex = 8;
+            this.comboBoxComponent.FormattingEnabled = true;
+            this.comboBoxComponent.Location = new System.Drawing.Point(116, 11);
+            this.comboBoxComponent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxComponent.Name = "comboBoxComponent";
+            this.comboBoxComponent.Size = new System.Drawing.Size(282, 23);
+            this.comboBoxComponent.TabIndex = 8;
             // 
             // labelCount
             // 
@@ -84,16 +84,16 @@
             this.labelCount.TabIndex = 7;
             this.labelCount.Text = "Количество:";
             // 
-            // labelDish
+            // labelComponent
             // 
-            this.labelDish.AutoSize = true;
-            this.labelDish.Location = new System.Drawing.Point(10, 14);
-            this.labelDish.Name = "labelDish";
-            this.labelDish.Size = new System.Drawing.Size(75, 15);
-            this.labelDish.TabIndex = 6;
-            this.labelDish.Text = "Блюдо:";
+            this.labelComponent.AutoSize = true;
+            this.labelComponent.Location = new System.Drawing.Point(10, 14);
+            this.labelComponent.Name = "labelComponent";
+            this.labelComponent.Size = new System.Drawing.Size(75, 15);
+            this.labelComponent.TabIndex = 6;
+            this.labelComponent.Text = "Блюдо:";
             // 
-            // FormSetOfDishesDishes
+            // FormDishComponents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,10 +101,10 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxCount);
-            this.Controls.Add(this.comboBoxDish);
+            this.Controls.Add(this.comboBoxComponent);
             this.Controls.Add(this.labelCount);
-            this.Controls.Add(this.labelDish);
-            this.Name = "FormSetOfDishesDishes";
+            this.Controls.Add(this.labelComponent);
+            this.Name = "FormDishComponents";
             this.Text = "Блюдо набор блюд";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -116,8 +116,8 @@
         private Button buttonCancel;
         private Button buttonSave;
         private TextBox textBoxCount;
-        private ComboBox comboBoxDish;
+        private ComboBox comboBoxComponent;
         private Label labelCount;
-        private Label labelDish;
+        private Label labelComponent;
     }
 }

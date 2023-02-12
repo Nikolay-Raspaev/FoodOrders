@@ -5,14 +5,14 @@ namespace FoodOrdersListImplement
     public class DataListSingleton
     {
         private static DataListSingleton? _instance;
-        public List<Dish> Dishes { get; set; }
+        public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
-        public List<SetOfDishes> SetOfDishes { get; set; }
+        public List<Dish> Dish { get; set; }
         private DataListSingleton()
         {
-            Dishes = new List<Dish>();
+            Components = new List<Component>();
             Orders = new List<Order>();
-            SetOfDishes = new List<SetOfDishes>();
+            Dish = new List<Dish>();
         }
         public static DataListSingleton GetInstance()
         {

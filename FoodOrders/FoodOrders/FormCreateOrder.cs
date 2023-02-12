@@ -8,9 +8,9 @@ namespace FoodOrdersView
     public partial class FormCreateOrder : Form
     {
         private readonly ILogger _logger;
-        private readonly ISetOfDishesLogic _logicS;
+        private readonly IDishLogic _logicS;
         private readonly IOrderLogic _logicO;
-        public FormCreateOrder(ILogger<FormCreateOrder> logger, ISetOfDishesLogic logicS, IOrderLogic logicO)
+        public FormCreateOrder(ILogger<FormCreateOrder> logger, IDishLogic logicS, IOrderLogic logicO)
         {
             InitializeComponent();
             _logger = logger;
@@ -25,10 +25,10 @@ namespace FoodOrdersView
                 var list = _logicS.ReadList(null);
                 if (list != null)
                 {
-                    comboBoxSetOfDishes.DisplayMember = "SetOfDishesName";
-                    comboBoxSetOfDishes.ValueMember = "Id";
-                    comboBoxSetOfDishes.DataSource = list;
-                    comboBoxSetOfDishes.SelectedItem = null;
+                    comboBoxDish.DisplayMember = "DishName";
+                    comboBoxDish.ValueMember = "Id";
+                    comboBoxDish.DataSource = list;
+                    comboBoxDish.SelectedItem = null;
                 }
 
             }
@@ -40,12 +40,12 @@ namespace FoodOrdersView
         }
         private void CalcSum()
         {
-            if (comboBoxSetOfDishes.SelectedValue != null && !string.IsNullOrEmpty(textBoxCount.Text))
+            if (comboBoxDish.SelectedValue != null && !string.IsNullOrEmpty(textBoxCount.Text))
             {
                 try
                 {
-                    int id = Convert.ToInt32(comboBoxSetOfDishes.SelectedValue);
-                    var product = _logicS.ReadElement(new SetOfDishesearchModel
+                    int id = Convert.ToInt32(comboBoxDish.SelectedValue);
+                    var product = _logicS.ReadElement(new DishSearchModel
                     {
                         Id = id
                     });
@@ -65,7 +65,7 @@ namespace FoodOrdersView
         {
             CalcSum();
         }
-        private void ComboBoxSetOfDishes_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxDish_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcSum();
         }
@@ -77,7 +77,7 @@ namespace FoodOrdersView
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxSetOfDishes.SelectedValue == null)
+            if (comboBoxDish.SelectedValue == null)
             {
                 MessageBox.Show("Выберите Набор блюд", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -87,8 +87,8 @@ namespace FoodOrdersView
             {
                 var operationResult = _logicO.CreateOrder(new OrderBindingModel
                 {
-                    SetOfDishesId = Convert.ToInt32(comboBoxSetOfDishes.SelectedValue),
-                    SetOfDishesName = comboBoxSetOfDishes.Text,
+                    DishId = Convert.ToInt32(comboBoxDish.SelectedValue),
+                    DishName = comboBoxDish.Text,
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDouble(textBoxSum.Text)
                 });

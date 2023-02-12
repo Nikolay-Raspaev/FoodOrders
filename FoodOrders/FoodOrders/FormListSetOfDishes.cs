@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 
 namespace FoodOrdersView
 {
-    public partial class FormListSetOfDishes : Form
+    public partial class FormListDish : Form
     {
         private readonly ILogger _logger;
-        private readonly ISetOfDishesLogic _logic;
-        public FormListSetOfDishes(ILogger<FormListSetOfDishes> logger, ISetOfDishesLogic logic)
+        private readonly IDishLogic _logic;
+        public FormListDish(ILogger<FormListDish> logger, IDishLogic logic)
         {
             InitializeComponent();
             _logger = logger;
@@ -29,8 +29,8 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["SetOfDishesName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["SetOfDishesDishes"].Visible = false;
+                    dataGridView.Columns["DishName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["DishComponents"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка набор блюд");
             }
@@ -43,8 +43,8 @@ namespace FoodOrdersView
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSetOfDishes));
-            if (service is FormSetOfDishes form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormDish));
+            if (service is FormDish form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -57,8 +57,8 @@ namespace FoodOrdersView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormSetOfDishes));
-                if (service is FormSetOfDishes form)
+                var service = Program.ServiceProvider?.GetService(typeof(FormDish));
+                if (service is FormDish form)
                 {
                     form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -79,7 +79,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление набор блюд");
                     try
                     {
-                        if (!_logic.Delete(new SetOfDishesBindingModel
+                        if (!_logic.Delete(new DishBindingModel
                         {
                             Id = id
                         }))

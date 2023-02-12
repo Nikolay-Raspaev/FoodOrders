@@ -4,6 +4,7 @@ namespace FoodOrdersDataModels.Models
     public interface IDishModel : IId
     {
         string DishName { get; }
-        double Cost { get; }
+        double Price { get; }
+        Dictionary<int, (IComponentModel, int)> DishComponents { get; }
     }
 }

@@ -8,7 +8,12 @@ namespace FoodOrdersListImplement.Models
     {
         public int Id { get; private set; }
         public string DishName { get; private set; } = string.Empty;
-        public double Cost { get; set; }
+        public double Price { get; private set; }
+        public Dictionary<int, (IComponentModel, int)> DishComponents
+        {
+            get;
+            private set;
+        } = new Dictionary<int, (IComponentModel, int)>();
         public static Dish? Create(DishBindingModel? model)
         {
             if (model == null)
@@ -19,7 +24,8 @@ namespace FoodOrdersListImplement.Models
             {
                 Id = model.Id,
                 DishName = model.DishName,
-                Cost = model.Cost
+                Price = model.Price,
+                DishComponents = model.DishComponents
             };
         }
         public void Update(DishBindingModel? model)
@@ -29,13 +35,15 @@ namespace FoodOrdersListImplement.Models
                 return;
             }
             DishName = model.DishName;
-            Cost = model.Cost;
+            Price = model.Price;
+            DishComponents = model.DishComponents;
         }
         public DishViewModel GetViewModel => new()
         {
             Id = Id,
             DishName = DishName,
-            Cost = Cost
+            Price = Price,
+            DishComponents = DishComponents
         };
     }
 }
