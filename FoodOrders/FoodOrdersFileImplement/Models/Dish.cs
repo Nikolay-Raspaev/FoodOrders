@@ -84,11 +84,11 @@ namespace FoodOrdersFileImplement.Models
         new XElement("DishName", DishName),
         new XElement("Price", Price.ToString()),
         new XElement("DishComponents", Components.Select(x =>
-       new XElement("DishComponent",
+        new XElement("DishComponent",
 
-       new XElement("Key", x.Key),
+        new XElement("Key", x.Key),
 
-       new XElement("Value", x.Value)))
+        new XElement("Value", x.Value)))
 
        .ToArray()));
     }

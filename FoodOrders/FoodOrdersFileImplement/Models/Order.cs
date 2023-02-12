@@ -23,23 +23,16 @@ namespace FoodOrdersFileImplement.Models
             {
                 return null;
             }
-            var order = new Order()
+            return new Order()
             {
                 Id = Convert.ToInt32(element.Attribute("Id")!.Value),
                 DishId = Convert.ToInt32(element.Element("DishId")!.Value),
-                Count = Convert.ToInt32(element.Element("Count")!.Value),
                 Sum = Convert.ToDouble(element.Element("Sum")!.Value),
-                DateCreate = DateTime.ParseExact(element.Element("DateCreate")!.Value, "G", null),
+                Count = Convert.ToInt32(element.Element("Count")!.Value),
+                Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), element.Element("Status")!.Value),
+                DateCreate = Convert.ToDateTime(element.Element("DateCreate")!.Value),
+                DateImplement = string.IsNullOrEmpty(element.Element("DateImplement")!.Value) ? null : Convert.ToDateTime(element.Element("DateImplement")!.Value)
             };
-            DateTime.TryParse(element.Element("DateImplement")!.Value, out DateTime dateImpl);
-            order.DateImplement = dateImpl;
-
-            if (!Enum.TryParse(element.Element("Status")!.Value, out OrderStatus status))
-            {
-                return null;
-            }
-            order.Status = status;
-            return order;
         }
 
         public static Order? Create(OrderBindingModel? model)
