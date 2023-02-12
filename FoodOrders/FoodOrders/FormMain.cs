@@ -77,7 +77,6 @@ namespace FoodOrdersView
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
-                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),
@@ -108,7 +107,6 @@ namespace FoodOrdersView
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
-                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),
@@ -139,7 +137,6 @@ namespace FoodOrdersView
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
-                        DishName = dataGridView.SelectedRows[0].Cells["DishName"].Value.ToString(),
                         Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
                         Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
                         Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),

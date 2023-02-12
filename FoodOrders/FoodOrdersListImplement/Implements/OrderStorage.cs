@@ -23,7 +23,7 @@ namespace FoodOrdersListImplement.Implements
             var result = new List<OrderViewModel>();
             foreach (var order in _source.Orders)
             {
-                result.Add(order.GetViewModel);
+                result.Add(GetViewModel(order));
             }
             return result;
         }
@@ -38,7 +38,7 @@ namespace FoodOrdersListImplement.Implements
             {
                 if (order.Id == model.Id)
                 {
-                    result.Add(order.GetViewModel);
+                    result.Add(GetViewModel(order));
                 }
             }
             return result;
@@ -54,11 +54,26 @@ namespace FoodOrdersListImplement.Implements
             {
                 if (model.Id.HasValue && order.Id == model.Id)
                 {
-                    return order.GetViewModel;
+                    return GetViewModel(order);
                 }
             }
             return null;
         }
+
+        private OrderViewModel GetViewModel(Order order)
+        {
+            var viewModel = order.GetViewModel;
+            foreach (var iceCream in _source.Dish)
+            {
+                if (iceCream.Id == order.DishId)
+                {
+                    viewModel.DishName = iceCream.DishName;
+                    break;
+                }
+            }
+            return viewModel;
+        }
+
         public OrderViewModel? Delete(OrderBindingModel model)
         {
             for (int i = 0; i < _source.Orders.Count; ++i)
@@ -67,7 +82,7 @@ namespace FoodOrdersListImplement.Implements
                 {
                     var element = _source.Orders[i];
                     _source.Orders.RemoveAt(i);
-                    return element.GetViewModel;
+                    return GetViewModel(element);
                 }
             }
             return null;
@@ -89,7 +104,7 @@ namespace FoodOrdersListImplement.Implements
                 return null;
             }
             _source.Orders.Add(newOrder);
-            return newOrder.GetViewModel;
+            return GetViewModel(newOrder);
         }
 
         public OrderViewModel? Update(OrderBindingModel model)
@@ -99,7 +114,7 @@ namespace FoodOrdersListImplement.Implements
                 if (order.Id == model.Id)
                 {
                     order.Update(model);
-                    return order.GetViewModel;
+                    return GetViewModel(order);
                 }
             }
             return null;

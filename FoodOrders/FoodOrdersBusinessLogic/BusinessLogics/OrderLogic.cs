@@ -21,8 +21,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
         {
             _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}", model?.Id);
-            var list = model == null ? _orderStorage.GetFullList() :
-                _orderStorage.GetFilteredList(model);
+            var list = model == null ? _orderStorage.GetFullList() : _orderStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList return null list");
@@ -93,18 +92,29 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         //???
         public bool StatusUpdate(OrderBindingModel model, OrderStatus newStatus)
         {
-            CheckModel(model);
-            if (model.Status + 1 != newStatus)
+            var viewModel = _orderStorage.GetElement(new OrderSearchModel { Id = model.Id });
+            if (viewModel == null)
             {
-                _logger.LogWarning("Status update to " + newStatus.ToString() + " operation failed. Order status incorrect.");
+                throw new ArgumentNullException(nameof(model));
+            }
+            if (viewModel.Status + 1 != newStatus)
+            {
+                _logger.LogWarning("Change status operation failed");
                 return false;
             }
             model.Status = newStatus;
-            if (model.Status == OrderStatus.Выдан) model.DateImplement = DateTime.Now;
+            if (model.Status == OrderStatus.Готов)
+            {
+                model.DateImplement = DateTime.Now;
+            }
+            else
+            {
+                model.DateImplement = viewModel.DateImplement;
+            }
+            CheckModel(model);
             if (_orderStorage.Update(model) == null)
             {
-                model.Status--;
-                _logger.LogWarning("Update operation failed");
+                _logger.LogWarning("Change status operation failed");
                 return false;
             }
             return true;
