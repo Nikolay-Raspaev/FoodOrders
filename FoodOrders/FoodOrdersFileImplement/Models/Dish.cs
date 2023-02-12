@@ -19,9 +19,9 @@ namespace FoodOrdersFileImplement.Models
             {
                 if (_dishComponents == null)
                 {
-                    var source = DataFileSingleton.GetInstance();
+                    var _source = DataFileSingleton.GetInstance();
                     _dishComponents = Components.ToDictionary(x => x.Key, y =>
-                    ((source.Components.FirstOrDefault(z => z.Id == y.Key) as IComponentModel)!,
+                    ((_source.Components.FirstOrDefault(z => z.Id == y.Key) as IComponentModel)!,
                     y.Value));
                 }
                 return _dishComponents;

@@ -23,15 +23,40 @@ namespace FoodOrdersFileImplement.Models
             {
                 return null;
             }
-            return new Order()
+            var order = new Order()
             {
                 Id = Convert.ToInt32(element.Attribute("Id")!.Value),
-                DishId = Convert.ToInt32(element.Element("DocumentId")!.Value),
-                Sum = Convert.ToDouble(element.Element("Sum")!.Value),
+                DishId = Convert.ToInt32(element.Element("DishId")!.Value),
                 Count = Convert.ToInt32(element.Element("Count")!.Value),
-                Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), element.Element("Status")!.Value),
-                DateCreate = Convert.ToDateTime(element.Element("DateCreate")!.Value),
-                DateImplement = Convert.ToDateTime(element.Element("DateCreate")!.Value)
+                Sum = Convert.ToDouble(element.Element("Sum")!.Value),
+                DateCreate = DateTime.ParseExact(element.Element("DateCreate")!.Value, "G", null),
+            };
+            DateTime.TryParse(element.Element("DateImplement")!.Value, out DateTime dateImpl);
+            order.DateImplement = dateImpl;
+
+            if (!Enum.TryParse(element.Element("Status")!.Value, out OrderStatus status))
+            {
+                return null;
+            }
+            order.Status = status;
+            return order;
+        }
+
+        public static Order? Create(OrderBindingModel? model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            return new Order
+            {
+                Id = model.Id,
+                DishId = model.DishId,
+                Count = model.Count,
+                Sum = model.Sum,
+                Status = model.Status,
+                DateCreate = model.DateCreate,
+                DateImplement = model.DateImplement,
             };
         }
         public void Update(OrderBindingModel? model)

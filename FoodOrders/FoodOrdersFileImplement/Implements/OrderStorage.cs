@@ -3,8 +3,9 @@ using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersFileImplement;
+using FoodOrdersFileImplement.Models;
 
-namespace FoodOrdersListImplement.Implements
+namespace FoodOrdersFileImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
@@ -15,28 +16,15 @@ namespace FoodOrdersListImplement.Implements
         }
         public List<OrderViewModel> GetFullList()
         {
-            var result = new List<OrderViewModel>();
-            foreach (var order in _source.Orders)
-            {
-                result.Add(GetViewModel(order));
-            }
-            return result;
+            return _source.Orders.Select(x => x.GetViewModel).ToList();
         }
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
-            var result = new List<OrderViewModel>();
             if (!model.Id.HasValue)
             {
-                return result;
+                return new();
             }
-            foreach (var order in _source.Orders)
-            {
-                if (order.Id == model.Id)
-                {
-                    result.Add(GetViewModel(order));
-                }
-            }
-            return result;
+            return _source.Orders.Where(x => x.Id == model.Id).Select(x => x.GetViewModel).ToList();
         }
 
         public OrderViewModel? GetElement(OrderSearchModel model)
@@ -45,20 +33,14 @@ namespace FoodOrdersListImplement.Implements
             {
                 return null;
             }
-            foreach (var order in _source.Orders)
-            {
-                if (model.Id.HasValue && order.Id == model.Id)
-                {
-                    return GetViewModel(order);
-                }
-            }
-            return null;
+            return _source.Orders
+            .FirstOrDefault(x => (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
         }
 
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var iceCream in _source.Dish)
+            foreach (var iceCream in _source.Dishes)
             {
                 if (iceCream.Id == order.DishId)
                 {
@@ -71,48 +53,39 @@ namespace FoodOrdersListImplement.Implements
 
         public OrderViewModel? Delete(OrderBindingModel model)
         {
-            for (int i = 0; i < _source.Orders.Count; ++i)
+            var order = _source.Orders.FirstOrDefault(x => x.Id == model.Id);
+            if (order == null)
             {
-                if (_source.Orders[i].Id == model.Id)
-                {
-                    var element = _source.Orders[i];
-                    _source.Orders.RemoveAt(i);
-                    return GetViewModel(element);
-                }
+                return null;
             }
-            return null;
+            order.Update(model);
+            _source.SaveOrders();
+            return order.GetViewModel;
         }
 
         public OrderViewModel? Insert(OrderBindingModel model)
         {
-            model.Id = 1;
-            foreach (var order in _source.Orders)
-            {
-                if (model.Id <= order.Id)
-                {
-                    model.Id = order.Id + 1;
-                }
-            }
+            model.Id = _source.Orders.Count > 0 ? _source.Orders.Max(x => x.Id) + 1 : 1;
             var newOrder = Order.Create(model);
             if (newOrder == null)
             {
                 return null;
             }
             _source.Orders.Add(newOrder);
-            return GetViewModel(newOrder);
+            _source.SaveOrders();
+            return newOrder.GetViewModel;
         }
 
         public OrderViewModel? Update(OrderBindingModel model)
         {
-            foreach (var order in _source.Orders)
+            var order = _source.Orders.FirstOrDefault(x => x.Id == model.Id);
+            if (order == null)
             {
-                if (order.Id == model.Id)
-                {
-                    order.Update(model);
-                    return GetViewModel(order);
-                }
+                return null;
             }
-            return null;
+            order.Update(model);
+            _source.SaveOrders();
+            return order.GetViewModel;
         }
     }
 }

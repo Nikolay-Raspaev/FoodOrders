@@ -3,9 +3,9 @@ using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersFileImplement.Models;
-using FoodOrdersFileImplement;
+using System.Reflection.Metadata;
 
-namespace FoodOrdersListImplement.Implements
+namespace FoodOrdersFileImplement.Implements
 {
     public class DishStorage : IDishStorage
     {
@@ -16,24 +16,15 @@ namespace FoodOrdersListImplement.Implements
         }
         public List<DishViewModel> GetFullList()
         {
-            return source.Components.Select(x => x.GetViewModel).ToList();
+            return _source.Dishes.Select(x => x.GetViewModel).ToList();
         }
-        public List<DishViewModel> GetFilteredList(DishSearchModel
-       model)
+        public List<DishViewModel> GetFilteredList(DishSearchModel model)
         {
-            var result = new List<DishViewModel>();
             if (string.IsNullOrEmpty(model.DishName))
             {
-                return result;
+                return new();
             }
-            foreach (var dish in _source.Dishes)
-            {
-                if (dish.DishName.Contains(model.DishName))
-                {
-                    result.Add(dish.GetViewModel);
-                }
-            }
-            return result;
+            return _source.Dishes.Where(x => x.DishName.Contains(model.DishName)).Select(x => x.GetViewModel).ToList();
         }
         public DishViewModel? GetElement(DishSearchModel model)
         {
@@ -41,59 +32,44 @@ namespace FoodOrdersListImplement.Implements
             {
                 return null;
             }
-            foreach (var dish in _source.Dishes)
-            {
-                if ((!string.IsNullOrEmpty(model.DishName) &&
-                dish.DishName == model.DishName) ||
-                (model.Id.HasValue && dish.Id == model.Id))
-                {
-                    return dish.GetViewModel;
-                }
-            }
-            return null;
+            return _source.Dishes
+            .FirstOrDefault(x => (!string.IsNullOrEmpty(model.DishName) && x.DishName == model.DishName) || (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
         }
         public DishViewModel? Insert(DishBindingModel model)
         {
-            model.Id = 1;
-            foreach (var dish in _source.Dishes)
-            {
-                if (model.Id <= dish.Id)
-                {
-                    model.Id = dish.Id + 1;
-                }
-            }
-            var newDish = Dish.Create(model);
-            if (newDish == null)
+            model.Id = _source.Dishes.Count > 0 ? _source.Dishes.Max(x => x.Id) + 1 : 1;
+            var newDoc = Dish.Create(model);
+            if (newDoc == null)
             {
                 return null;
             }
-            _source.Dishes.Add(newDish);
-            return newDish.GetViewModel;
+            _source.Dishes.Add(newDoc);
+            _source.SaveDishes();
+            return newDoc.GetViewModel;
         }
+
         public DishViewModel? Update(DishBindingModel model)
         {
-            foreach (var dish in _source.Dishes)
+            var dish = _source.Dishes.FirstOrDefault(x => x.Id == model.Id);
+            if (dish == null)
             {
-                if (dish.Id == model.Id)
-                {
-                    dish.Update(model);
-                    return dish.GetViewModel;
-                }
+                return null;
             }
-            return null;
+            dish.Update(model);
+            _source.SaveDishes();
+            return dish.GetViewModel;
         }
+
         public DishViewModel? Delete(DishBindingModel model)
         {
-            for (int i = 0; i < _source.Dishes.Count; ++i)
+            var document = _source.Dishes.FirstOrDefault(x => x.Id == model.Id);
+            if (document == null)
             {
-                if (_source.Dishes[i].Id == model.Id)
-                {
-                    var element = _source.Dishes[i];
-                    _source.Dishes.RemoveAt(i);
-                    return element.GetViewModel;
-                }
+                return null;
             }
-            return null;
+            document.Update(model);
+            _source.SaveDishes();
+            return document.GetViewModel;
         }
     }
 }
