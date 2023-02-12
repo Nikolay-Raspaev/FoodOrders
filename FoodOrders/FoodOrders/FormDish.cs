@@ -1,5 +1,4 @@
-﻿using FoodOrders;
-using FoodOrdersContracts.BindingModels;
+﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersDataModels.Models;
