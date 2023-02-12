@@ -49,7 +49,7 @@ namespace FoodOrders
             services.AddTransient<FormCreateOrder>();
             services.AddTransient<FormDish>();
             services.AddTransient<FormDishComponents>();
-            services.AddTransient<FormListDish>();
+            services.AddTransient<FormDishes>();
         }
     }
 }

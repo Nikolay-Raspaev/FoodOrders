@@ -5,17 +5,18 @@ using Microsoft.Extensions.Logging;
 
 namespace FoodOrdersView
 {
-    public partial class FormComponents : Form
+    public partial class FormDishes : Form
     {
         private readonly ILogger _logger;
-        private readonly IComponentLogic _logic;
-        public FormComponents(ILogger<FormComponents> logger, IComponentLogic logic)
+        private readonly IDishLogic _logic;
+        public FormDishes(ILogger<FormDishes> logger, IDishLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
         }
-        private void FormComponents_Load(object sender, EventArgs e)
+
+        private void FormDocuments_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -28,21 +29,22 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["ComponentName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["DishName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["DishComponents"].Visible = false;
                 }
-                _logger.LogInformation("Загрузка Блюд");
+                _logger.LogInformation("Загрузка набор блюд");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка загрузки Блюд");
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                _logger.LogError(ex, "Ошибка загрузки набор блюд");
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
-            if (service is FormComponent form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormDish));
+            if (service is FormDish form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -50,12 +52,13 @@ namespace FoodOrdersView
                 }
             }
         }
-        private void ButtonUpd_Click(object sender, EventArgs e)
+
+        private void ButtonEdit_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
-                if (service is FormComponent form)
+                var service = Program.ServiceProvider?.GetService(typeof(FormDish));
+                if (service is FormDish form)
                 {
                     form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -65,17 +68,18 @@ namespace FoodOrdersView
                 }
             }
         }
-        private void ButtonDel_Click(object sender, EventArgs e)
+
+        private void ButtonDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
                 if (MessageBox.Show("Удалить запись?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    _logger.LogInformation("Удаление блюда");
+                    _logger.LogInformation("Удаление набор блюд");
                     try
                     {
-                        if (!_logic.Delete(new ComponentBindingModel
+                        if (!_logic.Delete(new DishBindingModel
                         {
                             Id = id
                         }))
@@ -86,13 +90,14 @@ namespace FoodOrdersView
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Ошибка удаления блюда");
+                        _logger.LogError(ex, "Ошибка удаления набор блюд");
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
-        private void ButtonRef_Click(object sender, EventArgs e)
+
+        private void ButtonUpdate_Click(object sender, EventArgs e)
         {
             LoadData();
         }
