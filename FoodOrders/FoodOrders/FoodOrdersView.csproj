@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FoodOrdersBusinessLogic\FoodOrdersBusinessLogic.csproj" />
     <ProjectReference Include="..\FoodOrdersContracts\FoodOrdersContracts.csproj" />
+    <ProjectReference Include="..\FoodOrdersFileImplement\FoodOrdersFileImplement.csproj" />
     <ProjectReference Include="..\FoodOrdersListImplement\FoodOrdersListImplement.csproj" />
   </ItemGroup>
 

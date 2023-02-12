@@ -2,21 +2,16 @@
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
-using FoodOrdersListImplement.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FoodOrdersFileImplement;
 
 namespace FoodOrdersListImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
-        private readonly DataListSingleton _source;
+        private readonly DataFileSingleton _source;
         public OrderStorage()
         {
-            _source = DataListSingleton.GetInstance();
+            _source = DataFileSingleton.GetInstance();
         }
         public List<OrderViewModel> GetFullList()
         {
@@ -63,11 +58,11 @@ namespace FoodOrdersListImplement.Implements
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var dish in _source.Dish)
+            foreach (var iceCream in _source.Dish)
             {
-                if (dish.Id == order.DishId)
+                if (iceCream.Id == order.DishId)
                 {
-                    viewModel.DishName = dish.DishName;
+                    viewModel.DishName = iceCream.DishName;
                     break;
                 }
             }
