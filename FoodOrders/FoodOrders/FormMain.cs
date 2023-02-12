@@ -1,8 +1,6 @@
-﻿using FoodOrders;
-using FoodOrdersContracts.BindingModels;
+﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersDataModels.Enums;
-using FoodOrdersView;
 using Microsoft.Extensions.Logging;
 
 namespace FoodOrdersView

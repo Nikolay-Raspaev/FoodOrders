@@ -3,11 +3,10 @@ using FoodOrdersContracts.StoragesContracts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using FoodOrdersView;
 using FoodOrdersFileImplement.Implements;
 using FoodOrdersBusinessLogic.BusinessLogics;
 
-namespace FoodOrders
+namespace FoodOrdersView
 {
     internal static class Program
     {
