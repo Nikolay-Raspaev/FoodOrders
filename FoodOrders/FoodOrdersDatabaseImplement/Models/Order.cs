@@ -23,10 +23,8 @@ namespace FoodOrdersDatabaseImplement.Models
         [Required]
         public DateTime DateCreate { get; set; }
 
-        [Required]
         public virtual Dish Dish { get; set; }
 
-        [Required]
         public DateTime? DateImplement { get; set; }
 
         public int Id { get; set; }
