@@ -65,7 +65,8 @@ namespace FoodOrdersDatabaseImplement.Models
             Sum = Sum,
             Status = Status,
             DateCreate = DateCreate,
-            DateImplement = DateImplement
+            DateImplement = DateImplement,
+            DishName = Dish.DishName
         };
     }
 }

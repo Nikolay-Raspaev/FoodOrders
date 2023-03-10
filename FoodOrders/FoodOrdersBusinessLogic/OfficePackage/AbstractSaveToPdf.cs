@@ -11,11 +11,11 @@ namespace FoodOrdersBusinessLogic.OfficePackage
             CreateParagraph(new PdfParagraph { Text = info.Title, Style = "NormalTitle", ParagraphAlignment = PdfParagraphAlignmentType.Center });
             CreateParagraph(new PdfParagraph { Text = $"с {info.DateFrom.ToShortDateString()} по {info.DateTo.ToShortDateString()}", Style = "Normal", ParagraphAlignment = PdfParagraphAlignmentType.Center });
 
-            CreateTable(new List<string> { "2cm", "3cm", "6cm", "3cm" });
+            CreateTable(new List<string> { "2cm", "3cm", "6cm", "3cm", "3cm" });
 
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Номер", "Дата заказа", "Блюдо", "Сумма" },
+                Texts = new List<string> { "Номер", "Дата заказа", "Блюдо", "Сумма", "Статус" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
@@ -24,7 +24,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage
             {
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> { order.Id.ToString(), order.DateCreate.ToShortDateString(), order.DishName, order.Sum.ToString() },
+                    Texts = new List<string> { order.Id.ToString(), order.DateCreate.ToShortDateString(), order.DishName, order.Sum.ToString(), order.OrderStatus },
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Left
                 });

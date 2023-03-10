@@ -17,6 +17,6 @@ namespace FoodOrdersContracts.ViewModels
 
         public double Sum { get; set; }
 
-        public OrderStatus OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
     }
 }

@@ -54,13 +54,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                     Components = new List<(string, int)>(),
                     TotalCount = 0
                 };
-                foreach (var component in components)
+                foreach (var component in dish.DishComponents)
                 {
-                    if (dish.DishComponents.ContainsKey(component.Id))
-                    {
-                        record.Components.Add(new (component.ComponentName, dish.DishComponents[component.Id].Item2));
-                        record.TotalCount += dish.DishComponents[component.Id].Item2;
-                    }
+                    record.Components.Add(new(component.Value.Item1.ComponentName, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
                 }
 
                 list.Add(record);
@@ -82,7 +79,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                         Id = x.Id,
                         DateCreate = x.DateCreate,
                         DishName = x.DishName,
-                        Sum = x.Sum
+                        Sum = x.Sum,
+                        OrderStatus = x.Status.ToString()
                     })
                     .ToList();
         }
