@@ -1,4 +1,5 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using FoodOrdersBusinessLogic.BusinessLogics;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersDataModels.Enums;
 using Microsoft.Extensions.Logging;
@@ -8,12 +9,16 @@ namespace FoodOrdersView
     public partial class FormMain : Form
     {
         private readonly ILogger _logger;
+
         private readonly IOrderLogic _orderLogic;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic)
+
+        private readonly IReportLogic _reportLogic;
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic)
         {
             InitializeComponent();
             _logger = logger;
             _orderLogic = orderLogic;
+            _reportLogic = reportLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -156,6 +161,34 @@ namespace FoodOrdersView
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _reportLogic.SaveComponentsToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void ComponentDishesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormReportDishComponents));
+            if (service is FormReportDishComponents form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormReportOrders));
+            if (service is FormReportOrders form)
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

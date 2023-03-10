@@ -15,7 +15,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage
 
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Номер", "Дата заказа", "Изделие", "Сумма" },
+                Texts = new List<string> { "Номер", "Дата заказа", "Блюдо", "Сумма" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });

@@ -50,19 +50,21 @@
             this.ColumnDish,
             this.ColumnCount});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridView.Location = new System.Drawing.Point(0, 41);
+            this.dataGridView.Location = new System.Drawing.Point(0, 47);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView.MultiSelect = false;
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(528, 442);
+            this.dataGridView.Size = new System.Drawing.Size(616, 510);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonSaveToExcel
             // 
-            this.buttonSaveToExcel.Location = new System.Drawing.Point(12, 12);
+            this.buttonSaveToExcel.Location = new System.Drawing.Point(14, 14);
+            this.buttonSaveToExcel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSaveToExcel.Name = "buttonSaveToExcel";
-            this.buttonSaveToExcel.Size = new System.Drawing.Size(159, 23);
+            this.buttonSaveToExcel.Size = new System.Drawing.Size(186, 27);
             this.buttonSaveToExcel.TabIndex = 1;
             this.buttonSaveToExcel.Text = "Сохранить в Excel";
             this.buttonSaveToExcel.UseVisualStyleBackColor = true;
@@ -77,7 +79,7 @@
             // 
             // ColumnDish
             // 
-            this.ColumnDish.HeaderText = "Изделие";
+            this.ColumnDish.HeaderText = "Блюдо";
             this.ColumnDish.Name = "ColumnDish";
             this.ColumnDish.ReadOnly = true;
             this.ColumnDish.Width = 200;
@@ -90,13 +92,14 @@
             // 
             // FormReportDishComponents
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(528, 483);
+            this.ClientSize = new System.Drawing.Size(616, 557);
             this.Controls.Add(this.buttonSaveToExcel);
             this.Controls.Add(this.dataGridView);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "FormReportDishComponents";
-            this.Text = "Компоненты по изделиям";
+            this.Text = "Компоненты по блюдам";
             this.Load += new System.EventHandler(this.FormReportDishComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -107,8 +110,8 @@
 
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button buttonSaveToExcel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnComponent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDish;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
+        private DataGridViewTextBoxColumn ColumnComponent;
+        private DataGridViewTextBoxColumn ColumnDish;
+        private DataGridViewTextBoxColumn ColumnCount;
     }
 }
