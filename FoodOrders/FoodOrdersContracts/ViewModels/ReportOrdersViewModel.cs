@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodOrdersDataModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,7 @@ namespace FoodOrdersContracts.ViewModels
         public string DishName { get; set; } = string.Empty;
 
         public double Sum { get; set; }
+
+        public OrderStatus OrderStatus { get; set; }
     }
 }

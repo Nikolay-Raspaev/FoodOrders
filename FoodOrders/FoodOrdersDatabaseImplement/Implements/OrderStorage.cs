@@ -37,15 +37,20 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
-            if (!model.Id.HasValue)
-            {
-                return new();
-            }
             using var context = new FoodOrdersDatabase();
+            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
+            {
+                return context.Orders
+                .Include(x => x.Dish)
+                .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
+                .Select(x => x.GetViewModel)
+                .ToList();
+            }
             return context.Orders
-                    .Where(x => x.Id == model.Id)
-                    .Select(x => x.GetViewModel)
-                    .ToList();
+                .Include(x => x.Dish)
+                .Where(x => x.Id == model.Id)
+                .Select(x => x.GetViewModel)
+                .ToList();
         }
 
         private static OrderViewModel GetViewModel(Order order)

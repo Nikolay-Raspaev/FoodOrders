@@ -8,10 +8,10 @@ namespace FoodOrdersContracts.ViewModels
 {
     public class ReportDishComponentViewModel
     {
-        public string ComponentName { get; set; } = string.Empty;
+        public string DishName { get; set; } = string.Empty;
 
         public int TotalCount { get; set; }
 
-        public List<(string Dish, int Count)> Dishes { get; set; } = new();
+        public List<(string Component, int Count)> Components { get; set; } = new();
     }
 }

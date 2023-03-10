@@ -46,19 +46,19 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
             var list = new List<ReportDishComponentViewModel>();
 
-            foreach (var component in components)
+            foreach (var dish in dishes)
             {
                 var record = new ReportDishComponentViewModel
                 {
-                    ComponentName = component.ComponentName,
-                    Dishes = new List<(string, int)>(),
+                    DishName = dish.DishName,
+                    Components = new List<(string, int)>(),
                     TotalCount = 0
                 };
-                foreach (var dish in dishes)
+                foreach (var component in components)
                 {
                     if (dish.DishComponents.ContainsKey(component.Id))
                     {
-                        record.Dishes.Add(new (dish.DishName, dish.DishComponents[component.Id].Item2));
+                        record.Components.Add(new (component.ComponentName, dish.DishComponents[component.Id].Item2));
                         record.TotalCount += dish.DishComponents[component.Id].Item2;
                     }
                 }
@@ -96,8 +96,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _saveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список компонент",
-                Components = _componentStorage.GetFullList()
+                Title = "Список блюд",
+                Dishes = _dishStorage.GetFullList()
             });
         }
 

@@ -8,6 +8,6 @@ namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
 
         public string Title { get; set; } = string.Empty;
 
-        public List<ComponentViewModel> Components { get; set; } = new();
+        public List<DishViewModel> Dishes { get; set; } = new();
     }
 }

@@ -11,7 +11,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage
 
             CreateParagraph(new WordParagraph
             {
-                Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24", }) },
+                Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24" }) },
                 TextProperties = new WordTextProperties
                 {
                     Size = "24",
@@ -19,11 +19,11 @@ namespace FoodOrdersBusinessLogic.OfficePackage
                 }
             });
 
-            foreach (var component in info.Components)
+            foreach (var dish in info.Dishes)
             {
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
+                    Texts = new List<(string, WordTextProperties)> { (dish.DishName, new WordTextProperties { Size = "24" }) },
                     TextProperties = new WordTextProperties
                     {
                         Size = "24",

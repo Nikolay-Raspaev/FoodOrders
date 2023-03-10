@@ -34,18 +34,18 @@ namespace FoodOrdersBusinessLogic.OfficePackage
 				{
 					ColumnName = "A",
 					RowIndex = rowIndex,
-					Text = pc.ComponentName,
+					Text = pc.DishName,
 					StyleInfo = ExcelStyleInfoType.Text
 				});
 				rowIndex++;
 
-				foreach (var (Dish, Count) in pc.Dishes)
+				foreach (var (Component, Count) in pc.Components)
 				{
 					InsertCellInWorksheet(new ExcelCellParameters
 					{
 						ColumnName = "B",
 						RowIndex = rowIndex,
-						Text = Dish,
+						Text = Component,
 						StyleInfo = ExcelStyleInfoType.TextWithBroder
 					});
 
