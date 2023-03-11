@@ -74,10 +74,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление блюда");
                     try
                     {
-                        if (!_logic.Delete(new ComponentBindingModel
-                        {
-                            Id = id
-                        }))
+                        if (!_logic.Delete(new ComponentBindingModel { Id = id }))
                         {
                             throw new Exception("Ошибка при удалении. Дополнительная информация в логах.");
                         }

@@ -24,10 +24,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
         public List<DishViewModel>? ReadList(DishSearchModel? model)
         {
-            _logger.LogInformation("ReadList. DishName:{DishName}. Id:{Id}",
-                model?.DishName, model?.Id);
-            var list = model == null ? _dishStorage.GetFullList() :
-                _dishStorage.GetFilteredList(model);
+            _logger.LogInformation("ReadList. DishName:{DishName}. Id:{Id}", model?.DishName, model?.Id);
+            var list = model == null ? _dishStorage.GetFullList() : _dishStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList return null list");
@@ -111,7 +109,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             });
             if (element != null && element.Id != model.Id)
             {
-                throw new InvalidOperationException("Прдукт с таким названием уже есть");
+                throw new InvalidOperationException("Продукт с таким названием уже есть");
             }
         }
     }
