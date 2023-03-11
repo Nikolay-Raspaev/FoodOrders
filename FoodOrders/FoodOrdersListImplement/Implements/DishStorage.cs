@@ -22,8 +22,7 @@ namespace FoodOrdersListImplement.Implements
             }
             return result;
         }
-        public List<DishViewModel> GetFilteredList(DishSearchModel
-       model)
+        public List<DishViewModel> GetFilteredList(DishSearchModel model)
         {
             var result = new List<DishViewModel>();
             if (string.IsNullOrEmpty(model.DishName))
@@ -47,9 +46,7 @@ namespace FoodOrdersListImplement.Implements
             }
             foreach (var dish in _source.Dish)
             {
-                if ((!string.IsNullOrEmpty(model.DishName) &&
-                dish.DishName == model.DishName) ||
-                (model.Id.HasValue && dish.Id == model.Id))
+                if ((!string.IsNullOrEmpty(model.DishName) && dish.DishName == model.DishName) || (model.Id.HasValue && dish.Id == model.Id))
                 {
                     return dish.GetViewModel;
                 }
