@@ -111,7 +111,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             });
             if (element != null && element.Id != model.Id)
             {
-                throw new InvalidOperationException("Прдукт с таким названием уже есть");
+                throw new InvalidOperationException("Продукт с таким названием уже есть");
             }
         }
     }

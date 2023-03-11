@@ -45,10 +45,7 @@ namespace FoodOrdersView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxDish.SelectedValue);
-                    var product = _logicS.ReadElement(new DishSearchModel
-                    {
-                        Id = id
-                    });
+                    var product = _logicS.ReadElement(new DishSearchModel { Id = id });
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = Math.Round(count * (product?.Price ?? 0), 2).ToString();
                     _logger.LogInformation("Расчет суммы заказа");

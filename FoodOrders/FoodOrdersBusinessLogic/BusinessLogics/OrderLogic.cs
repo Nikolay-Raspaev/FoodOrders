@@ -20,7 +20,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
         {
-            _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}", model?.Id);
+            _logger.LogInformation("ReadList. Id:{Id}", model?.Id);
             var list = model == null ? _orderStorage.GetFullList() : _orderStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -89,7 +89,6 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _logger.LogInformation("Order. OrderID:{Id}. Sum:{ Sum}. DishId: { DishId}", model.Id, model.Sum, model.Id);
         }
 
-        //???
         public bool StatusUpdate(OrderBindingModel model, OrderStatus newStatus)
         {
             var viewModel = _orderStorage.GetElement(new OrderSearchModel { Id = model.Id });
@@ -111,7 +110,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 model.DateImplement = viewModel.DateImplement;
             }
-            CheckModel(model);
+            CheckModel(model, false);
             if (_orderStorage.Update(model) == null)
             {
                 _logger.LogWarning("Change status operation failed");
