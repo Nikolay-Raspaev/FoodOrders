@@ -7,12 +7,12 @@ namespace FoodOrdersView
     public partial class FormComponents : Form
     {
         private readonly ILogger _logger;
-        private readonly IComponentLogic _logic;
+        private readonly IComponentLogic _logicC;
         public FormComponents(ILogger<FormComponents> logger, IComponentLogic logic)
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicC = logic;
         }
         private void FormComponents_Load(object sender, EventArgs e)
         {
@@ -22,7 +22,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logic.ReadList(null);
+                var list = _logicC.ReadList(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -74,7 +74,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление блюда");
                     try
                     {
-                        if (!_logic.Delete(new ComponentBindingModel { Id = id }))
+                        if (!_logicC.Delete(new ComponentBindingModel { Id = id }))
                         {
                             throw new Exception("Ошибка при удалении. Дополнительная информация в логах.");
                         }
