@@ -7,12 +7,12 @@ namespace FoodOrdersView
     public partial class FormDishes : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
+        private readonly IDishLogic _logicD;
         public FormDishes(ILogger<FormDishes> logger, IDishLogic logic)
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicD = logic;
         }
 
         private void FormDocuments_Load(object sender, EventArgs e)
@@ -23,7 +23,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logic.ReadList(null);
+                var list = _logicD.ReadList(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -78,7 +78,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление набор блюд");
                     try
                     {
-                        if (!_logic.Delete(new DishBindingModel
+                        if (!_logicD.Delete(new DishBindingModel
                         {
                             Id = id
                         }))

@@ -8,13 +8,13 @@ namespace FoodOrdersView
     public partial class FormCreateOrder : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logicS;
+        private readonly IDishLogic _logicD;
         private readonly IOrderLogic _logicO;
         public FormCreateOrder(ILogger<FormCreateOrder> logger, IDishLogic logicS, IOrderLogic logicO)
         {
             InitializeComponent();
             _logger = logger;
-            _logicS = logicS;
+            _logicD = logicS;
             _logicO = logicO;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -22,7 +22,7 @@ namespace FoodOrdersView
             _logger.LogInformation("Загрузка Набор блюд для заказа");
             try
             {
-                var list = _logicS.ReadList(null);
+                var list = _logicD.ReadList(null);
                 if (list != null)
                 {
                     comboBoxDish.DisplayMember = "DishName";
@@ -45,7 +45,7 @@ namespace FoodOrdersView
                 try
                 {
                     int id = Convert.ToInt32(comboBoxDish.SelectedValue);
-                    var product = _logicS.ReadElement(new DishSearchModel { Id = id });
+                    var product = _logicD.ReadElement(new DishSearchModel { Id = id });
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = Math.Round(count * (product?.Price ?? 0), 2).ToString();
                     _logger.LogInformation("Расчет суммы заказа");
