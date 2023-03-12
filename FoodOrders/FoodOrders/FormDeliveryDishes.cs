@@ -6,13 +6,13 @@ namespace FoodOrdersView
     public partial class FormDeliveryDishes : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logicC;
+        private readonly IDishLogic _logicD;
         private readonly IShopLogic _logicS;
         public FormDeliveryDishes(ILogger<FormDeliveryDishes> logger, IDishLogic logicC, IShopLogic logicS)
         {
             InitializeComponent();
             _logger = logger;
-            _logicC = logicC;
+            _logicD = logicC;
             _logicS = logicS;
         }
         private void FormDeliveryDishes_Load(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace FoodOrdersView
             _logger.LogInformation("Загрузка блюд");
             try
             {
-                var list = _logicC.ReadList(null);
+                var list = _logicD.ReadList(null);
                 if (list != null)
                 {
                     comboBoxDish.DisplayMember = "DishName";
@@ -72,24 +72,23 @@ namespace FoodOrdersView
             _logger.LogInformation("Пополнение магазина");
             try
             {
-                var operationResult = _logicS.DeliveryDishes(new ShopSearchModel
-                {
-                    ShopName = comboBoxShop.Text,
-                }, _logicC.ReadElement(new DishSearchModel{ DishName = comboBoxDish.Text })!, Convert.ToInt32(textBoxCount.Text));
+                var operationResult = _logicS.DeliveryDishes(
+                    new ShopSearchModel { ShopName = comboBoxShop.Text,}, 
+                    _logicD.ReadElement(new DishSearchModel{ DishName = comboBoxDish.Text })!,
+                    Convert.ToInt32(textBoxCount.Text)
+                );
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при пополнении магазина. Дополнительная информация в логах.");
                 }
-                MessageBox.Show("Пополнение прошло успешно", "Сообщение",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Пополнение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ошибка пополнения магазина");
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

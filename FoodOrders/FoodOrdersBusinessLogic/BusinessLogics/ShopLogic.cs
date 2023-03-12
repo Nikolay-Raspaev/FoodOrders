@@ -62,7 +62,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             }
             if (element.ShopDishes.ContainsKey(dish.Id))
             {
-                element.ShopDishes[dish.Id] = (element.ShopDishes[dish.Id].Item1, element.ShopDishes[dish.Id].Item2 + count);
+                element.ShopDishes[dish.Id] = (dish, element.ShopDishes[dish.Id].Item2 + count);
             }
             else
             {

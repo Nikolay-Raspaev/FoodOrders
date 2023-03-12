@@ -34,9 +34,7 @@ namespace FoodOrdersListImplement.Implements
             }
             foreach (var shop in _source.Shops)
             {
-                if ((!string.IsNullOrEmpty(model.ShopName) &&
-               shop.ShopName == model.ShopName) ||
-                (model.Id.HasValue && shop.Id == model.Id))
+                if ((!string.IsNullOrEmpty(model.ShopName) && shop.ShopName == model.ShopName) || (model.Id.HasValue && shop.Id == model.Id))
                 {
                     return shop.GetViewModel;
                 }
