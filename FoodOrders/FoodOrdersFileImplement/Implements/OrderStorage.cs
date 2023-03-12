@@ -32,8 +32,7 @@ namespace FoodOrdersFileImplement.Implements
             {
                 return null;
             }
-            return _source.Orders
-            .FirstOrDefault(x => (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
+            return _source.Orders.FirstOrDefault(x => (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
         }
 
         private OrderViewModel GetViewModel(Order order)

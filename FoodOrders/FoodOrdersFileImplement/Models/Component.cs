@@ -50,9 +50,11 @@ namespace FoodOrdersFileImplement.Models
             ComponentName = ComponentName,
             Cost = Cost
         };
-        public XElement GetXElement => new("Component",
-        new XAttribute("Id", Id),
-        new XElement("ComponentName", ComponentName),
-        new XElement("Cost", Cost.ToString()));
+        public XElement GetXElement => new(
+            "Component",
+            new XAttribute("Id", Id),
+            new XElement("ComponentName", ComponentName),
+            new XElement("Cost", Cost.ToString())
+        );
     }
 }

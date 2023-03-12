@@ -18,8 +18,7 @@ namespace FoodOrdersFileImplement.Implements
         {
             return _source.Components.Select(x => x.GetViewModel).ToList();
         }
-        public List<ComponentViewModel> GetFilteredList(ComponentSearchModel
-       model)
+        public List<ComponentViewModel> GetFilteredList(ComponentSearchModel model)
         {
             if (string.IsNullOrEmpty(model.ComponentName))
             {
@@ -27,6 +26,8 @@ namespace FoodOrdersFileImplement.Implements
             }
             return _source.Components.Where(x => x.ComponentName.Contains(model.ComponentName)).Select(x => x.GetViewModel).ToList();
         }
+
+        //FirstOrDefault выбирается первый или ничего, то есть вернёт первое совпадение или null
         public ComponentViewModel? GetElement(ComponentSearchModel model)
         {
             if (string.IsNullOrEmpty(model.ComponentName) && !model.Id.HasValue)
@@ -37,8 +38,7 @@ namespace FoodOrdersFileImplement.Implements
         }
         public ComponentViewModel? Insert(ComponentBindingModel model)
         {
-            model.Id = _source.Components.Count > 0 ? _source.Components.Max(x =>
-           x.Id) + 1 : 1;
+            model.Id = _source.Components.Count > 0 ? _source.Components.Max(x => x.Id) + 1 : 1;
             var newComponent = Component.Create(model);
             if (newComponent == null)
             {
@@ -50,8 +50,7 @@ namespace FoodOrdersFileImplement.Implements
         }
         public ComponentViewModel? Update(ComponentBindingModel model)
         {
-            var component = _source.Components.FirstOrDefault(x => x.Id ==
-           model.Id);
+            var component = _source.Components.FirstOrDefault(x => x.Id == model.Id);
             if (component == null)
             {
                 return null;
@@ -62,8 +61,7 @@ namespace FoodOrdersFileImplement.Implements
         }
         public ComponentViewModel? Delete(ComponentBindingModel model)
         {
-            var element = _source.Components.FirstOrDefault(x => x.Id ==
-           model.Id);
+            var element = _source.Components.FirstOrDefault(x => x.Id == model.Id);
             if (element != null)
             {
                 _source.Components.Remove(element);

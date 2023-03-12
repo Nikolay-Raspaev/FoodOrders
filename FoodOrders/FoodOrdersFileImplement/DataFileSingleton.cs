@@ -19,37 +19,28 @@ namespace FoodOrdersFileImplement
             }
             return instance;
         }
-        public void SaveComponents() => SaveData(Components, ComponentFileName,
-       "Components", x => x.GetXElement);
-        public void SaveDishes() => SaveData(Dishes, DishFileName,
-       "Dishes", x => x.GetXElement);
-        public void SaveOrders() => SaveData(Orders, OrderFileName, "Orders", x
-       => x.GetXElement);
+        public void SaveComponents() => SaveData(Components, ComponentFileName, "Components", x => x.GetXElement);
+        public void SaveDishes() => SaveData(Dishes, DishFileName, "Dishes", x => x.GetXElement);
+        public void SaveOrders() => SaveData(Orders, OrderFileName, "Orders", x => x.GetXElement);
         private DataFileSingleton()
         {
-            Components = LoadData(ComponentFileName, "Component", x =>
-           Component.Create(x)!)!;
-            Dishes = LoadData(DishFileName, "Dish", x =>
-           Dish.Create(x)!)!;
+            Components = LoadData(ComponentFileName, "Component", x => Component.Create(x)!)!;
+            Dishes = LoadData(DishFileName, "Dish", x => Dish.Create(x)!)!;
             Orders = LoadData(OrderFileName, "Order", x => Order.Create(x)!)!;
         }
-        private static List<T>? LoadData<T>(string filename, string xmlNodeName,
-       Func<XElement, T> selectFunction)
+        private static List<T>? LoadData<T>(string filename, string xmlNodeName, Func<XElement, T> selectFunction)
         {
             if (File.Exists(filename))
             {
-                return
-               XDocument.Load(filename)?.Root?.Elements(xmlNodeName)?.Select(selectFunction)?.ToList();
+                return XDocument.Load(filename)?.Root?.Elements(xmlNodeName)?.Select(selectFunction)?.ToList();
             }
             return new List<T>();
         }
-        private static void SaveData<T>(List<T> data, string filename, string
-       xmlNodeName, Func<T, XElement> selectFunction)
+        private static void SaveData<T>(List<T> data, string filename, string xmlNodeName, Func<T, XElement> selectFunction)
         {
             if (data != null)
             {
-                new XDocument(new XElement(xmlNodeName,
-               data.Select(selectFunction).ToArray())).Save(filename);
+                new XDocument(new XElement(xmlNodeName, data.Select(selectFunction).ToArray())).Save(filename);
             }
         }
     }
