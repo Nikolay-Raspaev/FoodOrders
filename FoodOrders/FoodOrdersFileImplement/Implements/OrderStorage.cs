@@ -3,6 +3,8 @@ using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersFileImplement.Models;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FoodOrdersFileImplement.Implements
 {
@@ -38,14 +40,7 @@ namespace FoodOrdersFileImplement.Implements
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var dish in _source.Dishes)
-            {
-                if (dish.Id == order.DishId)
-                {
-                    viewModel.DishName = dish.DishName;
-                    break;
-                }
-            }
+            viewModel.DishName = _source.Dishes.FirstOrDefault(x => (x.Id == order.DishId))?.DishName;
             return viewModel;
         }
 
