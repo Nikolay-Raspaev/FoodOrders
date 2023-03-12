@@ -16,7 +16,7 @@ namespace FoodOrdersListImplement.Implements
         public List<DishViewModel> GetFullList()
         {
             var result = new List<DishViewModel>();
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 result.Add(dish.GetViewModel);
             }
@@ -29,7 +29,7 @@ namespace FoodOrdersListImplement.Implements
             {
                 return result;
             }
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 if (dish.DishName.Contains(model.DishName))
                 {
@@ -44,7 +44,7 @@ namespace FoodOrdersListImplement.Implements
             {
                 return null;
             }
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 if ((!string.IsNullOrEmpty(model.DishName) && dish.DishName == model.DishName) || (model.Id.HasValue && dish.Id == model.Id))
                 {
@@ -56,7 +56,7 @@ namespace FoodOrdersListImplement.Implements
         public DishViewModel? Insert(DishBindingModel model)
         {
             model.Id = 1;
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 if (model.Id <= dish.Id)
                 {
@@ -68,12 +68,12 @@ namespace FoodOrdersListImplement.Implements
             {
                 return null;
             }
-            _source.Dish.Add(newDish);
+            _source.Dishes.Add(newDish);
             return newDish.GetViewModel;
         }
         public DishViewModel? Update(DishBindingModel model)
         {
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 if (dish.Id == model.Id)
                 {
@@ -85,12 +85,12 @@ namespace FoodOrdersListImplement.Implements
         }
         public DishViewModel? Delete(DishBindingModel model)
         {
-            for (int i = 0; i < _source.Dish.Count; ++i)
+            for (int i = 0; i < _source.Dishes.Count; ++i)
             {
-                if (_source.Dish[i].Id == model.Id)
+                if (_source.Dishes[i].Id == model.Id)
                 {
-                    var element = _source.Dish[i];
-                    _source.Dish.RemoveAt(i);
+                    var element = _source.Dishes[i];
+                    _source.Dishes.RemoveAt(i);
                     return element.GetViewModel;
                 }
             }
