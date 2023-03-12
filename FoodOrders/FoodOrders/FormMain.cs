@@ -158,5 +158,23 @@ namespace FoodOrdersView
         {
             LoadData();
         }
+
+        private void ButtonDeliveryDish_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormDeliveryDishes));
+            if (service is FormDeliveryDishes form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void ShopsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormShops));
+            if (service is FormShops form)
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }

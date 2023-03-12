@@ -38,6 +38,8 @@
             this.buttonSetToWork = new System.Windows.Forms.Button();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.магазиныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +58,8 @@
             // 
             this.справочникиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.БлюдаToolStripMenuItem,
-            this.наборблюдToolStripMenuItem});
+            this.наборблюдToolStripMenuItem,
+            this.магазиныToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -64,14 +67,14 @@
             // БлюдаToolStripMenuItem
             // 
             this.БлюдаToolStripMenuItem.Name = "БлюдаToolStripMenuItem";
-            this.БлюдаToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.БлюдаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.БлюдаToolStripMenuItem.Text = "Блюда";
             this.БлюдаToolStripMenuItem.Click += new System.EventHandler(this.ComponentsToolStripMenuItem_Click);
             // 
-            // набор блюдToolStripMenuItem
+            // наборблюдToolStripMenuItem
             // 
-            this.наборблюдToolStripMenuItem.Name = "набор блюдToolStripMenuItem";
-            this.наборблюдToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.наборблюдToolStripMenuItem.Name = "наборблюдToolStripMenuItem";
+            this.наборблюдToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.наборблюдToolStripMenuItem.Text = "Набор блюд";
             this.наборблюдToolStripMenuItem.Click += new System.EventHandler(this.DishToolStripMenuItem_Click);
             // 
@@ -142,11 +145,30 @@
             this.dataGridView.Size = new System.Drawing.Size(755, 426);
             this.dataGridView.TabIndex = 7;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(780, 376);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(170, 58);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Пополнение магазина";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.ButtonDeliveryDish_Click);
+            // 
+            // магазиныToolStripMenuItem
+            // 
+            this.магазиныToolStripMenuItem.Name = "магазиныToolStripMenuItem";
+            this.магазиныToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.магазиныToolStripMenuItem.Text = "Магазины";
+            this.магазиныToolStripMenuItem.Click += new System.EventHandler(this.ShopsToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonSetToFinish);
             this.Controls.Add(this.buttonSetToDone);
@@ -178,5 +200,7 @@
         private Button buttonSetToWork;
         private Button buttonCreateOrder;
         private DataGridView dataGridView;
+        private Button button1;
+        private ToolStripMenuItem магазиныToolStripMenuItem;
     }
 }

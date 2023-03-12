@@ -39,9 +39,11 @@ namespace FoodOrdersView
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
+            services.AddTransient<IShopStorage, ShopStorage>();
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
+            services.AddTransient<IShopLogic, ShopLogic>();
             services.AddTransient<FormMain>();
             services.AddTransient<FormComponent>();
             services.AddTransient<FormComponents>();
@@ -49,6 +51,9 @@ namespace FoodOrdersView
             services.AddTransient<FormDish>();
             services.AddTransient<FormDishComponents>();
             services.AddTransient<FormDishes>();
+            services.AddTransient<FormShops>();
+            services.AddTransient<FormShop>();
+            services.AddTransient<FormDeliveryDishes>();
         }
     }
 }
