@@ -12,10 +12,14 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
     {
         private readonly ILogger _logger;
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage)
+        private readonly IShopLogic _logicS;
+        private readonly IDishStorage _dishStorage;
+        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage, IShopLogic logicS, IDishStorage dishStorage)
         {
             _logger = logger;
             _orderStorage = orderStorage;
+            _logicS = logicS;
+            _dishStorage = dishStorage;
         }
 
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
@@ -109,6 +113,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             else
             {
                 model.DateImplement = viewModel.DateImplement;
+            }
+            if (model.Status == OrderStatus.Выдан && !_logicS.AddDishes(_dishStorage.GetElement(new DishSearchModel { Id = viewModel.DishId })!, viewModel.Count))
+            {
+                throw new Exception("В магазинах нет места под блюда из заказа.");
             }
             CheckModel(model, false);
             if (_orderStorage.Update(model) == null)

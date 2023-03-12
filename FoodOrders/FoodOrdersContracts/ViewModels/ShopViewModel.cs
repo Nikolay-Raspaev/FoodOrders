@@ -12,6 +12,8 @@ namespace FoodOrdersContracts.ViewModels
         public string Address { get; set; } = string.Empty;
         [DisplayName("Дата открытия")]
         public DateTime DateOfOpening { get; set; } = DateTime.Now;
+        [DisplayName("Вместимость")]
+        public int Capacity { get; set; } = 0;
         public Dictionary<int, (IDishModel, int)> ShopDishes { get; set; } = new();
     }
 }

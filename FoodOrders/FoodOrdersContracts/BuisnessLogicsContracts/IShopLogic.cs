@@ -13,5 +13,7 @@ namespace FoodOrdersContracts.BusinessLogicsContracts
         bool Update(ShopBindingModel model);
         bool Delete(ShopBindingModel model);
         bool DeliveryDishes(ShopSearchModel model, IDishModel dish, int count);
+        bool SellDishes(IDishModel dish, int count);
+        bool AddDishes(IDishModel dish, int count);
     }
 }

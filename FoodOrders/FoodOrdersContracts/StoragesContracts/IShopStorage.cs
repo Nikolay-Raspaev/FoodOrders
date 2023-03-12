@@ -1,6 +1,7 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.ViewModels;
+using FoodOrdersDataModels.Models;
 
 namespace FoodOrdersContracts.StoragesContracts
 {
@@ -12,5 +13,6 @@ namespace FoodOrdersContracts.StoragesContracts
         ShopViewModel? Insert(ShopBindingModel model);
         ShopViewModel? Update(ShopBindingModel model);
         ShopViewModel? Delete(ShopBindingModel model);
+        bool SellDishes(IDishModel dish, int count);
     }
 }

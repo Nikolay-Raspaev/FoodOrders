@@ -6,5 +6,6 @@
         string Address { get; }
         DateTime DateOfOpening { get; }
         Dictionary<int, (IDishModel, int)> ShopDishes { get; }
+        int Capacity { get; }
     }
 }

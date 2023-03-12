@@ -60,6 +60,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 _logger.LogWarning("Shop not found");
                 return false;
             }
+            if (element.Capacity - element.ShopDishes.Sum(x => x.Value.Item2) < count)
+            {
+                throw new InvalidOperationException("В магазине нет места под такое количество блюд");
+            }
             if (element.ShopDishes.ContainsKey(dish.Id))
             {
                 element.ShopDishes[dish.Id] = (dish, element.ShopDishes[dish.Id].Item2 + count);
@@ -74,7 +78,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 ShopName = element.ShopName,
                 Address = element.Address,
                 DateOfOpening = element.DateOfOpening,
-                ShopDishes = element.ShopDishes
+                ShopDishes = element.ShopDishes,
+                Capacity = element.Capacity
             });
             return true;
         }
@@ -143,6 +148,37 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 throw new InvalidOperationException("Магазин с таким названием уже есть");
             }
+        }
+        public bool SellDishes(IDishModel dish, int count)
+        {
+            return _shopStorage.SellDishes(dish, count);
+        }
+        public bool AddDishes(IDishModel dish, int count)
+        {
+            if (dish == null || count < 1)
+            {
+                return false;
+            }
+            List<ShopViewModel> shopsList = _shopStorage.GetFullList();
+            if (shopsList.Sum(x => x.Capacity) - shopsList.Sum(x => x.ShopDishes.Sum(y => y.Value.Item2)) < count)
+            {
+                return false;
+            }
+            foreach (ShopViewModel shop in shopsList)
+            {
+                int emptySpace = shop.Capacity - shop.ShopDishes.Sum(x => x.Value.Item2);
+                if (emptySpace < count)
+                {
+                    DeliveryDishes(new ShopSearchModel { Id = shop.Id }, dish, emptySpace);
+                    count -= emptySpace;
+                }
+                else
+                {
+                    DeliveryDishes(new ShopSearchModel { Id = shop.Id }, dish, count);
+                    break;
+                }
+            }
+            return true;
         }
     }
 }

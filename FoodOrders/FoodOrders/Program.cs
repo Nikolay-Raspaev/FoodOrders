@@ -54,6 +54,7 @@ namespace FoodOrdersView
             services.AddTransient<FormShops>();
             services.AddTransient<FormShop>();
             services.AddTransient<FormDeliveryDishes>();
+            services.AddTransient<FormSellDishes>();
         }
     }
 }

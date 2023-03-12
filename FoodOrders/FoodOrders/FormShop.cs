@@ -35,6 +35,7 @@ namespace FoodOrdersView
                         textBoxName.Text = view.ShopName;
                         textBoxAddress.Text = view.Address;
                         dateTimePicker.Value = view.DateOfOpening;
+                        textBoxCapacity.Text = view.Capacity.ToString();
                         _shopDishes = view.ShopDishes ?? new Dictionary<int, (IDishModel, int)>();
                         LoadData();
                     }
@@ -81,6 +82,11 @@ namespace FoodOrdersView
                MessageBoxIcon.Error);
                 return;
             }
+            if (string.IsNullOrEmpty(textBoxCapacity.Text) || dataGridView.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToInt32(x.Cells[2].Value)) > Convert.ToInt32(textBoxCapacity.Text))
+            {
+               MessageBox.Show("Заполните вместимость корректно", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               return;
+            }
             _logger.LogInformation("Сохранение магазина");
             try
             {
@@ -90,7 +96,8 @@ namespace FoodOrdersView
                     ShopName = textBoxName.Text,
                     Address = textBoxAddress.Text,
                     DateOfOpening = dateTimePicker.Value.Date,
-                    ShopDishes = _shopDishes
+                    ShopDishes = _shopDishes,
+                    Capacity = Convert.ToInt32(textBoxCapacity.Text)
                 };
                 var operationResult = _id.HasValue ? _logicS.Update(model) : _logicS.Create(model);
                 if (!operationResult)

@@ -33,6 +33,7 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.buttonSellDishes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,11 +86,23 @@
             this.dataGridView.Size = new System.Drawing.Size(404, 342);
             this.dataGridView.TabIndex = 4;
             // 
+            // buttonSellDishes
+            // 
+            this.buttonSellDishes.Location = new System.Drawing.Point(409, 264);
+            this.buttonSellDishes.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSellDishes.Name = "buttonSellDishes";
+            this.buttonSellDishes.Size = new System.Drawing.Size(133, 23);
+            this.buttonSellDishes.TabIndex = 6;
+            this.buttonSellDishes.Text = "Продажа блюд";
+            this.buttonSellDishes.UseVisualStyleBackColor = true;
+            this.buttonSellDishes.Click += new System.EventHandler(this.ButtonSellDishes_Click);
+            // 
             // FormShops
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 342);
+            this.Controls.Add(this.buttonSellDishes);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonDelete);
@@ -110,5 +123,6 @@
         private Button buttonDelete;
         private Button buttonUpdate;
         private DataGridView dataGridView;
+        private Button buttonSellDishes;
     }
 }

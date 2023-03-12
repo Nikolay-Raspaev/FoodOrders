@@ -41,6 +41,8 @@
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.labelDateOfOpening = new System.Windows.Forms.Label();
             this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.textBoxCapacity = new System.Windows.Forms.TextBox();
+            this.labelCapacity = new System.Windows.Forms.Label();
             this.groupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -157,11 +159,31 @@
             this.dateTimePicker.Size = new System.Drawing.Size(200, 23);
             this.dateTimePicker.TabIndex = 6;
             // 
+            // textBoxCapacity
+            // 
+            this.textBoxCapacity.Location = new System.Drawing.Point(417, 57);
+            this.textBoxCapacity.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxCapacity.Name = "textBoxCapacity";
+            this.textBoxCapacity.Size = new System.Drawing.Size(200, 23);
+            this.textBoxCapacity.TabIndex = 10;
+            // 
+            // labelCapacity
+            // 
+            this.labelCapacity.AutoSize = true;
+            this.labelCapacity.Location = new System.Drawing.Point(324, 60);
+            this.labelCapacity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCapacity.Name = "labelCapacity";
+            this.labelCapacity.Size = new System.Drawing.Size(80, 15);
+            this.labelCapacity.TabIndex = 9;
+            this.labelCapacity.Text = "Вместимость";
+            // 
             // FormShop
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(639, 335);
+            this.Controls.Add(this.textBoxCapacity);
+            this.Controls.Add(this.labelCapacity);
             this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.labelDateOfOpening);
             this.Controls.Add(this.textBoxAddress);
@@ -194,5 +216,7 @@
         private TextBox textBoxAddress;
         private Label labelDateOfOpening;
         private DateTimePicker dateTimePicker;
+        private TextBox textBoxCapacity;
+        private Label labelCapacity;
     }
 }

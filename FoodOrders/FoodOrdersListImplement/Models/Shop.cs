@@ -13,6 +13,7 @@ namespace FoodOrdersListImplement.Models
         public string Address { get; private set; } = string.Empty;
         public DateTime DateOfOpening { get; private set; } = DateTime.Now;
         public Dictionary<int, (IDishModel, int)> ShopDishes { get; private set; } = new Dictionary<int, (IDishModel, int)>();
+        public int Capacity { get; private set; } = 0;
         public static Shop? Create(ShopBindingModel? model)
         {
             if (model == null)
@@ -25,7 +26,8 @@ namespace FoodOrdersListImplement.Models
                 ShopName = model.ShopName,
                 Address = model.Address,
                 DateOfOpening = model.DateOfOpening,
-                ShopDishes = model.ShopDishes
+                ShopDishes = model.ShopDishes,
+                Capacity = model.Capacity
             };
         }
         public void Update(ShopBindingModel? model)
@@ -38,6 +40,7 @@ namespace FoodOrdersListImplement.Models
             Address = model.Address;
             DateOfOpening = model.DateOfOpening;
             ShopDishes = model.ShopDishes;
+            Capacity = model.Capacity;
         }
         public ShopViewModel GetViewModel => new()
         {
@@ -45,7 +48,8 @@ namespace FoodOrdersListImplement.Models
             ShopName = ShopName,
             Address = Address,
             DateOfOpening = DateOfOpening,
-            ShopDishes = ShopDishes
+            ShopDishes = ShopDishes,
+            Capacity = Capacity
         };
     }
 }

@@ -3,6 +3,7 @@ using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersListImplement.Models;
+using FoodOrdersDataModels.Models;
 
 namespace FoodOrdersListImplement.Implements
 {
@@ -95,6 +96,10 @@ namespace FoodOrdersListImplement.Implements
                 }
             }
             return null;
+        }
+        public bool SellDishes(IDishModel dish, int count)
+        {
+            throw new NotImplementedException();
         }
     }
 }

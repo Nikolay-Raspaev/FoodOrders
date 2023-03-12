@@ -95,5 +95,16 @@ namespace FoodOrdersView
                 }
             }
         }
+        private void ButtonSellDishes_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormSellDishes));
+            if (service is FormSellDishes form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
+            }
+        }
     }
 }

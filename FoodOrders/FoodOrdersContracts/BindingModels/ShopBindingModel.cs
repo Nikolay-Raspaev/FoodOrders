@@ -9,5 +9,6 @@ namespace FoodOrdersContracts.BindingModels
         public string Address { get; set; } = string.Empty;
         public DateTime DateOfOpening { get; set; } = DateTime.Now;
         public Dictionary<int, (IDishModel, int)> ShopDishes { get; set; } = new();
+        public int Capacity { get; set; }
     }
 }
