@@ -6,12 +6,12 @@ namespace FoodOrdersView
     public partial class FormShops : Form
     {
         private readonly ILogger _logger;
-        private readonly IShopLogic _logic;
+        private readonly IShopLogic _logicS;
         public FormShops(ILogger<FormShops> logger, IShopLogic logic)
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicS = logic;
         }
         private void FormShops_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logic.ReadList(null);
+                var list = _logicS.ReadList(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -52,7 +52,7 @@ namespace FoodOrdersView
                     _logger.LogInformation("Удаление магазина");
                     try
                     {
-                        if (!_logic.Delete(new ShopBindingModel
+                        if (!_logicS.Delete(new ShopBindingModel
                         {
                             Id = id
                         }))

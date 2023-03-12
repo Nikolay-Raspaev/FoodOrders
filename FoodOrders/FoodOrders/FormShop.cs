@@ -8,7 +8,7 @@ namespace FoodOrdersView
     public partial class FormShop : Form
     {
         private readonly ILogger _logger;
-        private readonly IShopLogic _logic;
+        private readonly IShopLogic _logicS;
         private int? _id;
         private Dictionary<int, (IDishModel, int)> _shopDishes;
         public int Id { set { _id = value; } }
@@ -16,7 +16,7 @@ namespace FoodOrdersView
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicS = logic;
             _shopDishes = new Dictionary<int, (IDishModel, int)>();
         }
         private void FormShop_Load(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Загрузка магазина");
                 try
                 {
-                    var view = _logic.ReadElement(new ShopSearchModel
+                    var view = _logicS.ReadElement(new ShopSearchModel
                     {
                         Id = _id.Value
                     });
@@ -92,7 +92,7 @@ namespace FoodOrdersView
                     DateOfOpening = dateTimePicker.Value.Date,
                     ShopDishes = _shopDishes
                 };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                var operationResult = _id.HasValue ? _logicS.Update(model) : _logicS.Create(model);
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
