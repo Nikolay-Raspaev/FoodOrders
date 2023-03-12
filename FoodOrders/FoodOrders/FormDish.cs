@@ -9,7 +9,7 @@ namespace FoodOrdersView
     public partial class FormDish : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
+        private readonly IDishLogic _logicD;
         private int? _id;
         private Dictionary<int, (IComponentModel, int)> _dishComponents;
         public int Id { set { _id = value; } }
@@ -17,7 +17,7 @@ namespace FoodOrdersView
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicD = logic;
             _dishComponents = new Dictionary<int, (IComponentModel, int)>();
         }
         private void FormDish_Load(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Загрузка набор блюд");
                 try
                 {
-                    var view = _logic.ReadElement(new DishSearchModel
+                    var view = _logicD.ReadElement(new DishSearchModel
                     {
                         Id = _id.Value
                     });
@@ -171,7 +171,7 @@ namespace FoodOrdersView
                     Price = Convert.ToDouble(textBoxPrice.Text),
                     DishComponents = _dishComponents
                 };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                var operationResult = _id.HasValue ? _logicD.Update(model) : _logicD.Create(model);
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
