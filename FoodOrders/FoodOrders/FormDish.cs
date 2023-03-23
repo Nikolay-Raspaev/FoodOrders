@@ -56,9 +56,9 @@ namespace FoodOrdersView
                 if (_dishComponents != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var sc in _dishComponents)
+                    foreach (var dc in _dishComponents)
                     {
-                        dataGridView.Rows.Add(new object[] { sc.Key, sc.Value.Item1.ComponentName, sc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { dc.Key, dc.Value.Item1.ComponentName, dc.Value.Item2 });
                     }
                     textBoxPrice.Text = CalcPrice().ToString();
                 }
