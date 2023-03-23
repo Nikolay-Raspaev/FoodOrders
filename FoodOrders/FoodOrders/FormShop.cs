@@ -56,9 +56,9 @@ namespace FoodOrdersView
                 if (_shopDishes != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var sc in _shopDishes)
+                    foreach (var sd in _shopDishes)
                     {
-                        dataGridView.Rows.Add(new object[] { sc.Key, sc.Value.Item1.DishName, sc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { sd.Key, sd.Value.Item1.DishName, sd.Value.Item2 });
                     }
                 }
             }
