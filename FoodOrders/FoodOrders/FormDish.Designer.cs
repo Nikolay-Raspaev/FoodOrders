@@ -52,6 +52,7 @@
             this.textBoxPrice.Location = new System.Drawing.Point(90, 36);
             this.textBoxPrice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.ReadOnly = true;
             this.textBoxPrice.Size = new System.Drawing.Size(138, 23);
             this.textBoxPrice.TabIndex = 7;
             // 

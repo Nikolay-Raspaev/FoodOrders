@@ -8,7 +8,7 @@ namespace FoodOrdersView
     public partial class FormComponent : Form
     {
         private readonly ILogger _logger;
-        private readonly IComponentLogic _logic;
+        private readonly IComponentLogic _logicC;
         private int? _id;
         public int Id { set { _id = value; } }
 
@@ -16,7 +16,7 @@ namespace FoodOrdersView
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicC = logic;
         }
 
         private void FormComponent_Load(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace FoodOrdersView
                 try
                 {
                     _logger.LogInformation("Получение блюда");
-                    var view = _logic.ReadElement(new ComponentSearchModel
+                    var view = _logicC.ReadElement(new ComponentSearchModel
                     {
                         Id = _id.Value
                     });
@@ -61,7 +61,7 @@ namespace FoodOrdersView
                     ComponentName = textBoxName.Text,
                     Cost = Convert.ToDouble(textBoxCost.Text)
                 };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                var operationResult = _id.HasValue ? _logicC.Update(model) : _logicC.Create(model);
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");

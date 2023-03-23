@@ -88,6 +88,8 @@ namespace FoodOrdersListImplement.Implements
         }
         public ComponentViewModel? Delete(ComponentBindingModel model)
         {
+            // не юзаем foreach так как при изменении данных (добавление и удаление записей) коллекции foreach ломается
+            // если бы просто меняли значение записи всё было бы в порядке
             for (int i = 0; i < _source.Components.Count; ++i)
             {
                 if (_source.Components[i].Id == model.Id)
