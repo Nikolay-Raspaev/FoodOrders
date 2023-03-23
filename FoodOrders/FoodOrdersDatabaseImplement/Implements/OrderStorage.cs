@@ -9,30 +9,13 @@ namespace FoodOrdersDatabaseImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
-        public OrderViewModel? Delete(OrderBindingModel model)
+        public List<OrderViewModel> GetFullList()
         {
-            using var context = new FoodOrdersDatabase();
-            var element = context.Orders
-                .FirstOrDefault(rec => rec.Id == model.Id);
-            if (element != null)
-            {
-                context.Orders.Remove(element);
-                context.SaveChanges();
-                return element.GetViewModel;
-            }
-            return null;
-        }
-
-        public OrderViewModel? GetElement(OrderSearchModel model)
-        {
-            if (!model.Id.HasValue)
-            {
-                return null;
-            }
             using var context = new FoodOrdersDatabase();
             return context.Orders
-                .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
-                ?.GetViewModel;
+                    .Include(x => x.Dish)
+                    .Select(x => x.GetViewModel)
+                    .ToList();
         }
 
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
@@ -43,37 +26,23 @@ namespace FoodOrdersDatabaseImplement.Implements
             }
             using var context = new FoodOrdersDatabase();
             return context.Orders
+                    .Include(x => x.Dish)
                     .Where(x => x.Id == model.Id)
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
 
-        private static OrderViewModel GetViewModel(Order order)
+        public OrderViewModel? GetElement(OrderSearchModel model)
         {
-            var viewModel = order.GetViewModel;
-            using var context = new FoodOrdersDatabase();
-            var element = context.Dishes
-                .FirstOrDefault(x => x.Id == order.DishId);
-            viewModel.DishName = element.DishName;
-            return viewModel;
-        }
-
-        public List<OrderViewModel> GetFullList()
-        {
+            if (!model.Id.HasValue)
+            {
+                return null;
+            }
             using var context = new FoodOrdersDatabase();
             return context.Orders
-                    .Select(x => new OrderViewModel
-                    {
-                        Id = x.Id,
-                        DishId = x.DishId,
-                        Count = x.Count,
-                        Sum = x.Sum,
-                        Status = x.Status,
-                        DateCreate = x.DateCreate,
-                        DateImplement = x.DateImplement,
-                        DishName = x.Dish.DishName
-                    })
-                    .ToList();
+                .Include(x => x.Dish)
+                .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
+                ?.GetViewModel;
         }
 
         public OrderViewModel? Insert(OrderBindingModel model)
@@ -100,6 +69,18 @@ namespace FoodOrdersDatabaseImplement.Implements
             order.Update(model);
             context.SaveChanges();
             return order.GetViewModel;
+        }
+        public OrderViewModel? Delete(OrderBindingModel model)
+        {
+            using var context = new FoodOrdersDatabase();
+            var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Orders.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
     }
 }

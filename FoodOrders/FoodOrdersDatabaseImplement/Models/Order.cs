@@ -8,6 +8,8 @@ namespace FoodOrdersDatabaseImplement.Models
 {
     public class Order : IOrderModel
     {
+        public int Id { get; set; }
+
         [Required]
         public int DishId { get; set; }
 
@@ -26,8 +28,6 @@ namespace FoodOrdersDatabaseImplement.Models
         public virtual Dish Dish { get; set; }
 
         public DateTime? DateImplement { get; set; }
-
-        public int Id { get; set; }
 
         public static Order? Create(OrderBindingModel? model)
         {
@@ -65,7 +65,8 @@ namespace FoodOrdersDatabaseImplement.Models
             Sum = Sum,
             Status = Status,
             DateCreate = DateCreate,
-            DateImplement = DateImplement
+            DateImplement = DateImplement,
+            DishName = Dish.DishName
         };
     }
 }
