@@ -21,5 +21,9 @@ namespace FoodOrdersDatabaseImplement
         public virtual DbSet<DishComponent> DishComponents { set; get; }
 
         public virtual DbSet<Order> Orders { set; get; }
+
+        public virtual DbSet<Shop> Shops { set; get; }
+
+        public virtual DbSet<ShopDish> ShopDishes { set; get; }
     }
 }
