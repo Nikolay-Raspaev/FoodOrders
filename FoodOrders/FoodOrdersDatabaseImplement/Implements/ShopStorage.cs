@@ -127,10 +127,10 @@ namespace FoodOrdersDatabaseImplement.Implements
 
                 foreach (var shopDish in ListShopDish)
                 {
-                    if (count - shopDish.Count >= 0)
+                    if (count - shopDish.Count > 0)
                     {
                         count -= shopDish.Count;
-                        ListShopDish.Remove(shopDish);
+                        shopDish.Count = 0;
                     }
                     else
                     {
