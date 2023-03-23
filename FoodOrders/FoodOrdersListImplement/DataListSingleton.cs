@@ -7,12 +7,12 @@ namespace FoodOrdersListImplement
         private static DataListSingleton? _instance;
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
-        public List<Dish> Dish { get; set; }
+        public List<Dish> Dishes { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
-            Dish = new List<Dish>();
+            Dishes = new List<Dish>();
         }
         public static DataListSingleton GetInstance()
         {

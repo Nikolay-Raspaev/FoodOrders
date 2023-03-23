@@ -19,10 +19,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         }
         public List<ComponentViewModel>? ReadList(ComponentSearchModel? model)
         {
-            _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}",
-                model?.ComponentName, model?.Id);
-            var list = model == null ? _componentStorage.GetFullList() :
-                _componentStorage.GetFilteredList(model);
+            _logger.LogInformation("ReadList. ComponentName:{ComponentName}. Id:{Id}", model?.ComponentName, model?.Id);
+            var list = model == null ? _componentStorage.GetFullList() : _componentStorage.GetFilteredList(model);
             if (list == null)
             {
                 _logger.LogWarning("ReadList return null list");
@@ -38,7 +36,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 throw new ArgumentNullException(nameof(model));
             }
             _logger.LogInformation("ReadElement. ComponentName:{ComponentName}. Id:{Id}", model.ComponentName, model.Id);
-        var element = _componentStorage.GetElement(model);
+            var element = _componentStorage.GetElement(model);
             if (element == null)
             {
                 _logger.LogWarning("ReadElement element not found");
@@ -78,8 +76,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             }
             return true;
         }
-        private void CheckModel(ComponentBindingModel model, bool withParams =
-       true)
+        private void CheckModel(ComponentBindingModel model, bool withParams = true)
         {
             if (model == null)
             {
@@ -99,10 +96,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 throw new ArgumentNullException("Цена компонента должна быть больше 0", nameof(model.Cost));
             }
             _logger.LogInformation("Component. ComponentName:{ComponentName}. Cost:{ Cost}. Id:{Id}", model.ComponentName, model.Cost, model.Id);
-        var element = _componentStorage.GetElement(new ComponentSearchModel
-        {
-            ComponentName = model.ComponentName
-        });
+            var element = _componentStorage.GetElement(new ComponentSearchModel
+            {
+                ComponentName = model.ComponentName
+            });
             if (element != null && element.Id != model.Id)
             {
                 throw new InvalidOperationException("Компонент с таким названием уже есть");

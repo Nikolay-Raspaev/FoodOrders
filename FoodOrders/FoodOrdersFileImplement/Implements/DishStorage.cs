@@ -32,8 +32,7 @@ namespace FoodOrdersFileImplement.Implements
             {
                 return null;
             }
-            return _source.Dishes
-            .FirstOrDefault(x => (!string.IsNullOrEmpty(model.DishName) && x.DishName == model.DishName) || (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
+            return _source.Dishes.FirstOrDefault(x => (!string.IsNullOrEmpty(model.DishName) && x.DishName == model.DishName) || (model.Id.HasValue && x.Id == model.Id))?.GetViewModel;
         }
         public DishViewModel? Insert(DishBindingModel model)
         {

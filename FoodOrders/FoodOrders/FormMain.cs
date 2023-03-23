@@ -9,16 +9,15 @@ namespace FoodOrdersView
     public partial class FormMain : Form
     {
         private readonly ILogger _logger;
+        private readonly IOrderLogic _logicO;
 
-        private readonly IOrderLogic _orderLogic;
-
-        private readonly IReportLogic _reportLogic;
+        private readonly IReportLogic _logicR;
         public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic)
         {
             InitializeComponent();
             _logger = logger;
-            _orderLogic = orderLogic;
-            _reportLogic = reportLogic;
+            _logicO = orderLogic;
+            _logicR = reportLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -28,7 +27,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _orderLogic.ReadList(null);
+                var list = _logicO.ReadList(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
@@ -75,7 +74,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Заказ №{id}. Меняется статус на 'В работе'", id);
                 try
                 {
-                    var operationResult = _orderLogic.TakeOrderInWork(new OrderBindingModel
+                    var operationResult = _logicO.TakeOrderInWork(new OrderBindingModel
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
@@ -105,7 +104,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Заказ №{id}. Меняется статус на 'Готов'", id);
                 try
                 {
-                    var operationResult = _orderLogic.FinishOrder(new OrderBindingModel 
+                    var operationResult = _logicO.FinishOrder(new OrderBindingModel 
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
@@ -135,7 +134,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Заказ №{id}. Меняется статус на 'Выдан'", id);
                 try
                 {
-                    var operationResult = _orderLogic.DeliveryOrder(new OrderBindingModel
+                    var operationResult = _logicO.DeliveryOrder(new OrderBindingModel
                     {
                         Id = id,
                         DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),

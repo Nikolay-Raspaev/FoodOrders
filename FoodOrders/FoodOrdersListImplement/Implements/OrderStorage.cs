@@ -65,7 +65,7 @@ namespace FoodOrdersListImplement.Implements
         private OrderViewModel GetViewModel(Order order)
         {
             var viewModel = order.GetViewModel;
-            foreach (var dish in _source.Dish)
+            foreach (var dish in _source.Dishes)
             {
                 if (dish.Id == order.DishId)
                 {

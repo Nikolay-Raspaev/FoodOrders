@@ -37,8 +37,8 @@ namespace FoodOrdersDatabaseImplement.Implements
             }
             using var context = new FoodOrdersDatabase();
             return context.Components
-                    .FirstOrDefault(x => (!string.IsNullOrEmpty(model.ComponentName) && x.ComponentName == model.ComponentName) ||
-                                        (model.Id.HasValue && x.Id == model.Id))
+                    .FirstOrDefault(x => (!string.IsNullOrEmpty(model.ComponentName) && x.ComponentName == model.ComponentName) || 
+                    (model.Id.HasValue && x.Id == model.Id))
                     ?.GetViewModel;
         }
 

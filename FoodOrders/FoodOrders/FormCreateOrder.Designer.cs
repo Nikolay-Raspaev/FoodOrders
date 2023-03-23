@@ -65,6 +65,7 @@
             this.textBoxSum.Location = new System.Drawing.Point(93, 63);
             this.textBoxSum.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxSum.Name = "textBoxSum";
+            this.textBoxSum.ReadOnly = true;
             this.textBoxSum.Size = new System.Drawing.Size(230, 23);
             this.textBoxSum.TabIndex = 13;
             // 
@@ -110,7 +111,7 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(12, 9);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(42, 15);
+            this.labelName.Size = new System.Drawing.Size(79, 15);
             this.labelName.TabIndex = 8;
             this.labelName.Text = "Набор блюд:";
             // 

@@ -18,6 +18,7 @@ namespace FoodOrdersDatabaseImplement.Models
 
         private Dictionary<int, (IComponentModel, int)>? _dishComponents = null;
 
+        //??
         [NotMapped]
         public Dictionary<int, (IComponentModel, int)> DishComponents
         {
@@ -25,8 +26,7 @@ namespace FoodOrdersDatabaseImplement.Models
             {
                 if (_dishComponents == null)
                 {
-                    _dishComponents = Components
-                            .ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component as IComponentModel, recPC.Count));
+                    _dishComponents = Components.ToDictionary(recPC => recPC.ComponentId, recPC => (recPC.Component as IComponentModel, recPC.Count));
                 }
                 return _dishComponents;
             }
@@ -68,7 +68,7 @@ namespace FoodOrdersDatabaseImplement.Models
         {
             var dishComponents = context.DishComponents.Where(rec => rec.DishId == model.Id).ToList();
             if (dishComponents != null && dishComponents.Count > 0)
-            {   // удалили те, которых нет в модели
+            {   // удалили те в бд, которых нет в модели
                 context.DishComponents.RemoveRange(dishComponents.Where(rec => !model.DishComponents.ContainsKey(rec.ComponentId)));
                 context.SaveChanges();
                 // обновили количество у существующих записей
@@ -80,13 +80,14 @@ namespace FoodOrdersDatabaseImplement.Models
                 context.SaveChanges();
             }
             var dish = context.Dishes.First(x => x.Id == Id);
-            foreach (var pc in model.DishComponents)
+            //добавляем в бд блюда которые есть в моделе, но ещё нет в бд
+            foreach (var dc in model.DishComponents)
             {
                 context.DishComponents.Add(new DishComponent
                 {
                     Dish = dish,
-                    Component = context.Components.First(x => x.Id == pc.Key),
-                    Count = pc.Value.Item2
+                    Component = context.Components.First(x => x.Id == dc.Key),
+                    Count = dc.Value.Item2
                 });
                 context.SaveChanges();
             }

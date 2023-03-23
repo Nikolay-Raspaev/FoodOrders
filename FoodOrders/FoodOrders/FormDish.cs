@@ -9,7 +9,7 @@ namespace FoodOrdersView
     public partial class FormDish : Form
     {
         private readonly ILogger _logger;
-        private readonly IDishLogic _logic;
+        private readonly IDishLogic _logicD;
         private int? _id;
         private Dictionary<int, (IComponentModel, int)> _dishComponents;
         public int Id { set { _id = value; } }
@@ -17,7 +17,7 @@ namespace FoodOrdersView
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;
+            _logicD = logic;
             _dishComponents = new Dictionary<int, (IComponentModel, int)>();
         }
         private void FormDish_Load(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Загрузка набор блюд");
                 try
                 {
-                    var view = _logic.ReadElement(new DishSearchModel
+                    var view = _logicD.ReadElement(new DishSearchModel
                     {
                         Id = _id.Value
                     });
@@ -35,6 +35,7 @@ namespace FoodOrdersView
                     {
                         textBoxName.Text = view.DishName;
                         textBoxPrice.Text = view.Price.ToString();
+                        //если не null то слева, если null то справа
                         _dishComponents = view.DishComponents ?? new Dictionary<int, (IComponentModel, int)>();
                         LoadData();
                     }
@@ -55,9 +56,9 @@ namespace FoodOrdersView
                 if (_dishComponents != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var sc in _dishComponents)
+                    foreach (var dc in _dishComponents)
                     {
-                        dataGridView.Rows.Add(new object[] { sc.Key, sc.Value.Item1.ComponentName, sc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { dc.Key, dc.Value.Item1.ComponentName, dc.Value.Item2 });
                     }
                     textBoxPrice.Text = CalcPrice().ToString();
                 }
@@ -82,13 +83,11 @@ namespace FoodOrdersView
                     _logger.LogInformation("Добавление нового блюда: { ComponentName} - { Count}", form.ComponentModel.ComponentName, form.Count);
                     if (_dishComponents.ContainsKey(form.Id))
                     {
-                        _dishComponents[form.Id] = (form.ComponentModel,
-                       form.Count);
+                        _dishComponents[form.Id] = (form.ComponentModel, form.Count);
                     }
                     else
                     {
-                        _dishComponents.Add(form.Id, (form.ComponentModel,
-                       form.Count));
+                        _dishComponents.Add(form.Id, (form.ComponentModel, form.Count));
                     }
                     LoadData();
                 }
@@ -101,8 +100,7 @@ namespace FoodOrdersView
                 var service = Program.ServiceProvider?.GetService(typeof(FormDishComponents));
                 if (service is FormDishComponents form)
                 {
-                    int id =
-                   Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                    int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     form.Id = id;
                     form.Count = _dishComponents[id].Item2;
                     if (form.ShowDialog() == DialogResult.OK)
@@ -127,8 +125,8 @@ namespace FoodOrdersView
                 {
                     try
                     {
-                        _logger.LogInformation("Удаление блюда: { ComponentName} - { Count} ", 
-                            dataGridView.SelectedRows[0].Cells[1].Value); _dishComponents?.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
+                        _logger.LogInformation("Удаление блюда: { ComponentName} - { Count} ", dataGridView.SelectedRows[0].Cells[1].Value, dataGridView.SelectedRows[0].Cells[2].Value); 
+                        _dishComponents?.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
                     catch (Exception ex)
                     {
@@ -173,7 +171,7 @@ namespace FoodOrdersView
                     Price = Convert.ToDouble(textBoxPrice.Text),
                     DishComponents = _dishComponents
                 };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                var operationResult = _id.HasValue ? _logicD.Update(model) : _logicD.Create(model);
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
