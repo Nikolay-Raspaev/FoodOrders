@@ -21,7 +21,6 @@ namespace FoodOrdersView
         }
         private void LoadData()
         {
-            _logger.LogInformation("Загрузка заказов");
             try
             {
                 var list = _logicO.ReadList(null);
