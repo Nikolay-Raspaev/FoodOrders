@@ -76,12 +76,7 @@ namespace FoodOrdersView
                 {
                     var operationResult = _logicO.TakeOrderInWork(new OrderBindingModel
                     {
-                        Id = id,
-                        DishId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DishId"].Value),
-                        Status = Enum.Parse<OrderStatus>(dataGridView.SelectedRows[0].Cells["Status"].Value.ToString()),
-                        Count = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Count"].Value),
-                        Sum = double.Parse(dataGridView.SelectedRows[0].Cells["Sum"].Value.ToString()),
-                        DateCreate = DateTime.Parse(dataGridView.SelectedRows[0].Cells["DateCreate"].Value.ToString()),
+                        Id = id
                     });
                     if (!operationResult)
                     {
