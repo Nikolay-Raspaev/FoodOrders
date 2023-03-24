@@ -1,4 +1,4 @@
-﻿namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
+﻿namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Excel
 {
     public class ExcelMergeParameters
     {

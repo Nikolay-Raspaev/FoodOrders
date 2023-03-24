@@ -1,10 +1,10 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
 
-namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
+namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Pdf
 {
-    public class PdfParagraph
+    public class PdfRowParameters
     {
-        public string Text { get; set; } = string.Empty;
+        public List<string> Texts { get; set; } = new();
 
         public string Style { get; set; } = string.Empty;
 

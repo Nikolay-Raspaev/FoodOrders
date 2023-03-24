@@ -1,6 +1,6 @@
 ﻿using FoodOrdersContracts.ViewModels;
 
-namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
+namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Pdf
 {
     public class PdfInfo
     {

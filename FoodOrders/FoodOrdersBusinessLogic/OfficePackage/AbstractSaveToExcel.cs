@@ -1,5 +1,5 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
-using FoodOrdersBusinessLogic.OfficePackage.HelperModels;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Excel;
 
 namespace FoodOrdersBusinessLogic.OfficePackage
 {

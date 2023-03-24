@@ -1,4 +1,4 @@
-﻿namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
+﻿namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Word
 {
     public class WordParagraph
     {

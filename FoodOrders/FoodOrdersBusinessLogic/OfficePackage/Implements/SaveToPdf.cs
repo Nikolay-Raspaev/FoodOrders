@@ -1,5 +1,5 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
-using FoodOrdersBusinessLogic.OfficePackage.HelperModels;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Pdf;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;

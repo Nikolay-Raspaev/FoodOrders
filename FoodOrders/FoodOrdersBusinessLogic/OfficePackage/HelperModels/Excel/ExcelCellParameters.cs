@@ -1,6 +1,6 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
 
-namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels
+namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Excel
 {
     public class ExcelCellParameters
     {

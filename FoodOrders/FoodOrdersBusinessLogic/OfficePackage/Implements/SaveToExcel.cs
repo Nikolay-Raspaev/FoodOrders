@@ -1,10 +1,10 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
-using FoodOrdersBusinessLogic.OfficePackage.HelperModels;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Office2013.Excel;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Excel;
 
 namespace FoodOrdersBusinessLogic.OfficePackage.Implements
 {

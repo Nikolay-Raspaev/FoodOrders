@@ -1,8 +1,8 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage.HelperEnums;
-using FoodOrdersBusinessLogic.OfficePackage.HelperModels;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Word;
 
 namespace FoodOrdersBusinessLogic.OfficePackage.Implements
 {
