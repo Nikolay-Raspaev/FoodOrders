@@ -55,7 +55,10 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             context.Orders.Add(newOrder);
             context.SaveChanges();
-            return newOrder.GetViewModel;
+            return context.Orders
+                .Include(x => x.Dish)
+                .FirstOrDefault(x => x.Id == newOrder.Id)
+                 ?.GetViewModel;
         }
 
         public OrderViewModel? Update(OrderBindingModel model)
@@ -68,7 +71,10 @@ namespace FoodOrdersDatabaseImplement.Implements
             }
             order.Update(model);
             context.SaveChanges();
-            return order.GetViewModel;
+            return context.Orders
+                .Include(x => x.Dish)
+                .FirstOrDefault(x => x.Id == order.Id)
+                 ?.GetViewModel;
         }
         public OrderViewModel? Delete(OrderBindingModel model)
         {
