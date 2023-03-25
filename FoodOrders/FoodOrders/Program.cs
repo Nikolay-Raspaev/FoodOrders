@@ -42,6 +42,7 @@ namespace FoodOrdersView
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
+            services.AddTransient<IClientStorage, ClientStorage>();
 
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
@@ -53,6 +54,7 @@ namespace FoodOrdersView
             services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
 
             services.AddTransient<FormMain>();
+            services.AddTransient<FormClients>();
             services.AddTransient<FormComponent>();
             services.AddTransient<FormComponents>();
             services.AddTransient<FormCreateOrder>();

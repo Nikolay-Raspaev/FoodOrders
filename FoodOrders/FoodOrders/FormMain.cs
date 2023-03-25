@@ -174,5 +174,14 @@ namespace FoodOrdersView
                 form.ShowDialog();
             }
         }
+
+        private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormClients));
+            if (service is FormClients form)
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }

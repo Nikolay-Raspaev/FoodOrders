@@ -36,11 +36,11 @@ namespace FoodOrdersView
                         dataGridView.Rows.Add(Array.Empty<object>());
                     }
                 }
-                _logger.LogInformation("Загрузка списка изделий по компонентам");
+                _logger.LogInformation("Загрузка списка блюд по компонентам");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка загрузки списка изделий по компонентам");
+                _logger.LogError(ex, "Ошибка загрузки списка блюд по компонентам");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -56,12 +56,12 @@ namespace FoodOrdersView
 					{
 						FileName = dialog.FileName
 					});
-                    _logger.LogInformation("Сохранение списка изделий по компонентам");
+                    _logger.LogInformation("Сохранение списка блюд по компонентам");
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 				catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка сохранения списка изделий по компонентам");
+                    _logger.LogError(ex, "Ошибка сохранения списка блюд по компонентам");
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}

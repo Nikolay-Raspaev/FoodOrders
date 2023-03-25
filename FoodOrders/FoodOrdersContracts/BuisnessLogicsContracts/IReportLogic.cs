@@ -6,7 +6,7 @@ namespace FoodOrdersContracts.BusinessLogicsContracts
     public interface IReportLogic
     {
         /// <summary>
-        /// Получение списка компонент с указанием, в каких изделиях используются
+        /// Получение списка компонент с указанием, в каких блюдах используются
         /// </summary>
         /// <returns></returns>
         List<ReportDishComponentViewModel> GetDishComponent();
