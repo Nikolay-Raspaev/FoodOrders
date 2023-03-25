@@ -10,6 +10,7 @@ namespace FoodOrdersView
         private readonly ILogger _logger;
         private readonly IDishLogic _logicD;
         private readonly IOrderLogic _logicO;
+        private readonly IClientLogic _clientLogic;
         public FormCreateOrder(ILogger<FormCreateOrder> logger, IDishLogic logicS, IOrderLogic logicO)
         {
             InitializeComponent();
@@ -22,13 +23,21 @@ namespace FoodOrdersView
             _logger.LogInformation("Загрузка Набор блюд для заказа");
             try
             {
-                var list = _logicD.ReadList(null);
-                if (list != null)
+                var dishList = _logicD.ReadList(null);
+                if (dishList != null)
                 {
                     comboBoxDish.DisplayMember = "DishName";
                     comboBoxDish.ValueMember = "Id";
-                    comboBoxDish.DataSource = list;
+                    comboBoxDish.DataSource = dishList;
                     comboBoxDish.SelectedItem = null;
+                }
+                var clientList = _clientLogic.ReadList(null);
+                if (clientList != null)
+                {
+                    comboBoxClient.DisplayMember = "Email";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.DataSource = clientList;
+                    comboBoxClient.SelectedItem = null;
                 }
 
             }
@@ -76,7 +85,12 @@ namespace FoodOrdersView
             }
             if (comboBoxDish.SelectedValue == null)
             {
-                MessageBox.Show("Выберите Набор блюд", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите набор блюд", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             _logger.LogInformation("Создание заказа");
@@ -85,6 +99,7 @@ namespace FoodOrdersView
                 var operationResult = _logicO.CreateOrder(new OrderBindingModel
                 {
                     DishId = Convert.ToInt32(comboBoxDish.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxDish.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDouble(textBoxSum.Text)
                 });
