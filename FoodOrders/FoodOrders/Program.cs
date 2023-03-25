@@ -42,11 +42,13 @@ namespace FoodOrdersView
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
+            services.AddTransient<IShopStorage, ShopStorage>();
 
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<IReportLogic, ReportLogic>();
+            services.AddTransient<IShopLogic, ShopLogic>();
 
             services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
             services.AddTransient<AbstractSaveToWord, SaveToWord>();
