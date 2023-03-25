@@ -1,10 +1,9 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
-using System.Reflection;
 using System.Xml.Linq;
 
-namespace FoodOrdersFileImplement.ViewModels
+namespace FoodOrdersFileImplement.Models
 {
     public class Client : IClientModel
     {

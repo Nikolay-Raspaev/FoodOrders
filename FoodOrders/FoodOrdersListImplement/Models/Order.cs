@@ -9,6 +9,7 @@ namespace FoodOrdersListImplement.Models
     public class Order : IOrderModel
     {
         public int Id { get; private set; }
+        public int ClientId { get; private set; }
         public int DishId { get; private set; }
         public int Count { get; private set; }
         public double Sum { get; private set; }
@@ -24,8 +25,9 @@ namespace FoodOrdersListImplement.Models
             }
             return new Order()
             {
-                Id = model.Id,
+                Id = model.Id,               
                 DishId = model.DishId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -46,6 +48,7 @@ namespace FoodOrdersListImplement.Models
         {
             Id = Id,
             DishId = DishId,
+            ClientId = ClientId,
             Count = Count,
             Sum = Sum,
             Status = Status,

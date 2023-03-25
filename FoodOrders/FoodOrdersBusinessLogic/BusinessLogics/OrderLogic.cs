@@ -78,6 +78,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 throw new ArgumentNullException("Некорректный идентификатор у продукта", nameof(model.Id));
             }
+            if (model.ClientId < 0)
+            {
+                throw new ArgumentNullException("Некорректный идентификатор у клиента", nameof(model.ClientId));
+            }
             if (model.Count <= 0)
             {
                 throw new ArgumentNullException("Количество продуктов в заказе должно быть больше 0", nameof(model.Count));

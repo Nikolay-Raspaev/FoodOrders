@@ -3,7 +3,7 @@ using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using System.Reflection;
 
-namespace FoodOrdersListImplement.ViewModels
+namespace FoodOrdersListImplement.Models
 {
     public class Client : IClientModel
     {

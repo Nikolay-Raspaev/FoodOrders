@@ -22,8 +22,7 @@ namespace FoodOrdersListImplement.Implements
             }
             return result;
         }
-        public List<ComponentViewModel> GetFilteredList(ComponentSearchModel
-       model)
+        public List<ComponentViewModel> GetFilteredList(ComponentSearchModel model)
         {
             var result = new List<ComponentViewModel>();
             if (string.IsNullOrEmpty(model.ComponentName))

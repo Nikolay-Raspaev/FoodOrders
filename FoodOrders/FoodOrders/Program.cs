@@ -48,6 +48,7 @@ namespace FoodOrdersView
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<IReportLogic, ReportLogic>();
+            services.AddTransient<IClientLogic, ClientLogic>();
 
             services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
             services.AddTransient<AbstractSaveToWord, SaveToWord>();

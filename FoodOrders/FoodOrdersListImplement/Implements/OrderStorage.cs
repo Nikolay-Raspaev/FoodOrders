@@ -30,6 +30,17 @@ namespace FoodOrdersListImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
             var result = new List<OrderViewModel>();
+            if (model.ClientId.HasValue)
+            {
+                foreach (var order in _source.Orders)
+                {
+                    if (order.ClientId == model.ClientId)
+                    {
+                        result.Add(GetViewModel(order));
+                    }
+                }
+                return result;
+            }
             if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 foreach (var order in _source.Orders)
@@ -75,6 +86,14 @@ namespace FoodOrdersListImplement.Implements
                 if (dish.Id == order.DishId)
                 {
                     viewModel.DishName = dish.DishName;
+                    break;
+                }
+            }
+            foreach (var client in _source.Clients)
+            {
+                if (client.Id == order.ClientId)
+                {
+                    viewModel.ClientFIO = client.ClientFIO;
                     break;
                 }
             }

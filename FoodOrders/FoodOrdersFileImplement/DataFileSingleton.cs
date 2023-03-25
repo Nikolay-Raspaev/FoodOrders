@@ -8,9 +8,12 @@ namespace FoodOrdersFileImplement
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
         private readonly string DishFileName = "Dish.xml";
+        private readonly string ClientFileName = "Clients.xml";
         public List<Component> Components { get; private set; }
         public List<Order> Orders { get; private set; }
         public List<Dish> Dishes { get; private set; }
+        public List<Client> Clients { get; private set; }
+        
         public static DataFileSingleton GetInstance()
         {
             if (instance == null)
@@ -22,11 +25,13 @@ namespace FoodOrdersFileImplement
         public void SaveComponents() => SaveData(Components, ComponentFileName, "Components", x => x.GetXElement);
         public void SaveDishes() => SaveData(Dishes, DishFileName, "Dishes", x => x.GetXElement);
         public void SaveOrders() => SaveData(Orders, OrderFileName, "Orders", x => x.GetXElement);
+        public void SaveClients() => SaveData(Clients, ClientFileName, "Clients", x => x.GetXElement);
         private DataFileSingleton()
         {
             Components = LoadData(ComponentFileName, "Component", x => Component.Create(x)!)!;
             Dishes = LoadData(DishFileName, "Dish", x => Dish.Create(x)!)!;
             Orders = LoadData(OrderFileName, "Order", x => Order.Create(x)!)!;
+            Clients = LoadData(ClientFileName, "Client", x => Client.Create(x)!)!;
         }
         private static List<T>? LoadData<T>(string filename, string xmlNodeName, Func<XElement, T> selectFunction)
         {

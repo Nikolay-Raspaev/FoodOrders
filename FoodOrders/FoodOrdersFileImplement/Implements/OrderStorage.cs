@@ -21,6 +21,13 @@ namespace FoodOrdersFileImplement.Implements
         }
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
+            if (model.ClientId.HasValue)
+            {
+                return _source.Orders
+                    .Where(x => x.ClientId == model.ClientId)
+                    .Select(x => GetViewModel(x))
+                    .ToList();
+            }
             if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 return _source.Orders
@@ -44,6 +51,7 @@ namespace FoodOrdersFileImplement.Implements
         {
             var viewModel = order.GetViewModel;
             viewModel.DishName = _source.Dishes.FirstOrDefault(x => (x.Id == order.DishId))?.DishName;
+            viewModel.ClientFIO = _source.Clients.FirstOrDefault(x => (x.Id == order.ClientId))?.ClientFIO;
             return viewModel;
         }
 
