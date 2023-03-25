@@ -32,9 +32,14 @@ namespace FoodOrdersListImplement.Implements
             var result = new List<OrderViewModel>();
             if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
             {
-                return _source.Orders.Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
-                    .Select(x => GetViewModel(x))
-                    .ToList();
+                foreach (var order in _source.Orders)
+                {
+                    if (order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    {
+                        result.Add(GetViewModel(order));
+                    }
+                }
+                return result;
             }
             foreach (var order in _source.Orders)
             {

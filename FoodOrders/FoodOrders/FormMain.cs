@@ -152,7 +152,7 @@ namespace FoodOrdersView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _reportLogic.SaveComponentsToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                _logicR.SaveComponentsToWordFile(new ReportBindingModel { FileName = dialog.FileName });
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

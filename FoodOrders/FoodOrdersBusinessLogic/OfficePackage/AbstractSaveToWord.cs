@@ -23,7 +23,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage
             {
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = new List<(string, WordTextProperties)> { (dish.DishName, new WordTextProperties { Size = "24" }) },
+                    Texts = new List<(string, WordTextProperties)> { (dish.DishName + " ", new WordTextProperties { Bold = true, Size = "24" }), (dish.Price.ToString(), new WordTextProperties { Size = "24" }) },
                     TextProperties = new WordTextProperties
                     {
                         Size = "24",

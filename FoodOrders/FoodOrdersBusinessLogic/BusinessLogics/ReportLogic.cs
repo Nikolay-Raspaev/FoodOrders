@@ -1,5 +1,8 @@
 ﻿using FoodOrdersBusinessLogic.OfficePackage;
 using FoodOrdersBusinessLogic.OfficePackage.HelperModels;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Excel;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Pdf;
+using FoodOrdersBusinessLogic.OfficePackage.HelperModels.Word;
 using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.SearchModels;
