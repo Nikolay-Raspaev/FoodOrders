@@ -14,6 +14,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             return context.Orders
                     .Include(x => x.Dish)
+                    .Include(x => x.Client)
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
@@ -24,6 +25,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             if (model.ClientId.HasValue)
             {
                 return context.Orders
+                    .Include(x => x.Dish)
                     .Include(x => x.Client)
                     .Where(x => x.ClientId == model.ClientId)
                     .Select(x => x.GetViewModel)
@@ -33,12 +35,14 @@ namespace FoodOrdersDatabaseImplement.Implements
             {
                 return context.Orders
                 .Include(x => x.Dish)
+                    .Include(x => x.Client)
                 .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
                 .Select(x => x.GetViewModel)
                 .ToList();
             }
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .Where(x => x.Id == model.Id)
                 .Select(x => x.GetViewModel)
                 .ToList();
@@ -53,6 +57,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
                 ?.GetViewModel;
         }
@@ -69,6 +74,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             context.SaveChanges();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => x.Id == newOrder.Id)
                  ?.GetViewModel;
         }
@@ -85,6 +91,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             context.SaveChanges();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => x.Id == order.Id)
                  ?.GetViewModel;
         }

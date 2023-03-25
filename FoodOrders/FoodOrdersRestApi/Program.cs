@@ -16,7 +16,7 @@ builder.Services.AddTransient<IDishStorage, DishStorage>();
 
 builder.Services.AddTransient<IOrderLogic, OrderLogic>();
 builder.Services.AddTransient<IClientLogic, ClientLogic>();
-builder.Services.AddTransient<IDishStorage, DishStorage>();
+builder.Services.AddTransient<IDishLogic, DishLogic>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
