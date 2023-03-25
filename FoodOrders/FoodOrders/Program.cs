@@ -1,10 +1,13 @@
+using FoodOrdersBusinessLogic.BusinessLogics;
+using FoodOrdersBusinessLogic.OfficePackage.Implements;
+using FoodOrdersBusinessLogic.OfficePackage;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.StoragesContracts;
+using FoodOrdersDatabaseImplement.Implements;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using FoodOrdersDatabaseImplement.Implements;
-using FoodOrdersBusinessLogic.BusinessLogics;
+using FoodOrdersView;
 
 namespace FoodOrdersView
 {
@@ -39,11 +42,16 @@ namespace FoodOrdersView
             services.AddTransient<IComponentStorage, ComponentStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
-            services.AddTransient<IShopStorage, ShopStorage>();
+
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
-            services.AddTransient<IShopLogic, ShopLogic>();
+            services.AddTransient<IReportLogic, ReportLogic>();
+
+            services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
+            services.AddTransient<AbstractSaveToWord, SaveToWord>();
+            services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
+
             services.AddTransient<FormMain>();
             services.AddTransient<FormComponent>();
             services.AddTransient<FormComponents>();
@@ -51,6 +59,8 @@ namespace FoodOrdersView
             services.AddTransient<FormDish>();
             services.AddTransient<FormDishComponents>();
             services.AddTransient<FormDishes>();
+            services.AddTransient<FormReportDishComponents>();
+            services.AddTransient<FormReportOrders>();
             services.AddTransient<FormShops>();
             services.AddTransient<FormShop>();
             services.AddTransient<FormDeliveryDishes>();

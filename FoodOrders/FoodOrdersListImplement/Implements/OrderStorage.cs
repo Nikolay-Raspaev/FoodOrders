@@ -30,8 +30,15 @@ namespace FoodOrdersListImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
             var result = new List<OrderViewModel>();
-            if (!model.Id.HasValue)
+            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
             {
+                foreach (var order in _source.Orders)
+                {
+                    if (order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    {
+                        result.Add(GetViewModel(order));
+                    }
+                }
                 return result;
             }
             foreach (var order in _source.Orders)
