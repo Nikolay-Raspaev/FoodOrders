@@ -2,6 +2,7 @@
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 
 namespace FoodOrdersDatabaseImplement.Models
@@ -18,6 +19,9 @@ namespace FoodOrdersDatabaseImplement.Models
 
         [Required]
         public string Password { get; set; } = string.Empty;
+
+        [ForeignKey("ClientId")]
+        public virtual List<Order> Orders { get; set; } = new();
 
         public static Client? Create(ClientBindingModel? model)
         {

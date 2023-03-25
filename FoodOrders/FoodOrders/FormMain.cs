@@ -32,6 +32,7 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["DishId"].Visible = false;
+                    dataGridView.Columns["ClientId"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка заказов");
             }

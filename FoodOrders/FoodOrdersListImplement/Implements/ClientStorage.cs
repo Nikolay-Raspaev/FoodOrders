@@ -2,6 +2,7 @@
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
+using FoodOrdersListImplement.Models;
 
 namespace FoodOrdersListImplement.Implements
 {
@@ -12,16 +13,15 @@ namespace FoodOrdersListImplement.Implements
         {
             _source = DataListSingleton.GetInstance();
         }
-        public ClientViewModel? Delete(ClientBindingModel model)
+        public List<ClientViewModel> GetFullList()
         {
-            throw new NotImplementedException();
+            var result = new List<ClientViewModel>();
+            foreach (var component in _source.Clients)
+            {
+                result.Add(component.GetViewModel);
+            }
+            return result;
         }
-
-        public ClientViewModel? GetElement(ClientSearchModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<ClientViewModel> GetFilteredList(ClientSearchModel model)
         {
             var result = new List<ClientViewModel>();
@@ -38,25 +38,65 @@ namespace FoodOrdersListImplement.Implements
             }
             return result;
         }
-
-        public List<ClientViewModel> GetFullList()
+        public ClientViewModel? GetElement(ClientSearchModel model)
         {
-            var result = new List<ClientViewModel>();
+            if (string.IsNullOrEmpty(model.Email) && !model.Id.HasValue)
+            {
+                return null;
+            }
             foreach (var component in _source.Clients)
             {
-                result.Add(component.GetViewModel);
+                if ((!string.IsNullOrEmpty(model.Email) &&
+                component.Email == model.Email) ||
+                (model.Id.HasValue && component.Id == model.Id))
+                {
+                    return component.GetViewModel;
+                }
             }
-            return result;
+            return null;
         }
-
         public ClientViewModel? Insert(ClientBindingModel model)
         {
-            throw new NotImplementedException();
+            model.Id = 1;
+            foreach (var component in _source.Clients)
+            {
+                if (model.Id <= component.Id)
+                {
+                    model.Id = component.Id + 1;
+                }
+            }
+            var newClient = Client.Create(model);
+            if (newClient == null)
+            {
+                return null;
+            }
+            _source.Clients.Add(newClient);
+            return newClient.GetViewModel;
         }
-
         public ClientViewModel? Update(ClientBindingModel model)
         {
-            throw new NotImplementedException();
+            foreach (var component in _source.Clients)
+            {
+                if (component.Id == model.Id)
+                {
+                    component.Update(model);
+                    return component.GetViewModel;
+                }
+            }
+            return null;
+        }
+        public ClientViewModel? Delete(ClientBindingModel model)
+        {
+            for (int i = 0; i < _source.Clients.Count; ++i)
+            {
+                if (_source.Clients[i].Id == model.Id)
+                {
+                    var element = _source.Clients[i];
+                    _source.Clients.RemoveAt(i);
+                    return element.GetViewModel;
+                }
+            }
+            return null;
         }
     }
 }

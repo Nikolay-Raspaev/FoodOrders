@@ -29,7 +29,8 @@ namespace FoodOrdersDatabaseImplement.Implements
             }
             using var context = new FoodOrdersDatabase();
             return context.Clients
-                    .FirstOrDefault(x => (x.Email == model.Email) || (x.Id == model.Id))
+                    .FirstOrDefault(x => (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) ||
+                    (model.Id.HasValue && x.Id == model.Id))
                     ?.GetViewModel;
         }
 
