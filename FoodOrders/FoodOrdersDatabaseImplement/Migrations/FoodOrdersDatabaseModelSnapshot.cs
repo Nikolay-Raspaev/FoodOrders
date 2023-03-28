@@ -39,7 +39,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components");
+                    b.ToTable("Components", (string)null);
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Dish", b =>
@@ -59,7 +59,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dishes");
+                    b.ToTable("Dishes", (string)null);
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.DishComponent", b =>
@@ -85,7 +85,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("DishComponents");
+                    b.ToTable("DishComponents", (string)null);
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
@@ -118,7 +118,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.DishComponent", b =>
