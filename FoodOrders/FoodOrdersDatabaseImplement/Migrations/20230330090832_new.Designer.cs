@@ -4,6 +4,7 @@ using FoodOrdersDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrdersDatabaseImplement.Migrations
 {
     [DbContext(typeof(FoodOrdersDatabase))]
-    partial class FoodOrdersDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20230330090832_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("DishVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -39,7 +42,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components", (string)null);
+                    b.ToTable("Components");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Dish", b =>
@@ -59,7 +62,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dishes", (string)null);
+                    b.ToTable("Dishes");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.DishComponent", b =>
@@ -85,7 +88,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("DishComponents", (string)null);
+                    b.ToTable("DishComponents");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
@@ -118,7 +121,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
                     b.HasIndex("DishId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.DishComponent", b =>
