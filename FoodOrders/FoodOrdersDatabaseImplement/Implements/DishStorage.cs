@@ -93,7 +93,8 @@ namespace FoodOrdersDatabaseImplement.Implements
 			using var context = new FoodOrdersDatabase();
 			var element = context.Dishes
 				.Include(x => x.Components)
-				.FirstOrDefault(rec => rec.Id == model.Id);
+                .Include(x => x.Orders)
+                .FirstOrDefault(rec => rec.Id == model.Id);
 			if (element != null)
 			{
 				context.Dishes.Remove(element);
