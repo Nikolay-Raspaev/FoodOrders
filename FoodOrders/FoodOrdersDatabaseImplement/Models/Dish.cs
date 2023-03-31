@@ -35,6 +35,9 @@ namespace FoodOrdersDatabaseImplement.Models
         [ForeignKey("DishId")]
         public virtual List<DishComponent> Components { get; set; } = new();
 
+        [ForeignKey("DishId")]
+        public virtual List<Order> Orders { get; set; } = new();
+
         public static Dish Create(FoodOrdersDatabase context, DishBindingModel model)
         {
             return new Dish()

@@ -43,8 +43,6 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         /// <returns></returns>
         public List<ReportDishComponentViewModel> GetDishComponent()
         {
-            var components = _componentStorage.GetFullList();
-
             var dishes = _dishStorage.GetFullList();
 
             var list = new List<ReportDishComponentViewModel>();
