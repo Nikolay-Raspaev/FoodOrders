@@ -19,6 +19,8 @@ namespace FoodOrdersContracts.ViewModels
         public string ClientFIO { get; set; } = string.Empty;
 
         [DisplayName("Исполнитель")]
+        public string ImplementerFIO { get; set; } = string.Empty;
+
         public int? ImplementerId { get; set; }
 
         [DisplayName("Количество")]

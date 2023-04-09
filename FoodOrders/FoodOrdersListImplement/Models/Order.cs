@@ -52,6 +52,7 @@ namespace FoodOrdersListImplement.Models
             Id = Id,
             DishId = DishId,
             ClientId = ClientId,
+            ImplementerFIO = DataListSingleton.GetInstance().Implementers.FirstOrDefault(x => x.Id == ImplementerId)?.ImplementerFIO ?? string.Empty,
             Count = Count,
             Sum = Sum,
             Status = Status,

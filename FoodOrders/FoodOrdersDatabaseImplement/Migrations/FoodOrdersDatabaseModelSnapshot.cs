@@ -113,6 +113,33 @@ namespace FoodOrdersDatabaseImplement.Migrations
                     b.ToTable("DishComponents");
                 });
 
+            modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImplementerFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Qualification")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkExperience")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
+                });
+
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -136,6 +163,9 @@ namespace FoodOrdersDatabaseImplement.Migrations
                     b.Property<int>("DishId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -147,6 +177,8 @@ namespace FoodOrdersDatabaseImplement.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("DishId");
+
+                    b.HasIndex("ImplementerId");
 
                     b.ToTable("Orders");
                 });
@@ -184,9 +216,15 @@ namespace FoodOrdersDatabaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FoodOrdersDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId");
+
                     b.Navigation("Client");
 
                     b.Navigation("Dish");
+
+                    b.Navigation("Implementer");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Client", b =>
@@ -203,6 +241,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 {
                     b.Navigation("Components");
 
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Implementer", b =>
+                {
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

@@ -74,6 +74,7 @@ namespace FoodOrdersFileImplement.Models
             Id = Id,
             DishId = DishId,
             ClientId = ClientId,
+            ImplementerFIO = DataFileSingleton.GetInstance().Implementers.FirstOrDefault(x => x.Id == ImplementerId)?.ImplementerFIO ?? string.Empty,
             Count = Count,
             Sum = Sum,
             Status = Status,

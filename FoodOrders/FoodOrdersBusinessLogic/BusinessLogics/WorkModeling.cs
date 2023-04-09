@@ -74,7 +74,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                         _logger.LogDebug("DoWork. Worker {Id} finish order {Order}", implementer.Id, order.Id);
                         _orderLogic.FinishOrder(new OrderBindingModel
                         {
-                            Id = order.Id
+                            Id = order.Id,
+                            ImplementerId = implementer.Id
                         });
                     }
                     // кто-то мог уже перехватить заказ, игнорируем ошибку

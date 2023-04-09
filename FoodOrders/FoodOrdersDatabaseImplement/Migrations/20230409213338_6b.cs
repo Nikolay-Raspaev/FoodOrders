@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FoodOrdersDatabaseImplement.Migrations
 {
     /// <inheritdoc />
-    public partial class _5Base : Migration
+    public partial class _6b : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,6 +55,22 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Implementers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImplementerFIO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkExperience = table.Column<int>(type: "int", nullable: false),
+                    Qualification = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Implementers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DishComponents",
                 columns: table => new
                 {
@@ -89,6 +105,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DishId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
+                    ImplementerId = table.Column<int>(type: "int", nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Sum = table.Column<double>(type: "float", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -110,6 +127,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                         principalTable: "Dishes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Implementers_ImplementerId",
+                        column: x => x.ImplementerId,
+                        principalTable: "Implementers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -131,6 +153,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 name: "IX_Orders_DishId",
                 table: "Orders",
                 column: "DishId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ImplementerId",
+                table: "Orders",
+                column: "ImplementerId");
         }
 
         /// <inheritdoc />
@@ -150,6 +177,9 @@ namespace FoodOrdersDatabaseImplement.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dishes");
+
+            migrationBuilder.DropTable(
+                name: "Implementers");
         }
     }
 }

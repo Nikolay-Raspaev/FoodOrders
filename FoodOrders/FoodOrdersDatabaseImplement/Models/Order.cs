@@ -33,6 +33,8 @@ namespace FoodOrdersDatabaseImplement.Models
 
         public virtual Client Client { get; set; }
 
+        public Implementer? Implementer { get; private set; }
+
         public DateTime? DateImplement { get; set; }
 
         public static Order? Create(OrderBindingModel? model)
@@ -73,6 +75,7 @@ namespace FoodOrdersDatabaseImplement.Models
             ClientId = ClientId,
             ImplementerId = ImplementerId,
             ClientFIO = Client.ClientFIO,
+            ImplementerFIO = Implementer?.ImplementerFIO ?? string.Empty,
             Count = Count,
             Sum = Sum,
             Status = Status,

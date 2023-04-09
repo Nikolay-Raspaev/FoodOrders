@@ -69,6 +69,8 @@ namespace FoodOrdersView
             services.AddTransient<FormDishes>();
             services.AddTransient<FormReportDishComponents>();
             services.AddTransient<FormReportOrders>();
+            services.AddTransient<FormViewImplementers>();
+            services.AddTransient<FormImplementer>();
         }
     }
 }
