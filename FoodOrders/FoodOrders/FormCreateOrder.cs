@@ -100,7 +100,7 @@ namespace FoodOrdersView
                 var operationResult = _logicO.CreateOrder(new OrderBindingModel
                 {
                     DishId = Convert.ToInt32(comboBoxDish.SelectedValue),
-                    ClientId = Convert.ToInt32(comboBoxDish.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDouble(textBoxSum.Text)
                 });
