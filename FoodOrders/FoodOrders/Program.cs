@@ -67,6 +67,8 @@ namespace FoodOrdersView
             services.AddTransient<FormShop>();
             services.AddTransient<FormDeliveryDishes>();
             services.AddTransient<FormSellDishes>();
+            services.AddTransient<FormReportShopListDish>();
+            services.AddTransient<FormReportOrdersGroupedByDate>();
         }
     }
 }

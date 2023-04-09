@@ -19,18 +19,20 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
         private readonly IOrderStorage _orderStorage;
 
+        private readonly IShopStorage _shopStorage;
+
         private readonly AbstractSaveToExcel _saveToExcel;
 
         private readonly AbstractSaveToWord _saveToWord;
 
         private readonly AbstractSaveToPdf _saveToPdf;
 
-        public ReportLogic(IDishStorage dishStorage, IComponentStorage componentStorage, IOrderStorage orderStorage,
-            AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf)
+        public ReportLogic(IDishStorage dishStorage, IComponentStorage componentStorage, IOrderStorage orderStorage, IShopStorage shopStorage,
+        AbstractSaveToExcel saveToExcel, AbstractSaveToWord saveToWord, AbstractSaveToPdf saveToPdf)
         {
             _dishStorage = dishStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
+            _shopStorage = shopStorage;
 
             _saveToExcel = saveToExcel;
             _saveToWord = saveToWord;
@@ -66,12 +68,40 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
 
             return list;
         }
+        /// <summary>
+        /// Получение списка блюда с указанием, в каких магазинах используются
+        /// </summary>
+        /// <returns></returns>
+        public List<ReportShopDishViewModel> GetShopDish()
+        {
+            var shops = _shopStorage.GetFullList();
+
+            var list = new List<ReportShopDishViewModel>();
+
+            foreach (var shop in shops)
+            {
+                var record = new ReportShopDishViewModel
+                {
+                    ShopName = shop.ShopName,
+                    ListDish = new(),
+                    TotalCount = 0
+                };
+                foreach (var sushi in shop.ShopDishes)
+                {
+                    record.ListDish.Add(new(sushi.Value.Item1.DishName, sushi.Value.Item2));
+                    record.TotalCount += sushi.Value.Item2;
+                }
+                list.Add(record);
+            }
+            return list;
+        }
 
         /// <summary>
         /// Получение списка заказов за определенный период
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        /// 
         public List<ReportOrdersViewModel> GetOrders(ReportBindingModel model)
         {
             return _orderStorage.GetFilteredList(new OrderSearchModel { DateFrom = model.DateFrom, DateTo = model.DateTo })
@@ -87,10 +117,28 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         }
 
         /// <summary>
+        /// Получение списка заказов, сгруппированных по дате
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public List<ReportOrdersGroupedByDateViewModel> GetOrdersGroupedByDate()
+        {
+            return _orderStorage.GetFullList()
+                .GroupBy(x => x.DateCreate.Date)
+                .Select(x => new ReportOrdersGroupedByDateViewModel
+                {
+                    DateCreate = x.Key,
+                    Count = x.Count(),
+                    Sum = x.Sum(x => x.Sum)
+                })
+                .ToList();
+        }
+
+        /// <summary>
         /// Сохранение компонент в файл-Word
         /// </summary>
         /// <param name="model"></param>
-        public void SaveComponentsToWordFile(ReportBindingModel model)
+        public void SaveDishesToWordFile(ReportBindingModel model)
         {
             _saveToWord.CreateDoc(new WordInfo
             {
@@ -115,6 +163,34 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
         }
 
         /// <summary>
+        /// Сохранение магазинов в файл-Word
+        /// </summary>
+        /// <param name="model"></param>
+        public void SaveShopsToWordFile(ReportBindingModel model)
+        {
+            _saveToWord.CreateShopsDoc(new WordInfo
+            {
+                FileName = model.FileName,
+                Title = "Список магазинов",
+                Shops = _shopStorage.GetFullList()
+            });
+        }
+
+        /// <summary>
+        /// Сохранение блюда с указаеним магазина в файл-Excel
+        /// </summary>
+        /// <param name="model"></param>
+        public void SaveShopDishToExcelFile(ReportBindingModel model)
+        {
+            _saveToExcel.CreateShopReport(new ExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список магазинов",
+                ShopListDish = GetShopDish()
+            });
+        }
+
+        /// <summary>
         /// Сохранение заказов в файл-Pdf
         /// </summary>
         /// <param name="model"></param>
@@ -127,6 +203,20 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 DateFrom = model.DateFrom!.Value,
                 DateTo = model.DateTo!.Value,
                 Orders = GetOrders(model)
+            });
+        }
+
+        /// <summary>
+        /// Сохранение заказов в файл-Pdf
+        /// </summary>
+        /// <param name="model"></param>
+        public void SaveOrdersGroupedByDateToPdfFile(ReportBindingModel model)
+        {
+            _saveToPdf.CreateOrdersGroupedByDateDoc(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список заказов",
+                OrdersGroupedByDate = GetOrdersGroupedByDate()
             });
         }
     }

@@ -35,6 +35,46 @@ namespace FoodOrdersBusinessLogic.OfficePackage
             SaveWord(info);
         }
 
+        public void CreateShopsDoc(WordInfo info)
+        {
+            CreateWord(info);
+
+            CreateParagraph(new WordParagraph
+            {
+                Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24" }) },
+                TextProperties = new WordTextProperties
+                {
+                    Size = "24",
+                    JustificationType = WordJustificationType.Center
+                }
+            });
+
+            List<WordRow> rows = new List<WordRow>();
+            rows.Add(new WordRow
+            {
+                Rows = new List<(string, WordTextProperties)> {
+                        ("Название", new WordTextProperties { Size = "24", Bold = true }),
+                        ("Адрес", new WordTextProperties { Size = "24", Bold = true }),
+                        ("Дата открытия", new WordTextProperties { Size = "24", Bold = true })
+                }
+            });
+
+            foreach (var shop in info.Shops)
+            {
+                rows.Add(new WordRow
+                {
+                    Rows = new List<(string, WordTextProperties)> {
+                        (shop.ShopName, new WordTextProperties { Size = "24" }),
+                        (shop.Address, new WordTextProperties { Size = "24" }),
+                        (shop.DateOfOpening.ToShortDateString(), new WordTextProperties { Size = "24" })
+                    }
+                });
+            }
+
+            CreateTable(rows);
+
+            SaveWord(info);
+        }
         /// <summary>
 		/// Создание doc-файла
 		/// </summary>
@@ -53,5 +93,14 @@ namespace FoodOrdersBusinessLogic.OfficePackage
 		/// </summary>
 		/// <param name="info"></param>
         protected abstract void SaveWord(WordInfo info);
+
+        protected abstract void CreateTable(List<WordRow> rows);
+
+        /// <summary>
+        /// Создание абзаца с текстом
+        /// </summary>
+        /// <param name="paragraph"></param>
+        /// <returns></returns>
+
     }
 }

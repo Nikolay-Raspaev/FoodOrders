@@ -13,5 +13,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Pdf
         public DateTime DateTo { get; set; }
 
         public List<ReportOrdersViewModel> Orders { get; set; } = new();
+
+        public List<ReportOrdersGroupedByDateViewModel> OrdersGroupedByDate { get; set; } = new();
     }
 }

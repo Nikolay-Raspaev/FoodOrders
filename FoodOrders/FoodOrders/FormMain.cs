@@ -170,7 +170,7 @@ namespace FoodOrdersView
             using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                _logicR.SaveComponentsToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                _logicR.SaveDishesToWordFile(new ReportBindingModel { FileName = dialog.FileName });
                 MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -188,6 +188,34 @@ namespace FoodOrdersView
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormReportOrders));
             if (service is FormReportOrders form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void ShopsReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _logicR.SaveShopsToWordFile(new ReportBindingModel { FileName = dialog.FileName });
+                MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void ShopDishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormReportShopListDish));
+            if (service is FormReportShopListDish form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void OrdersGroupedByDateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormReportOrdersGroupedByDate));
+            if (service is FormReportOrdersGroupedByDate form)
             {
                 form.ShowDialog();
             }

@@ -9,5 +9,7 @@ namespace FoodOrdersBusinessLogic.OfficePackage.HelperModels.Word
         public string Title { get; set; } = string.Empty;
 
         public List<DishViewModel> Dishes { get; set; } = new();
+
+        public List<ShopViewModel> Shops { get; set; } = new();
     }
 }

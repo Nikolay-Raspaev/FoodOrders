@@ -89,6 +89,60 @@ namespace FoodOrdersBusinessLogic.OfficePackage.Implements
             _docBody = mainPart.Document.AppendChild(new Body());
         }
 
+        protected override void CreateTable(List<WordRow> data)
+        {
+            if (_docBody == null || data == null)
+            {
+                return;
+            }
+            Table table = new Table();
+            var tableProp = new TableProperties();
+            tableProp.AppendChild(new TableLayout { Type = TableLayoutValues.Fixed });
+            tableProp.AppendChild(new TableBorders(
+                    new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 },
+                    new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 },
+                    new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 },
+                    new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 },
+                    new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 },
+                    new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 4 }
+                    ));
+            tableProp.AppendChild(new TableWidth { Type = TableWidthUnitValues.Auto });
+            table.AppendChild(tableProp);
+            TableGrid tableGrid = new TableGrid();
+            for (int j = 0; j < data[0].Rows.Count; ++j)
+            {
+                tableGrid.AppendChild(new GridColumn() { Width = "3200" });
+            }
+            table.AppendChild(tableGrid);
+            for (int i = 0; i < data.Count; ++i)
+            {
+                TableRow docRow = new TableRow();
+                for (int j = 0; j < data[i].Rows.Count; ++j)
+                {
+                    var docParagraph = new Paragraph();
+                    var docRun = new Run();
+                    var runProperties = new RunProperties();
+
+                    docParagraph.AppendChild(CreateParagraphProperties(data[i].Rows[j].Item2));
+
+                    runProperties.AppendChild(new RunFonts() { Ascii = "Times New Roman", ComplexScript = "Times New Roman", HighAnsi = "Times New Roman" });
+                    runProperties.AppendChild(new FontSize { Val = data[i].Rows[j].Item2.Size == null ? data[i].Rows[j].Item2.Size : "24" });
+                    if (data[i].Rows[j].Item2.Bold)
+                        runProperties.AppendChild(new Bold());
+
+                    docRun.AppendChild(runProperties);
+                    docRun.AppendChild(new Text { Text = data[i].Rows[j].Item1.ToString(), Space = SpaceProcessingModeValues.Preserve });
+
+                    docParagraph.AppendChild(docRun);
+                    TableCell docCell = new TableCell();
+                    docCell.AppendChild(docParagraph);
+                    docRow.AppendChild(docCell);
+                }
+                table.AppendChild(docRow);
+            }
+            _docBody.AppendChild(table);
+        }
+
         protected override void CreateParagraph(WordParagraph paragraph)
         {
             if (_docBody == null || paragraph == null)

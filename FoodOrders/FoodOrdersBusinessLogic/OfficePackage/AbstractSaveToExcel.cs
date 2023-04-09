@@ -80,11 +80,86 @@ namespace FoodOrdersBusinessLogic.OfficePackage
 			SaveExcel(info);
 		}
 
-		/// <summary>
-		/// Создание excel-файла
-		/// </summary>
-		/// <param name="info"></param>
-		protected abstract void CreateExcel(ExcelInfo info);
+        /// <summary>
+        /// Создание отчета по блюда в магазинах
+        /// </summary>
+        /// <param name="info"></param>
+        public void CreateShopReport(ExcelInfo info)
+        {
+            CreateExcel(info);
+
+            InsertCellInWorksheet(new ExcelCellParameters
+            {
+                ColumnName = "A",
+                RowIndex = 1,
+                Text = info.Title,
+                StyleInfo = ExcelStyleInfoType.Title
+            });
+
+            MergeCells(new ExcelMergeParameters
+            {
+                CellFromName = "A1",
+                CellToName = "C1"
+            });
+
+            uint rowIndex = 2;
+            foreach (var ss in info.ShopListDish)
+            {
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    ColumnName = "A",
+                    RowIndex = rowIndex,
+                    Text = ss.ShopName,
+                    StyleInfo = ExcelStyleInfoType.Text
+                });
+                rowIndex++;
+
+                foreach (var (Dish, Count) in ss.ListDish)
+                {
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        ColumnName = "B",
+                        RowIndex = rowIndex,
+                        Text = Dish,
+                        StyleInfo = ExcelStyleInfoType.TextWithBroder
+                    });
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        ColumnName = "C",
+                        RowIndex = rowIndex,
+                        Text = Count.ToString(),
+                        StyleInfo = ExcelStyleInfoType.TextWithBroder
+                    });
+
+                    rowIndex++;
+                }
+
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    ColumnName = "A",
+                    RowIndex = rowIndex,
+                    Text = "Итого",
+                    StyleInfo = ExcelStyleInfoType.Text
+                });
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    ColumnName = "C",
+                    RowIndex = rowIndex,
+                    Text = ss.TotalCount.ToString(),
+                    StyleInfo = ExcelStyleInfoType.Text
+                });
+                rowIndex++;
+            }
+
+            SaveExcel(info);
+        }
+
+        /// <summary>
+        /// Создание excel-файла
+        /// </summary>
+        /// <param name="info"></param>
+        protected abstract void CreateExcel(ExcelInfo info);
 
 		/// <summary>
 		/// Добавляем новую ячейку в лист

@@ -32,10 +32,14 @@
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.БлюдаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.наборблюдToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.магазиныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.componentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dishesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.componentDishesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокМагазиновToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.магазинСБлюдамиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonSetToFinish = new System.Windows.Forms.Button();
             this.buttonSetToDone = new System.Windows.Forms.Button();
@@ -43,7 +47,6 @@
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.магазиныToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -83,36 +86,67 @@
             this.наборблюдToolStripMenuItem.Text = "Набор блюд";
             this.наборблюдToolStripMenuItem.Click += new System.EventHandler(this.DishToolStripMenuItem_Click);
             // 
+            // магазиныToolStripMenuItem
+            // 
+            this.магазиныToolStripMenuItem.Name = "магазиныToolStripMenuItem";
+            this.магазиныToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.магазиныToolStripMenuItem.Text = "Магазины";
+            this.магазиныToolStripMenuItem.Click += new System.EventHandler(this.ShopsToolStripMenuItem_Click);
+            // 
             // отчётыToolStripMenuItem
             // 
             this.отчётыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.componentsToolStripMenuItem,
+            this.dishesToolStripMenuItem,
             this.componentDishesToolStripMenuItem,
-            this.ordersToolStripMenuItem});
+            this.ordersToolStripMenuItem,
+            this.списокМагазиновToolStripMenuItem,
+            this.магазинСБлюдамиToolStripMenuItem,
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem});
             this.отчётыToolStripMenuItem.Name = "отчётыToolStripMenuItem";
             this.отчётыToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.отчётыToolStripMenuItem.Text = "Отчёты";
             // 
-            // componentsToolStripMenuItem
+            // dishesToolStripMenuItem
             // 
-            this.componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
-            this.componentsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.componentsToolStripMenuItem.Text = "Список Компонентов";
-            this.componentsToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
+            this.dishesToolStripMenuItem.Name = "dishesToolStripMenuItem";
+            this.dishesToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+            this.dishesToolStripMenuItem.Text = "Список Блюд";
+            this.dishesToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem_Click);
             // 
             // componentDishesToolStripMenuItem
             // 
             this.componentDishesToolStripMenuItem.Name = "componentDishesToolStripMenuItem";
-            this.componentDishesToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.componentDishesToolStripMenuItem.Text = "Компоненты по изделиям";
+            this.componentDishesToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+            this.componentDishesToolStripMenuItem.Text = "Компоненты по блюдам";
             this.componentDishesToolStripMenuItem.Click += new System.EventHandler(this.ComponentDishesToolStripMenuItem_Click);
             // 
             // ordersToolStripMenuItem
             // 
             this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
             this.ordersToolStripMenuItem.Text = "Список заказов";
             this.ordersToolStripMenuItem.Click += new System.EventHandler(this.OrdersToolStripMenuItem_Click);
+            // 
+            // списокМагазиновToolStripMenuItem
+            // 
+            this.списокМагазиновToolStripMenuItem.Name = "списокМагазиновToolStripMenuItem";
+            this.списокМагазиновToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+            this.списокМагазиновToolStripMenuItem.Text = "Список магазинов";
+            this.списокМагазиновToolStripMenuItem.Click += new System.EventHandler(this.ShopsReportToolStripMenuItem_Click);
+            // 
+            // магазинСБлюдамиToolStripMenuItem
+            // 
+            this.магазинСБлюдамиToolStripMenuItem.Name = "магазинСБлюдамиToolStripMenuItem";
+            this.магазинСБлюдамиToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+            this.магазинСБлюдамиToolStripMenuItem.Text = "Магазин с блюдами";
+            this.магазинСБлюдамиToolStripMenuItem.Click += new System.EventHandler(this.ShopDishToolStripMenuItem_Click);
+            // 
+            // списокЗаказовСгрупированныхПоДатамToolStripMenuItem
+            // 
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem.Name = "списокЗаказовСгрупированныхПоДатамToolStripMenuItem";
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem.Size = new System.Drawing.Size(310, 22);
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem.Text = "Список заказов, сгрупированных по датам";
+            this.списокЗаказовСгрупированныхПоДатамToolStripMenuItem.Click += new System.EventHandler(this.OrdersGroupedByDateToolStripMenuItem_Click);
             // 
             // buttonUpdate
             // 
@@ -192,13 +226,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.ButtonDeliveryDish_Click);
             // 
-            // магазиныToolStripMenuItem
-            // 
-            this.магазиныToolStripMenuItem.Name = "магазиныToolStripMenuItem";
-            this.магазиныToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.магазиныToolStripMenuItem.Text = "Магазины";
-            this.магазиныToolStripMenuItem.Click += new System.EventHandler(this.ShopsToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -237,10 +264,13 @@
         private Button buttonCreateOrder;
         private DataGridView dataGridView;
         private ToolStripMenuItem отчётыToolStripMenuItem;
-        private ToolStripMenuItem componentsToolStripMenuItem;
+        private ToolStripMenuItem dishesToolStripMenuItem;
         private ToolStripMenuItem componentDishesToolStripMenuItem;
         private ToolStripMenuItem ordersToolStripMenuItem;
         private Button button1;
         private ToolStripMenuItem магазиныToolStripMenuItem;
+        private ToolStripMenuItem списокМагазиновToolStripMenuItem;
+        private ToolStripMenuItem магазинСБлюдамиToolStripMenuItem;
+        private ToolStripMenuItem списокЗаказовСгрупированныхПоДатамToolStripMenuItem;
     }
 }

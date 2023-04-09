@@ -34,6 +34,33 @@ namespace FoodOrdersBusinessLogic.OfficePackage
             SavePdf(info);
         }
 
+        public void CreateOrdersGroupedByDateDoc(PdfInfo info)
+        {
+            CreatePdf(info);
+            CreateParagraph(new PdfParagraph { Text = info.Title, Style = "NormalTitle", ParagraphAlignment = PdfParagraphAlignmentType.Center });
+
+            CreateTable(new List<string> { "3cm", "3cm", "3cm" });
+
+            CreateRow(new PdfRowParameters
+            {
+                Texts = new List<string> { "Дата заказов", "Количество заказов", "Сумма" },
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+
+            foreach (var order in info.OrdersGroupedByDate)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Texts = new List<string> { order.DateCreate.ToShortDateString(), order.Count.ToString(), order.Sum.ToString() },
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Left
+                });
+            }
+
+            SavePdf(info);
+        }
+
         /// <summary>
 		/// Создание doc-файла
 		/// </summary>

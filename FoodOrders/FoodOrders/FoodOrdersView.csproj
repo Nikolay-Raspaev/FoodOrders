@@ -41,6 +41,9 @@
 		<None Update="ReportOrders.rdlc">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="ReportOrdersGroupedByDate.rdlc">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
