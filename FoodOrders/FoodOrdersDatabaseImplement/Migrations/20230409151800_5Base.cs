@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FoodOrdersDatabaseImplement.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class _5Base : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
