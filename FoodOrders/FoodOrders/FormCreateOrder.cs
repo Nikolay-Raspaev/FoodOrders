@@ -11,12 +11,13 @@ namespace FoodOrdersView
         private readonly IDishLogic _logicD;
         private readonly IOrderLogic _logicO;
         private readonly IClientLogic _clientLogic;
-        public FormCreateOrder(ILogger<FormCreateOrder> logger, IDishLogic logicS, IOrderLogic logicO)
+        public FormCreateOrder(ILogger<FormCreateOrder> logger, IDishLogic logicS, IOrderLogic logicO, IClientLogic clientLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logicD = logicS;
             _logicO = logicO;
+            _clientLogic = clientLogic;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
