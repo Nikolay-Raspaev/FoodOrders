@@ -15,6 +15,8 @@ namespace FoodOrdersDatabaseImplement.Models
         [Required]
         public int ClientId { get; set; }
 
+        public int? ImplementerId { get; set; }
+
         [Required]
         public int Count { get; set; }
 
@@ -44,6 +46,7 @@ namespace FoodOrdersDatabaseImplement.Models
                 Id = model.Id,
                 DishId = model.DishId,
                 ClientId = model.ClientId,
+                ImplementerId = model.ImplementerId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -60,6 +63,7 @@ namespace FoodOrdersDatabaseImplement.Models
             }
             Status = model.Status;
             DateImplement = model.DateImplement;
+            ImplementerId = model.ImplementerId;
         }
 
         public OrderViewModel GetViewModel => new()
@@ -67,6 +71,7 @@ namespace FoodOrdersDatabaseImplement.Models
             Id = Id,
             DishId = DishId,
             ClientId = ClientId,
+            ImplementerId = ImplementerId,
             ClientFIO = Client.ClientFIO,
             Count = Count,
             Sum = Sum,

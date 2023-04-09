@@ -10,14 +10,15 @@ namespace FoodOrdersView
     {
         private readonly ILogger _logger;
         private readonly IOrderLogic _logicO;
-
+        private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic)
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess) 
         {
             InitializeComponent();
             _logger = logger;
             _logicO = orderLogic;
             _logicR = reportLogic;
+            _workProcess = workProcess;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -67,56 +68,7 @@ namespace FoodOrdersView
                 LoadData();
             }
         }
-        private void ButtonTakeOrderInWork_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                _logger.LogInformation("Заказ №{id}. Меняется статус на 'В работе'", id);
-                try
-                {
-                    var operationResult = _logicO.TakeOrderInWork(new OrderBindingModel
-                    {
-                        Id = id
-                    });
-                    if (!operationResult)
-                    {
-                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                    }
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Ошибка передачи заказа в работу");
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        private void ButtonOrderReady_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                _logger.LogInformation("Заказ №{id}. Меняется статус на 'Готов'", id);
-                try
-                {
-                    var operationResult = _logicO.FinishOrder(new OrderBindingModel 
-                    {
-                        Id = id
-                    });
-                    if (!operationResult)
-                    {
-                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                    }
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Ошибка отметки о готовности заказа");
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
+
         private void ButtonIssuedOrder_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -183,6 +135,22 @@ namespace FoodOrdersView
             {
                 form.ShowDialog();
             }
+        }
+
+        private void ImplementersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormViewImplementers));
+            if (service is FormViewImplementers form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void DoWorkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _workProcess.DoWork((Program.ServiceProvider?.GetService(typeof(IImplementerLogic)) as IImplementerLogic)!, _logicO);
+            MessageBox.Show("Процесс обработки запущен", "Сообщение",
+            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

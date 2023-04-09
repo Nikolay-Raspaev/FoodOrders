@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using FoodOrdersView;
+using FoodOrdersBusinessLogic.BusinessLogics;
+using FoodOrdersContracts.BusinessLogicsContracts;
 
 namespace FoodOrdersView
 {
@@ -43,12 +45,15 @@ namespace FoodOrdersView
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
             services.AddTransient<IClientStorage, ClientStorage>();
+            services.AddTransient<IImplementerStorage, ImplementerStorage>();
 
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<IReportLogic, ReportLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddTransient<IImplementerLogic, ImplementerLogic>();
+            services.AddTransient<IWorkProcess, WorkModeling>();
 
             services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
             services.AddTransient<AbstractSaveToWord, SaveToWord>();

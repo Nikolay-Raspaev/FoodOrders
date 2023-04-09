@@ -18,6 +18,23 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _orderStorage = orderStorage;
         }
 
+        public OrderViewModel? ReadElement(OrderSearchModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            _logger.LogInformation("ReadElement. Id:{Id}", model.Id);
+            var element = _orderStorage.GetElement(model);
+            if (element == null)
+            {
+                _logger.LogWarning("ReadElement element not found");
+                return null;
+            }
+            _logger.LogInformation("ReadElement find. Id:{Id}", element.Id);
+            return element;
+        }
+
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
         {
             _logger.LogInformation("ReadList. Id:{Id}", model?.Id);

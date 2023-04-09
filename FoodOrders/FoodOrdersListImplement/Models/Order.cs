@@ -10,6 +10,7 @@ namespace FoodOrdersListImplement.Models
     {
         public int Id { get; private set; }
         public int ClientId { get; private set; }
+        public int? ImplementerId { get; set; }
         public int DishId { get; private set; }
         public int Count { get; private set; }
         public double Sum { get; private set; }
@@ -32,7 +33,8 @@ namespace FoodOrdersListImplement.Models
                 Sum = model.Sum,
                 Status = model.Status,
                 DateCreate = model.DateCreate,
-                DateImplement = model.DateImplement
+                DateImplement = model.DateImplement,
+                ImplementerId = model.ImplementerId
             };
         }
         public void Update(OrderBindingModel? model)
@@ -43,6 +45,7 @@ namespace FoodOrdersListImplement.Models
             }
             Status = model.Status;
             DateImplement = model.DateImplement;
+            ImplementerId = model.ImplementerId;
         }
         public OrderViewModel GetViewModel => new()
         {
@@ -53,7 +56,8 @@ namespace FoodOrdersListImplement.Models
             Sum = Sum,
             Status = Status,
             DateCreate = DateCreate,
-            DateImplement = DateImplement
+            DateImplement = DateImplement,
+            ImplementerId = ImplementerId
         };
     }
 }

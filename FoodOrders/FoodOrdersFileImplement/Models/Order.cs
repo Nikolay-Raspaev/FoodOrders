@@ -13,6 +13,7 @@ namespace FoodOrdersFileImplement.Models
         public int Id { get; private set; }
         public int DishId { get; private set; }
         public int ClientId { get; private set; }
+        public int? ImplementerId { get; set; }
         public int Count { get; private set; }
         public double Sum { get; private set; }
         public OrderStatus Status { get; private set; }
@@ -29,6 +30,7 @@ namespace FoodOrdersFileImplement.Models
             {
                 Id = Convert.ToInt32(element.Attribute("Id")!.Value),
                 ClientId = Convert.ToInt32(element.Element("ClientId")!.Value),
+                ImplementerId = Convert.ToInt32(element.Element("ImplementerId")!.Value),
                 DishId = Convert.ToInt32(element.Element("DishId")!.Value),
                 Sum = Convert.ToDouble(element.Element("Sum")!.Value),
                 Count = Convert.ToInt32(element.Element("Count")!.Value),
@@ -49,6 +51,7 @@ namespace FoodOrdersFileImplement.Models
                 Id = model.Id,
                 DishId = model.DishId,
                 ClientId = model.ClientId,
+                ImplementerId = model.ImplementerId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -64,6 +67,7 @@ namespace FoodOrdersFileImplement.Models
             }
             Status = model.Status;
             DateImplement = model.DateImplement;
+            ImplementerId = model.ImplementerId;
         }
         public OrderViewModel GetViewModel => new()
         {
@@ -74,7 +78,8 @@ namespace FoodOrdersFileImplement.Models
             Sum = Sum,
             Status = Status,
             DateCreate = DateCreate,
-            DateImplement = DateImplement
+            DateImplement = DateImplement,
+            ImplementerId = ImplementerId
         };
 
         public XElement GetXElement => new(
@@ -82,6 +87,7 @@ namespace FoodOrdersFileImplement.Models
            new XAttribute("Id", Id),
            new XElement("DishId", DishId.ToString()),
            new XElement("ClientId", ClientId.ToString()),
+           new XElement("ImplementerId", ClientId.ToString()),
            new XElement("Count", Count.ToString()),
            new XElement("Sum", Sum.ToString()),
            new XElement("Status", Status.ToString()),
