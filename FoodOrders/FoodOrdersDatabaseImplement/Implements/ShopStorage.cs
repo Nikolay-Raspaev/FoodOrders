@@ -85,7 +85,10 @@ namespace FoodOrdersDatabaseImplement.Implements
                 }
                 updateShop.Update(model);
                 context.SaveChanges();
-                updateShop.UpdateDish(context, model);
+                if (model.ShopDishes.Count != 0)
+                {
+                    updateShop.UpdateDish(context, model);
+                }
                 transaction.Commit();
                 return updateShop.GetViewModel;
             }

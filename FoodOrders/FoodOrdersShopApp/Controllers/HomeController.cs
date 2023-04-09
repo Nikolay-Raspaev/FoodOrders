@@ -70,7 +70,7 @@ namespace FoodOrdersShopApp.Controllers
         }
 
         [HttpPost]
-        public void Create(string shopname, string address, int maxCount)
+        public void Create(string name, string address, int maxCount)
         {
             if (APIClient.IsAccessAllowed is false)
             {
@@ -80,7 +80,7 @@ namespace FoodOrdersShopApp.Controllers
             {
                 throw new Exception("Количество и сумма должны быть больше 0");
             }
-            if (string.IsNullOrEmpty(shopname))
+            if (string.IsNullOrEmpty(name))
             {
                 throw new Exception($"Имя магазина не должно быть пустым");
             }
@@ -90,7 +90,7 @@ namespace FoodOrdersShopApp.Controllers
             }
             APIClient.PostRequest("api/shop/createshop", new ShopBindingModel
             {
-                ShopName = shopname,
+                ShopName = name,
                 Address = address,
                 Capacity = maxCount,
             });

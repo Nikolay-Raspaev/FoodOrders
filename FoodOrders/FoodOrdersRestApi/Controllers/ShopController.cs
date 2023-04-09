@@ -1,5 +1,6 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
+using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -83,9 +84,9 @@ namespace FoodOrdersRestApi.Controllers
 		public void DeleteShop(ShopBindingModel model) => CRUDShop(() => _logic.Delete(model));
 
 		[HttpPost]
-		public void AddDishInShop(Tuple<DishViewModel, int> countDishForShop)
+		public void AddDishInShop(Tuple<ShopSearchModel, DishViewModel, int> countDishForShop)
 		{
-			CRUDShop(() => _logic.AddDishes(countDishForShop.Item1, countDishForShop.Item2));
-		}
+			CRUDShop(() => _logic.DeliveryDishes(countDishForShop.Item1, countDishForShop.Item2, countDishForShop.Item3));
+        }
 	}
 }
