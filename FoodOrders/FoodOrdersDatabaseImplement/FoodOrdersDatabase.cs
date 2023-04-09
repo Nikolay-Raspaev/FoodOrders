@@ -9,7 +9,7 @@ namespace FoodOrdersDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SINQU55\SQLEXPRESS;Initial Catalog=FoodOrdersDatabase10;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SINQU55\SQLEXPRESS;Initial Catalog=FoodOrdersDatabase;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
             }
             base.OnConfiguring(optionsBuilder);
         }
