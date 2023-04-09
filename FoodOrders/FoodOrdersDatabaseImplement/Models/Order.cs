@@ -12,6 +12,7 @@ namespace FoodOrdersDatabaseImplement.Models
 
         [Required]
         public int DishId { get; set; }
+
         [Required]
         public int ClientId { get; set; }
 
