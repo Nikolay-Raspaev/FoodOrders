@@ -14,23 +14,39 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             return context.Orders
                     .Include(x => x.Dish)
+                    .Include(x => x.Client)
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
 
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
+            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue)
+            {
+                return new();
+            }
             using var context = new FoodOrdersDatabase();
-            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
+            if (model.ClientId.HasValue)
+            {
+                return context.Orders
+                    .Include(x => x.Dish)
+                    .Include(x => x.Client)
+                    .Where(x => x.ClientId == model.ClientId)
+                    .Select(x => x.GetViewModel)
+                    .ToList();
+            }
+            else if (model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 return context.Orders
                 .Include(x => x.Dish)
+                    .Include(x => x.Client)
                 .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
                 .Select(x => x.GetViewModel)
                 .ToList();
             }
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .Where(x => x.Id == model.Id)
                 .Select(x => x.GetViewModel)
                 .ToList();
@@ -45,6 +61,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
                 ?.GetViewModel;
         }
@@ -61,6 +78,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             context.SaveChanges();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => x.Id == newOrder.Id)
                  ?.GetViewModel;
         }
@@ -77,6 +95,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             context.SaveChanges();
             return context.Orders
                 .Include(x => x.Dish)
+                .Include(x => x.Client)
                 .FirstOrDefault(x => x.Id == order.Id)
                  ?.GetViewModel;
         }

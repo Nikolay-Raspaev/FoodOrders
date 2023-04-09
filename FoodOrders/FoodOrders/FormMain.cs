@@ -32,6 +32,7 @@ namespace FoodOrdersView
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["DishId"].Visible = false;
+                    dataGridView.Columns["ClientId"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка заказов");
             }
@@ -216,6 +217,15 @@ namespace FoodOrdersView
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormReportOrdersGroupedByDate));
             if (service is FormReportOrdersGroupedByDate form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormClients));
+            if (service is FormClients form)
             {
                 form.ShowDialog();
             }

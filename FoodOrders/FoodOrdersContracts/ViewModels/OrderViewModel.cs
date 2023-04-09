@@ -13,6 +13,11 @@ namespace FoodOrdersContracts.ViewModels
         [DisplayName("Набор")]
         public string DishName { get; set; } = string.Empty;
 
+        public int ClientId { get; set; }
+
+        [DisplayName("Клиент")]
+        public string ClientFIO { get; set; } = string.Empty;
+
         [DisplayName("Количество")]
         public int Count { get; set; }
 

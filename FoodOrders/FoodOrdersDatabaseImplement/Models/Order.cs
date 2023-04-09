@@ -12,6 +12,8 @@ namespace FoodOrdersDatabaseImplement.Models
 
         [Required]
         public int DishId { get; set; }
+        [Required]
+        public int ClientId { get; set; }
 
         [Required]
         public int Count { get; set; }
@@ -27,6 +29,8 @@ namespace FoodOrdersDatabaseImplement.Models
 
         public virtual Dish Dish { get; set; }
 
+        public virtual Client Client { get; set; }
+
         public DateTime? DateImplement { get; set; }
 
         public static Order? Create(OrderBindingModel? model)
@@ -39,6 +43,7 @@ namespace FoodOrdersDatabaseImplement.Models
             {
                 Id = model.Id,
                 DishId = model.DishId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 Status = model.Status,
@@ -61,6 +66,8 @@ namespace FoodOrdersDatabaseImplement.Models
         {
             Id = Id,
             DishId = DishId,
+            ClientId = ClientId,
+            ClientFIO = Client.ClientFIO,
             Count = Count,
             Sum = Sum,
             Status = Status,

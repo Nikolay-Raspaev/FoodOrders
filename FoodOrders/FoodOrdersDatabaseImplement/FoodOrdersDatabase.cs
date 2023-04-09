@@ -25,5 +25,7 @@ namespace FoodOrdersDatabaseImplement
         public virtual DbSet<Shop> Shops { set; get; }
 
         public virtual DbSet<ShopDish> ShopDishes { set; get; }
+
+        public virtual DbSet<Client> Clients { set; get; }
     }
 }

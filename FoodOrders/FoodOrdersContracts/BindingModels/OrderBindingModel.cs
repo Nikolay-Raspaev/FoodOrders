@@ -6,6 +6,7 @@ namespace FoodOrdersContracts.BindingModels
     public class OrderBindingModel : IOrderModel
     {
         public int Id { get; set; }
+        public int ClientId { get; set; }
         public int DishId { get; set; }
         public int Count { get; set; }
         public double Sum { get; set; }

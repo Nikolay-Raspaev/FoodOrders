@@ -11,8 +11,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
     {
         private readonly ILogger _logger;
         private readonly IComponentStorage _componentStorage;
-        public ComponentLogic(ILogger<ComponentLogic> logger, IComponentStorage
-       ComponentStorage)
+        public ComponentLogic(ILogger<ComponentLogic> logger, IComponentStorage ComponentStorage)
         {
             _logger = logger;
             _componentStorage = ComponentStorage;
