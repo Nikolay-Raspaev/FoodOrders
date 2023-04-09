@@ -54,7 +54,7 @@
             this.buttonSetToWork = new System.Windows.Forms.Button();
             this.buttonCreateOrder = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.buttonAddPastryInShop = new System.Windows.Forms.Button();
+            this.buttonAddDishInShop = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -278,23 +278,23 @@
             this.dataGridView.Size = new System.Drawing.Size(755, 426);
             this.dataGridView.TabIndex = 7;
             // 
-            // buttonAddPastryInShop
+            // buttonAddDishInShop
             // 
-            this.buttonAddPastryInShop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddPastryInShop.Location = new System.Drawing.Point(780, 377);
-            this.buttonAddPastryInShop.Name = "buttonAddPastryInShop";
-            this.buttonAddPastryInShop.Size = new System.Drawing.Size(170, 61);
-            this.buttonAddPastryInShop.TabIndex = 13;
-            this.buttonAddPastryInShop.Text = "Пополнение магазина";
-            this.buttonAddPastryInShop.UseVisualStyleBackColor = true;
-            this.buttonAddPastryInShop.Click += new System.EventHandler(this.ButtonDeliveryDish_Click);
+            this.buttonAddDishInShop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddDishInShop.Location = new System.Drawing.Point(780, 377);
+            this.buttonAddDishInShop.Name = "buttonAddDishInShop";
+            this.buttonAddDishInShop.Size = new System.Drawing.Size(170, 61);
+            this.buttonAddDishInShop.TabIndex = 13;
+            this.buttonAddDishInShop.Text = "Пополнение магазина";
+            this.buttonAddDishInShop.UseVisualStyleBackColor = true;
+            this.buttonAddDishInShop.Click += new System.EventHandler(this.ButtonDeliveryDish_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(975, 450);
-            this.Controls.Add(this.buttonAddPastryInShop);
+            this.Controls.Add(this.buttonAddDishInShop);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonSetToFinish);
             this.Controls.Add(this.buttonSetToDone);
@@ -342,6 +342,6 @@
         private ToolStripMenuItem списокМагазиновToolStripMenuItem;
         private ToolStripMenuItem магазинССушиToolStripMenuItem;
         private ToolStripMenuItem списокЗаказовОбъединенныхПоДатамToolStripMenuItem;
-        private Button buttonAddPastryInShop;
+        private Button buttonAddDishInShop;
     }
 }

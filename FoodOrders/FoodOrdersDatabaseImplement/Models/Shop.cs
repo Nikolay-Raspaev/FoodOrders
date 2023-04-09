@@ -98,6 +98,7 @@ namespace FoodOrdersDatabaseImplement.Models
             {   // удалили те в бд, которых нет в модели
                 context.ShopDishes.RemoveRange(shopDishes.Where(rec => !model.ShopDishes.ContainsKey(rec.DishId)));
                 context.SaveChanges();
+                shopDishes = context.ShopDishes.Where(rec => rec.ShopId == model.Id).ToList();
                 // обновили количество у существующих записей
                 foreach (var updateDish in shopDishes)
                 {
