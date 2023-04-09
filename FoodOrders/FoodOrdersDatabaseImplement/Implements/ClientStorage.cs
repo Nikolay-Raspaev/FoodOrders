@@ -23,15 +23,21 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public ClientViewModel? GetElement(ClientSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.Email) && !model.Id.HasValue)
-            {
-                return null;
-            }
             using var context = new FoodOrdersDatabase();
-            return context.Clients
-                    .FirstOrDefault(x => (!string.IsNullOrEmpty(model.Email) && x.Email == model.Email) ||
-                    (model.Id.HasValue && x.Id == model.Id))
-                    ?.GetViewModel;
+            if (model.Id.HasValue)
+                return context.Clients
+                    .FirstOrDefault(x => x.Id == model.Id)?
+                    .GetViewModel;
+            if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+                return context.Clients
+                    .FirstOrDefault(x => x.Email
+                    .Equals(model.Email) && x.Password
+                    .Equals(model.Password))?
+                    .GetViewModel;
+            if (!string.IsNullOrEmpty(model.Email))
+                return context.Clients
+                    .FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            return null;
         }
 
         public List<ClientViewModel> GetFilteredList(ClientSearchModel model)

@@ -21,6 +21,10 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
+            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue)
+            {
+                return new();
+            }
             using var context = new FoodOrdersDatabase();
             if (model.ClientId.HasValue)
             {
@@ -31,7 +35,7 @@ namespace FoodOrdersDatabaseImplement.Implements
                     .Select(x => x.GetViewModel)
                     .ToList();
             }
-            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
+            else if (model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 return context.Orders
                 .Include(x => x.Dish)

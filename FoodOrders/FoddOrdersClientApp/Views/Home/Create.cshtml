@@ -25,26 +25,29 @@
 	</div>
 </form>
 
-<script>
-	$('#dish').on('change', function () {
-		check();
-	});
-	$('#count').on('change', function () {
-		check();
-	});
+@section Scripts
+{
+	<script>
+		$('#dish').on('change', function () {
+			check();
+		});
+		$('#count').on('change', function () {
+			check();
+		});
 
-	function check() {
-		var count = $('#count').val();
-		var dish = $('#dish').val();
-		if (count && dish) {
-			$.ajax({
-				method: "POST",
-				url: "/Home/Calc",
-				data: { count: count, dish: dish  },
-				success: function (result) {
-					$("#sum").val(result);
-				}
-			});
-		};
-	}
-</script>
+		function check() {
+			var count = $('#count').val();
+			var dish = $('#dish').val();
+			if (count && dish) {
+				$.ajax({
+					method: "POST",
+					url: "/Home/Calc",
+					data: { count: count, dish: dish  },
+					success: function (result) {
+						$("#sum").val(result);
+					}
+				});
+			};
+		}
+	</script>
+}
