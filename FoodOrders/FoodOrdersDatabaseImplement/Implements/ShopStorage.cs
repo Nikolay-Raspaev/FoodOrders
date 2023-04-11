@@ -85,7 +85,13 @@ namespace FoodOrdersDatabaseImplement.Implements
                 }
                 updateShop.Update(model);
                 context.SaveChanges();
-                updateShop.UpdateDish(context, model);
+                // Добавленна проверка, так как без неё при обновлении на форме удаляет содержимое магазина,
+                // а на форме всё хорошо работает так как из формы у нас поступает или пустой или заполненный словарь
+                // но он точно не null
+                if (model.ShopDishes != null)
+                {
+                    updateShop.UpdateDish(context, model);
+                }
                 transaction.Commit();
                 return updateShop.GetViewModel;
             }

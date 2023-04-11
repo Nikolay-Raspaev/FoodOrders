@@ -62,25 +62,26 @@ namespace FoodOrdersRestApi.Controllers
 			}
 		}
 
-		[HttpPost]
-		public void CRUDShop(Action action)
-		{
-			try
-			{
-				action.Invoke();
-			}
-			catch (Exception ex)
-			{
-				_logger.LogError(ex, "Ошибка операции CRUD - {operation} с магазином", action.Method.Name);
-				throw;
-			}
-		}
-
         [HttpPost]
         public void CreateShop(ShopBindingModel model)
         {
             try
             {
+                _logic.Create(model);            
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка обновления данных");
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public void UpdateShop(ShopBindingModel model)
+        {
+            try
+            {
+                model.ShopDishes = null!;
                 _logic.Update(model);
             }
             catch (Exception ex)
@@ -95,7 +96,7 @@ namespace FoodOrdersRestApi.Controllers
         {
             try
             {
-                _logic.Create(model);
+                _logic.Delete(model);
             }
             catch (Exception ex)
             {
@@ -119,4 +120,3 @@ namespace FoodOrdersRestApi.Controllers
         }
     }
 }
-fdawdadsawdawdawd
