@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.2.1" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,5 +36,14 @@
     <ProjectReference Include="..\FoodOrdersFileImplement\FoodOrdersFileImplement.csproj" />
     <ProjectReference Include="..\FoodOrdersListImplement\FoodOrdersListImplement.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<None Update="ReportOrders.rdlc">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="ReportOrdersGroupedByDate.rdlc">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

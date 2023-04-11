@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodOrdersDatabaseImplement.Migrations
 {
     [DbContext(typeof(FoodOrdersDatabase))]
-    [Migration("20230323201720_HardLabWork03")]
-    partial class HardLabWork03
+    [Migration("20230409144629_4Lab")]
+    partial class _4Lab
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,7 +199,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("FoodOrdersDatabaseImplement.Models.Dish", "Dish")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -234,6 +234,8 @@ namespace FoodOrdersDatabaseImplement.Migrations
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Dish", b =>
                 {
                     b.Navigation("Components");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Shop", b =>
