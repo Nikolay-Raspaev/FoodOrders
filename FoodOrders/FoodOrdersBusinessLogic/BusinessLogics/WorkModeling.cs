@@ -77,6 +77,8 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                             Id = order.Id,
                             ImplementerId = implementer.Id
                         });
+                        // отдыхаем
+                        Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
                     }
                     // кто-то мог уже перехватить заказ, игнорируем ошибку
                     catch (InvalidOperationException ex)
@@ -89,8 +91,6 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                         _logger.LogError(ex, "Error while do work");
                         throw;
                     }
-                    // отдыхаем
-                    Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
                 }
             });
         }
