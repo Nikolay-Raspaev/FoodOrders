@@ -76,17 +76,46 @@ namespace FoodOrdersRestApi.Controllers
 			}
 		}
 
-		[HttpPost]
-		public void UpdateShop(ShopBindingModel model) => CRUDShop(() => _logic.Update(model));
-		[HttpPost]
-		public void CreateShop(ShopBindingModel model) => CRUDShop(() => _logic.Create(model));
-		[HttpPost]
-		public void DeleteShop(ShopBindingModel model) => CRUDShop(() => _logic.Delete(model));
-
-		[HttpPost]
-		public void AddDishInShop(Tuple<ShopSearchModel, DishViewModel, int> countDishForShop)
-		{
-			CRUDShop(() => _logic.DeliveryDishes(countDishForShop.Item1, countDishForShop.Item2, countDishForShop.Item3));
+        [HttpPost]
+        public void CreateShop(ShopBindingModel model)
+        {
+            try
+            {
+                _logic.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка обновления данных");
+                throw;
+            }
         }
-	}
+
+        [HttpPost]
+        public void DeleteShop(ShopBindingModel model)
+        {
+            try
+            {
+                _logic.Create(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка удаления магазина");
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public void AddDishInShop(Tuple<ShopSearchModel, DishViewModel, int> model)
+        {
+            try
+            {
+                _logic.DeliveryDishes(model.Item1, model.Item2, model.Item3);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка добавления суши в магазин");
+                throw;
+            }
+        }
+    }
 }
