@@ -37,17 +37,17 @@ namespace FoodOrdersDatabaseImplement.Implements
                     .Select(x => x.GetViewModel)
                     .ToList();
             }
-            else if (model.DateFrom.HasValue && model.DateTo.HasValue)
+            if (model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 return context.Orders
-                .Include(x => x.Dish)
-                .Include(x => x.Client)
-                .Include(x => x.Implementer)
-                .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
-                .Select(x => x.GetViewModel)
-                .ToList();
+                    .Include(x => x.Dish)
+                    .Include(x => x.Client)
+                    .Include(x => x.Implementer)
+                    .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
+                    .Select(x => x.GetViewModel)
+                    .ToList();
             }
-            else if (model.Status != null)
+            if (model.Status != null)
             {
                 return context.Orders
                     .Include(x => x.Dish)
@@ -55,7 +55,7 @@ namespace FoodOrdersDatabaseImplement.Implements
                     .Include(x => x.Implementer)
                     .Where(x => model.Status == x.Status)
                     .Select(x => x.GetViewModel)
-                    .ToList(); ;
+                    .ToList();
             }
             return context.Orders
                 .Include(x => x.Dish)

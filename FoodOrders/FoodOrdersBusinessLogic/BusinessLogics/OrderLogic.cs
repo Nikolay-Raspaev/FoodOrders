@@ -122,6 +122,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 _logger.LogWarning("Change status operation failed");
                 return false;
             }
+            if (viewModel.ImplementerId.HasValue)
+            {
+                model.ImplementerId = viewModel.ImplementerId;
+            }
             model.Status = newStatus;
             if (model.Status == OrderStatus.Готов)
             {
