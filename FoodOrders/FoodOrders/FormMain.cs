@@ -100,7 +100,7 @@ namespace FoodOrdersView
                 _logger.LogInformation("Заказ №{id}. Меняется статус на 'Готов'", id);
                 try
                 {
-                    var operationResult = _logicO.FinishOrder(new OrderBindingModel 
+                    var operationResult = _logicO.FinishOrder(new OrderBindingModel
                     {
                         Id = id
                     });
