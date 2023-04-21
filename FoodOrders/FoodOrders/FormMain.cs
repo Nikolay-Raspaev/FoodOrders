@@ -119,7 +119,7 @@ namespace FoodOrdersView
         }
         private void ButtonIssuedOrder_Click(object sender, EventArgs e)
         {
-            if (dataGridView.SelectedRows.Count == 1)
+            if (dataGridView.SelectedRows.Count == 1)ewyeuhyrd5yh5ryghr
             {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                 _logger.LogInformation("Заказ №{id}. Меняется статус на 'Выдан'", id);
