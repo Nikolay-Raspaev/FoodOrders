@@ -30,8 +30,7 @@ namespace FoodOrdersView
             var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
-
-            Application.Run(_serviceProvider.GetRequiredService<FormMain>());
+            
             try
             {
                 var mailSender = _serviceProvider.GetService<AbstractMailWorker>();
@@ -53,6 +52,8 @@ namespace FoodOrdersView
                 var logger = _serviceProvider.GetService<ILogger>();
                 logger?.LogError(ex, "Ошибка работы с почтой");
             }
+
+            Application.Run(_serviceProvider.GetRequiredService<FormMain>());
         }
 
         private static void ConfigureServices(ServiceCollection services)

@@ -63,13 +63,14 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 return false;
             }
             model.Status = OrderStatus.Принят;
-            if (_orderStorage.Insert(model) == null)
+            var order = _orderStorage.Insert(model);
+            if (order == null)
             {
                 model.Status = OrderStatus.Неизвестен;
                 _logger.LogWarning("Insert operation failed");
                 return false;
             }
-            SendToClient(model.ClientId, $"Заказ №{model.Id}", $"Заказ №{model.Id} от {model.DateCreate} на сумму {model.Sum} был создан.");
+            SendToClient(order.ClientId, $"Заказ №{order.Id}", $"Заказ №{order.Id} от {order.DateCreate} на сумму {order.Sum} принят.");
             return true;
         }
 
@@ -143,21 +144,23 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 model.DateImplement = viewModel.DateImplement;
             }
             CheckModel(model, false);
-            if (_orderStorage.Update(model) == null)
+            var order = _orderStorage.Update(model);
+            if (order == null)
             {
                 _logger.LogWarning("Change status operation failed");
                 return false;
             }
-            SendToClient(model.ClientId, $"Заказ №{model.Id}", $"У заказа №{model.Id} изменен статус на {model.Status}.");
+            
+            SendToClient(order.ClientId, $"Заказ №{order.Id}", $"У заказа №{order.Id} изменен статус на {order.Status}.");
             return true;
         }
 
-        private void SendToClient(int clientId, string subject, string text)
+        private bool SendToClient(int clientId, string subject, string text)
         {
             var client = _clientLogic.ReadElement(new() { Id = clientId });
             if (client == null)
             {
-                return;
+                return false;
             }
             _mailWorker.MailSendAsync(new()
             {
@@ -165,6 +168,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 Subject = subject,
                 Text = text
             });
+            return true;
         }
     }
 }
