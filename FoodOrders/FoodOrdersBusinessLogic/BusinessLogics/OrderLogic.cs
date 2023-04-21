@@ -95,9 +95,13 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 return;
             }
+            if (model.DishId < 0)
+            {
+                throw new ArgumentNullException("Некорректный идентификатор у блюда", nameof(model.DishId));
+            }
             if (model.Id < 0)
             {
-                throw new ArgumentNullException("Некорректный идентификатор у продукта", nameof(model.Id));
+                throw new ArgumentNullException("Некорректный идентификатор у заказа", nameof(model.Id));
             }
             if (model.ClientId < 0)
             {
@@ -121,7 +125,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            if (viewModel.Status + 1 != newStatus)
+            if (viewModel.Status + 1 != newStatus && viewModel.Status != OrderStatus.Ожидание)
             {
                 _logger.LogWarning("Change status operation failed");
                 return false;
@@ -131,17 +135,21 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 model.ImplementerId = viewModel.ImplementerId;
             }
             model.Status = newStatus;
-            if (model.Status == OrderStatus.Готов)
+            if (model.Status == OrderStatus.Готов || viewModel.Status == OrderStatus.Ожидание)
             {
-                model.DateImplement = DateTime.Now;
+                if (!_logicS.AddDishes(_dishStorage.GetElement(new DishSearchModel { Id = viewModel.DishId })!, viewModel.Count))
+                {
+                    model.Status = OrderStatus.Ожидание;
+                    _logger.LogWarning("В магазинах нет места под автомобили из заказа.");
+                }
+                else
+                {
+                    model.DateImplement = DateTime.Now;
+                }
             }
             else
             {
                 model.DateImplement = viewModel.DateImplement;
-            }
-            if (model.Status == OrderStatus.Выдан && !_logicS.AddDishes(_dishStorage.GetElement(new DishSearchModel { Id = viewModel.DishId })!, viewModel.Count))
-            {
-                throw new Exception("В магазинах нет места под блюда из заказа.");
             }
             CheckModel(model, false);
             if (_orderStorage.Update(model) == null)

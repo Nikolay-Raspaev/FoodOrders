@@ -4,6 +4,7 @@ using FoodOrdersContracts.StoragesContracts;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FoodOrdersDatabaseImplement.Implements
 {
@@ -68,17 +69,26 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public OrderViewModel? GetElement(OrderSearchModel model)
         {
-            if (!model.Id.HasValue)
-            {
-                return null;
-            }
             using var context = new FoodOrdersDatabase();
-            return context.Orders
-                .Include(x => x.Dish)
-                .Include(x => x.Client)
-                .Include(x => x.Implementer)
-                .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
-                ?.GetViewModel;
+            if (model.Id.HasValue)
+            {
+                return context.Orders
+                    .Include(x => x.Dish)
+                    .Include(x => x.Client)
+                    .Include(x => x.Implementer)
+                    .FirstOrDefault(x => model.Id.HasValue && x.Id == model.Id)
+                    ?.GetViewModel;
+            }        
+            else if (model.Status.HasValue && model.ImplementerId.HasValue)
+            {
+                return context.Orders
+                    .Include(x => x.Dish)
+                    .Include(x => x.Client)
+                    .Include(x => x.Implementer)
+                    .FirstOrDefault(x => x.ImplementerId == model.ImplementerId && x.Status == model.Status)
+                    ?.GetViewModel;
+            }
+            return null;
         }
 
         public OrderViewModel? Insert(OrderBindingModel model)

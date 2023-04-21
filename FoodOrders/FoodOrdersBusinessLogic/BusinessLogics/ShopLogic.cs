@@ -167,6 +167,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             foreach (ShopViewModel shop in shopsList)
             {
                 int emptySpace = shop.Capacity - shop.ShopDishes.Sum(x => x.Value.Item2);
+                if (emptySpace <= 0)
+                {
+                    continue;
+                }
                 if (emptySpace < count)
                 {
                     DeliveryDishes(new ShopSearchModel { Id = shop.Id }, dish, emptySpace);

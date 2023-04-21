@@ -1,4 +1,5 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using DocumentFormat.OpenXml.EMMA;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.ViewModels;
@@ -33,8 +34,16 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             var orders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Принят });
             if (orders == null || orders.Count == 0)
             {
-                _logger.LogWarning("DoWork. Orders is null or empty");
-                return;
+                var waitingOrders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Ожидание });
+                if (waitingOrders == null || waitingOrders.Count == 0)
+                {
+                    var relatedOrders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Выполняется });
+                    if (relatedOrders == null || relatedOrders.Count == 0)
+                    {
+                        _logger.LogWarning("DoWork. Orders is null or empty");
+                        return;
+                    }
+                }             
             }
             _logger.LogDebug("DoWork for {Count} orders", orders.Count);
             foreach (var implementer in implementers)
@@ -54,6 +63,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 return;
             }
+            await RunExpectationInWork(implementer);
             await RunOrderInWork(implementer);
 
             await Task.Run(() =>
@@ -69,6 +79,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                             Id = order.Id,
                             ImplementerId = implementer.Id
                         });
+                        if (_orderLogic.ReadElement(new OrderSearchModel { Id = order.Id })!.Status == OrderStatus.Ожидание)
+                        {
+                            continue;
+                        }
                         // делаем работу
                         Thread.Sleep(implementer.WorkExperience * _rnd.Next(100, 1000) * order.Count);
                         _logger.LogDebug("DoWork. Worker {Id} finish order {Order}", implementer.Id, order.Id);
@@ -125,6 +139,46 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 _orderLogic.FinishOrder(new OrderBindingModel
                 {
                     Id = runOrder.Id
+                });
+                // отдыхаем
+                Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
+            }
+            // заказа может не быть, просто игнорируем ошибку
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, "Error try get work");
+            }
+            // а может возникнуть иная ошибка, тогда просто заканчиваем выполнение имитации
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while do work");
+                throw;
+            }
+        }
+        private async Task RunExpectationInWork(ImplementerViewModel implementer)
+        {
+            if (_orderLogic == null || implementer == null)
+            {
+                return;
+            }
+            try
+            {
+                var expectOrder = await Task.Run(() => _orderLogic.ReadElement(new OrderSearchModel
+                {
+                    ImplementerId = implementer.Id,
+                    Status = OrderStatus.Ожидание
+                }));
+                if (expectOrder == null)
+                {
+                    return;
+                }
+                _logger.LogDebug("DoWork. Worker {Id} back to order {Order}", implementer.Id, expectOrder.Id);
+                // доделываем работу
+                Thread.Sleep(implementer.WorkExperience * _rnd.Next(100, 300) * expectOrder.Count);
+                _logger.LogDebug("DoWork. Worker {Id} finish order {Order}", implementer.Id, expectOrder.Id);
+                _orderLogic.FinishOrder(new OrderBindingModel
+                {
+                    Id = expectOrder.Id
                 });
                 // отдыхаем
                 Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));

@@ -34,6 +34,7 @@
             dishToolStripMenuItem = new ToolStripMenuItem();
             clientToolStripMenuItem = new ToolStripMenuItem();
             shopsToolStripMenuItem = new ToolStripMenuItem();
+            исполнителиToolStripMenuItem1 = new ToolStripMenuItem();
             reportToolStripMenuItem = new ToolStripMenuItem();
             listDishesToolStripMenuItem = new ToolStripMenuItem();
             componentDishToolStripMenuItem = new ToolStripMenuItem();
@@ -50,6 +51,7 @@
             dataGridView = new DataGridView();
             buttonAddDishInShop = new Button();
             исполнителиToolStripMenuItem = new ToolStripMenuItem();
+            buttonSetToFinish = new Button();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -59,13 +61,13 @@
             menuStrip.Items.AddRange(new ToolStripItem[] { guidesToolStripMenuItem, reportToolStripMenuItem, DoWorkToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(975, 24);
+            menuStrip.Size = new Size(1157, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
             // guidesToolStripMenuItem
             // 
-            guidesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { componentToolStripMenuItem, dishToolStripMenuItem, clientToolStripMenuItem, shopsToolStripMenuItem });
+            guidesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { componentToolStripMenuItem, dishToolStripMenuItem, clientToolStripMenuItem, shopsToolStripMenuItem, исполнителиToolStripMenuItem1 });
             guidesToolStripMenuItem.Name = "guidesToolStripMenuItem";
             guidesToolStripMenuItem.Size = new Size(94, 20);
             guidesToolStripMenuItem.Text = "Справочники";
@@ -73,30 +75,37 @@
             // componentToolStripMenuItem
             // 
             componentToolStripMenuItem.Name = "componentToolStripMenuItem";
-            componentToolStripMenuItem.Size = new Size(180, 22);
+            componentToolStripMenuItem.Size = new Size(149, 22);
             componentToolStripMenuItem.Text = "Компоненты";
             componentToolStripMenuItem.Click += ComponentsToolStripMenuItem_Click;
             // 
             // dishToolStripMenuItem
             // 
             dishToolStripMenuItem.Name = "dishToolStripMenuItem";
-            dishToolStripMenuItem.Size = new Size(180, 22);
+            dishToolStripMenuItem.Size = new Size(149, 22);
             dishToolStripMenuItem.Text = "Блюда";
             dishToolStripMenuItem.Click += DishToolStripMenuItem_Click;
             // 
             // clientToolStripMenuItem
             // 
             clientToolStripMenuItem.Name = "clientToolStripMenuItem";
-            clientToolStripMenuItem.Size = new Size(180, 22);
+            clientToolStripMenuItem.Size = new Size(149, 22);
             clientToolStripMenuItem.Text = "Клиенты";
             clientToolStripMenuItem.Click += ClientToolStripMenuItem_Click;
             // 
             // shopsToolStripMenuItem
             // 
             shopsToolStripMenuItem.Name = "shopsToolStripMenuItem";
-            shopsToolStripMenuItem.Size = new Size(180, 22);
+            shopsToolStripMenuItem.Size = new Size(149, 22);
             shopsToolStripMenuItem.Text = "Магазины";
             shopsToolStripMenuItem.Click += ShopsToolStripMenuItem_Click;
+            // 
+            // исполнителиToolStripMenuItem1
+            // 
+            исполнителиToolStripMenuItem1.Name = "исполнителиToolStripMenuItem1";
+            исполнителиToolStripMenuItem1.Size = new Size(149, 22);
+            исполнителиToolStripMenuItem1.Text = "Исполнители";
+            исполнителиToolStripMenuItem1.Click += ImplementersToolStripMenuItem_Click;
             // 
             // reportToolStripMenuItem
             // 
@@ -177,7 +186,7 @@
             // 
             // buttonUpdate
             // 
-            buttonUpdate.Location = new Point(780, 230);
+            buttonUpdate.Location = new Point(962, 244);
             buttonUpdate.Margin = new Padding(3, 2, 3, 2);
             buttonUpdate.Name = "buttonUpdate";
             buttonUpdate.Size = new Size(170, 58);
@@ -188,7 +197,7 @@
             // 
             // buttonCreateOrder
             // 
-            buttonCreateOrder.Location = new Point(780, 66);
+            buttonCreateOrder.Location = new Point(962, 70);
             buttonCreateOrder.Margin = new Padding(3, 2, 3, 2);
             buttonCreateOrder.Name = "buttonCreateOrder";
             buttonCreateOrder.Size = new Size(170, 58);
@@ -206,13 +215,13 @@
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.RowTemplate.Height = 29;
-            dataGridView.Size = new Size(755, 426);
+            dataGridView.Size = new Size(956, 426);
             dataGridView.TabIndex = 7;
             // 
             // buttonAddDishInShop
             // 
             buttonAddDishInShop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonAddDishInShop.Location = new Point(780, 377);
+            buttonAddDishInShop.Location = new Point(962, 327);
             buttonAddDishInShop.Name = "buttonAddDishInShop";
             buttonAddDishInShop.Size = new Size(170, 61);
             buttonAddDishInShop.TabIndex = 13;
@@ -227,11 +236,23 @@
             исполнителиToolStripMenuItem.Text = "Исполнители";
             исполнителиToolStripMenuItem.Click += ImplementersToolStripMenuItem_Click;
             // 
+            // buttonSetToFinish
+            // 
+            buttonSetToFinish.Location = new Point(962, 156);
+            buttonSetToFinish.Margin = new Padding(3, 2, 3, 2);
+            buttonSetToFinish.Name = "buttonSetToFinish";
+            buttonSetToFinish.Size = new Size(170, 58);
+            buttonSetToFinish.TabIndex = 14;
+            buttonSetToFinish.Text = "Заказ выдан";
+            buttonSetToFinish.UseVisualStyleBackColor = true;
+            buttonSetToFinish.Click += ButtonIssuedOrder_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(975, 450);
+            ClientSize = new Size(1157, 450);
+            Controls.Add(buttonSetToFinish);
             Controls.Add(buttonAddDishInShop);
             Controls.Add(buttonUpdate);
             Controls.Add(buttonCreateOrder);
@@ -273,5 +294,7 @@
         private ToolStripMenuItem ClientToolStripMenuItem;
         private ToolStripMenuItem исполнителиToolStripMenuItem;
         private ToolStripMenuItem DoWorkToolStripMenuItem;
+        private ToolStripMenuItem исполнителиToolStripMenuItem1;
+        private Button buttonSetToFinish;
     }
 }
