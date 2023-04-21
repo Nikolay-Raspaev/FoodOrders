@@ -7,9 +7,9 @@ using FoodOrdersDatabaseImplement.Implements;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using FoodOrdersView;
-using FoodOrdersBusinessLogic.BusinessLogics;
-using FoodOrdersContracts.BusinessLogicsContracts;
+using FoodOrdersBusinessLogic.MailWorker;
+using FoodOrdersContracts.BindingModels;
+using FoodOrdersDatabaseImplement;
 
 namespace FoodOrdersView
 {
@@ -32,6 +32,27 @@ namespace FoodOrdersView
             _serviceProvider = services.BuildServiceProvider();
 
             Application.Run(_serviceProvider.GetRequiredService<FormMain>());
+            try
+            {
+                var mailSender = _serviceProvider.GetService<AbstractMailWorker>();
+                mailSender?.MailConfig(new MailConfigBindingModel
+                {
+                    MailLogin = System.Configuration.ConfigurationManager.AppSettings["MailLogin"] ?? string.Empty,
+                    MailPassword = System.Configuration.ConfigurationManager.AppSettings["MailPassword"] ?? string.Empty,
+                    SmtpClientHost = System.Configuration.ConfigurationManager.AppSettings["SmtpClientHost"] ?? string.Empty,
+                    SmtpClientPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["SmtpClientPort"]),
+                    PopHost = System.Configuration.ConfigurationManager.AppSettings["PopHost"] ?? string.Empty,
+                    PopPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["PopPort"])
+                });
+
+                // создаем таймер
+                var timer = new System.Threading.Timer(new TimerCallback(MailCheck!), null, 0, 100000);
+            }
+            catch (Exception ex)
+            {
+                var logger = _serviceProvider.GetService<ILogger>();
+                logger?.LogError(ex, "Ошибка работы с почтой");
+            }
         }
 
         private static void ConfigureServices(ServiceCollection services)
@@ -46,14 +67,18 @@ namespace FoodOrdersView
             services.AddTransient<IDishStorage, DishStorage>();
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IImplementerStorage, ImplementerStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
 
             services.AddTransient<IComponentLogic, ComponentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<IReportLogic, ReportLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
-            services.AddTransient<IImplementerLogic, ImplementerLogic>();
+            services.AddTransient<IImplementerLogic, ImplementerLogic>();   
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+
             services.AddTransient<IWorkProcess, WorkModeling>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
 
             services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
             services.AddTransient<AbstractSaveToWord, SaveToWord>();
@@ -71,6 +96,9 @@ namespace FoodOrdersView
             services.AddTransient<FormReportOrders>();
             services.AddTransient<FormViewImplementers>();
             services.AddTransient<FormImplementer>();
+            services.AddTransient<FormMails>();
         }
+
+        private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
     }
 }

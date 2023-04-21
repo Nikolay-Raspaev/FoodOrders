@@ -9,7 +9,7 @@ namespace FoodOrdersDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SINQU55\SQLEXPRESS;Initial Catalog=FoodOrdersDatabase1;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-SINQU55\SQLEXPRESS;Initial Catalog=FoodOrdersDatabase3;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
             }
             base.OnConfiguring(optionsBuilder);
         }
@@ -23,6 +23,9 @@ namespace FoodOrdersDatabaseImplement
         public virtual DbSet<Order> Orders { set; get; }
 
         public virtual DbSet<Client> Clients { set; get; }
+
         public virtual DbSet<Implementer> Implementers { set; get; }
+
+        public virtual DbSet<EmailMessage> EmailMessages { set; get; }
     }
 }

@@ -12,7 +12,7 @@ namespace FoodOrdersView
         private readonly IOrderLogic _logicO;
         private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess) 
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess)
         {
             InitializeComponent();
             _logger = logger;
@@ -152,6 +152,15 @@ namespace FoodOrdersView
             _workProcess.DoWork((Program.ServiceProvider?.GetService(typeof(IImplementerLogic)) as IImplementerLogic)!, _logicO);
             MessageBox.Show("Процесс обработки запущен", "Сообщение",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormMails));
+            if (service is FormMails form)
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

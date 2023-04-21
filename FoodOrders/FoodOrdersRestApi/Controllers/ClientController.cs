@@ -14,10 +14,13 @@ namespace FoodOrdersRestApi.Controllers
 
         private readonly IClientLogic _logic;
 
-        public ClientController(IClientLogic logic, ILogger<ClientController> logger)
+        private readonly IMessageInfoLogic _mailLogic;
+
+        public ClientController(IClientLogic logic, IMessageInfoLogic mailLogic, ILogger<ClientController> logger)
         {
             _logger = logger;
             _logic = logic;
+            _mailLogic = mailLogic;
         }
 
         [HttpGet]
@@ -62,6 +65,23 @@ namespace FoodOrdersRestApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ошибка обновления данных");
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public List<MessageInfoViewModel>? GetMessages(int clientId)
+        {
+            try
+            {
+                return _mailLogic.ReadList(new MessageInfoSearchModel
+                {
+                    ClientId = clientId
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка получения писем клиента");
                 throw;
             }
         }

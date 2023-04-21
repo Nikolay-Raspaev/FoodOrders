@@ -1,4 +1,6 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using DocumentFormat.OpenXml.EMMA;
+using FoodOrdersBusinessLogic.MailWorker;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
@@ -12,10 +14,14 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
     {
         private readonly ILogger _logger;
         private readonly IOrderStorage _orderStorage;
-        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage)
+        private readonly AbstractMailWorker _mailWorker;
+        private readonly IClientLogic _clientLogic;
+        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage, AbstractMailWorker mailWorker, IClientLogic clientLogic)
         {
             _logger = logger;
             _orderStorage = orderStorage;
+            _mailWorker = mailWorker;
+            _clientLogic = clientLogic;
         }
 
         public OrderViewModel? ReadElement(OrderSearchModel model)
@@ -63,6 +69,7 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 _logger.LogWarning("Insert operation failed");
                 return false;
             }
+            SendToClient(model.ClientId, $"Заказ №{model.Id}", $"Заказ №{model.Id} от {model.DateCreate} на сумму {model.Sum} был создан.");
             return true;
         }
 
@@ -141,7 +148,23 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 _logger.LogWarning("Change status operation failed");
                 return false;
             }
+            SendToClient(model.ClientId, $"Заказ №{model.Id}", $"У заказа №{model.Id} изменен статус на {model.Status}.");
             return true;
+        }
+
+        private void SendToClient(int clientId, string subject, string text)
+        {
+            var client = _clientLogic.ReadElement(new() { Id = clientId });
+            if (client == null)
+            {
+                return;
+            }
+            _mailWorker.MailSendAsync(new()
+            {
+                MailAddress = client.Email,
+                Subject = subject,
+                Text = text
+            });
         }
     }
 }
