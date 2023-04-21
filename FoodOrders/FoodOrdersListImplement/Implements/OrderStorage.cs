@@ -30,6 +30,10 @@ namespace FoodOrdersListImplement.Implements
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
             var result = new List<OrderViewModel>();
+            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue && !model.Status.HasValue)
+            {
+                return new();
+            }
             if (model.ClientId.HasValue)
             {
                 foreach (var order in _source.Orders)
@@ -41,11 +45,22 @@ namespace FoodOrdersListImplement.Implements
                 }
                 return result;
             }
-            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
+            if (model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 foreach (var order in _source.Orders)
                 {
                     if (order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    {
+                        result.Add(GetViewModel(order));
+                    }
+                }
+                return result;
+            }
+            if (model.Status != null)
+            {
+                foreach (var order in _source.Orders)
+                {
+                    if (model.Status == order.Status)
                     {
                         result.Add(GetViewModel(order));
                     }

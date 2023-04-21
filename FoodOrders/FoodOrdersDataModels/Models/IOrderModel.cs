@@ -6,6 +6,7 @@ namespace FoodOrdersDataModels.Models
     {
         int DishId { get; }
         int ClientId { get; }
+        int? ImplementerId { get; }
         int Count { get; }
         double Sum { get; }
         OrderStatus Status { get; }

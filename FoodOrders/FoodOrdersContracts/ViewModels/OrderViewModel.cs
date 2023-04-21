@@ -18,6 +18,11 @@ namespace FoodOrdersContracts.ViewModels
         [DisplayName("Клиент")]
         public string ClientFIO { get; set; } = string.Empty;
 
+        [DisplayName("Исполнитель")]
+        public string ImplementerFIO { get; set; } = string.Empty;
+
+        public int? ImplementerId { get; set; }
+
         [DisplayName("Количество")]
         public int Count { get; set; }
 

@@ -10,6 +10,7 @@ namespace FoodOrdersListImplement
         public List<Dish> Dishes { get; set; }
         public List<Shop> Shops { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
@@ -17,6 +18,7 @@ namespace FoodOrdersListImplement
             Dishes = new List<Dish>();
             Clients = new List<Client>();
             Shops = new List<Shop>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

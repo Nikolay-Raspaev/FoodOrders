@@ -10,14 +10,15 @@ namespace FoodOrdersView
     {
         private readonly ILogger _logger;
         private readonly IOrderLogic _logicO;
-
+        private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic)
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess) 
         {
             InitializeComponent();
             _logger = logger;
             _logicO = orderLogic;
             _logicR = reportLogic;
+            _workProcess = workProcess;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -33,6 +34,7 @@ namespace FoodOrdersView
                     dataGridView.DataSource = list;
                     dataGridView.Columns["DishId"].Visible = false;
                     dataGridView.Columns["ClientId"].Visible = false;
+                    dataGridView.Columns["ImplementerId"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка заказов");
             }
@@ -229,6 +231,22 @@ namespace FoodOrdersView
             {
                 form.ShowDialog();
             }
+        }
+
+        private void ImplementersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormViewImplementers));
+            if (service is FormViewImplementers form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void DoWorkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _workProcess.DoWork((Program.ServiceProvider?.GetService(typeof(IImplementerLogic)) as IImplementerLogic)!, _logicO);
+            MessageBox.Show("Процесс обработки запущен", "Сообщение",
+            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using FoodOrdersView;
+using FoodOrdersBusinessLogic.BusinessLogics;
+using FoodOrdersContracts.BusinessLogicsContracts;
 
 namespace FoodOrdersView
 {
@@ -43,6 +45,7 @@ namespace FoodOrdersView
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IDishStorage, DishStorage>();
             services.AddTransient<IClientStorage, ClientStorage>();
+            services.AddTransient<IImplementerStorage, ImplementerStorage>();
             services.AddTransient<IShopStorage, ShopStorage>();
 
             services.AddTransient<IComponentLogic, ComponentLogic>();
@@ -50,6 +53,8 @@ namespace FoodOrdersView
             services.AddTransient<IDishLogic, DishLogic>();
             services.AddTransient<IReportLogic, ReportLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
+            services.AddTransient<IImplementerLogic, ImplementerLogic>();
+            services.AddTransient<IWorkProcess, WorkModeling>();
             services.AddTransient<IShopLogic, ShopLogic>();
 
             services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
@@ -72,6 +77,8 @@ namespace FoodOrdersView
             services.AddTransient<FormSellDishes>();
             services.AddTransient<FormReportShopListDish>();
             services.AddTransient<FormReportOrdersGroupedByDate>();
+            services.AddTransient<FormViewImplementers>();
+            services.AddTransient<FormImplementer>();
         }
     }
 }

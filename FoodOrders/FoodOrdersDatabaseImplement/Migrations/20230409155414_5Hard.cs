@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FoodOrdersDatabaseImplement.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409155414_5Hard.cs
     public partial class _5Hard : Migration
+========
+    public partial class _6b : Migration
+>>>>>>>> BaseLabWork06:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409213338_6b.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,11 +59,16 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+<<<<<<<< HEAD:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409155414_5Hard.cs
                 name: "Shops",
+========
+                name: "Implementers",
+>>>>>>>> BaseLabWork06:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409213338_6b.cs
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+<<<<<<<< HEAD:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409155414_5Hard.cs
                     ShopName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfOpening = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -68,6 +77,16 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shops", x => x.Id);
+========
+                    ImplementerFIO = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkExperience = table.Column<int>(type: "int", nullable: false),
+                    Qualification = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Implementers", x => x.Id);
+>>>>>>>> BaseLabWork06:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409213338_6b.cs
                 });
 
             migrationBuilder.CreateTable(
@@ -105,6 +124,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DishId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
+                    ImplementerId = table.Column<int>(type: "int", nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Sum = table.Column<double>(type: "float", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -126,6 +146,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                         principalTable: "Dishes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_Implementers_ImplementerId",
+                        column: x => x.ImplementerId,
+                        principalTable: "Implementers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -176,6 +201,7 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 column: "DishId");
 
             migrationBuilder.CreateIndex(
+<<<<<<<< HEAD:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409155414_5Hard.cs
                 name: "IX_ShopDishes_DishId",
                 table: "ShopDishes",
                 column: "DishId");
@@ -184,6 +210,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 name: "IX_ShopDishes_ShopId",
                 table: "ShopDishes",
                 column: "ShopId");
+========
+                name: "IX_Orders_ImplementerId",
+                table: "Orders",
+                column: "ImplementerId");
+>>>>>>>> BaseLabWork06:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409213338_6b.cs
         }
 
         /// <inheritdoc />
@@ -208,7 +239,11 @@ namespace FoodOrdersDatabaseImplement.Migrations
                 name: "Dishes");
 
             migrationBuilder.DropTable(
+<<<<<<<< HEAD:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409155414_5Hard.cs
                 name: "Shops");
+========
+                name: "Implementers");
+>>>>>>>> BaseLabWork06:FoodOrders/FoodOrdersDatabaseImplement/Migrations/20230409213338_6b.cs
         }
     }
 }

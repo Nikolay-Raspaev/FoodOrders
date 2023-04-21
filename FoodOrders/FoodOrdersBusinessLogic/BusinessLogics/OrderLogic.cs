@@ -22,6 +22,23 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             _dishStorage = dishStorage;
         }
 
+        public OrderViewModel? ReadElement(OrderSearchModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            _logger.LogInformation("ReadElement. Id:{Id}", model.Id);
+            var element = _orderStorage.GetElement(model);
+            if (element == null)
+            {
+                _logger.LogWarning("ReadElement element not found");
+                return null;
+            }
+            _logger.LogInformation("ReadElement find. Id:{Id}", element.Id);
+            return element;
+        }
+
         public List<OrderViewModel>? ReadList(OrderSearchModel? model)
         {
             _logger.LogInformation("ReadList. Id:{Id}", model?.Id);
@@ -108,6 +125,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 _logger.LogWarning("Change status operation failed");
                 return false;
+            }
+            if (viewModel.ImplementerId.HasValue)
+            {
+                model.ImplementerId = viewModel.ImplementerId;
             }
             model.Status = newStatus;
             if (model.Status == OrderStatus.Готов)

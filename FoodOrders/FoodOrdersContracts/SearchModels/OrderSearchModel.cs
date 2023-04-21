@@ -1,4 +1,6 @@
 ﻿
+using FoodOrdersDataModels.Enums;
+
 namespace FoodOrdersContracts.SearchModels
 {
     public class OrderSearchModel
@@ -10,5 +12,10 @@ namespace FoodOrdersContracts.SearchModels
         public DateTime? DateFrom { get; set; }
 
         public DateTime? DateTo { get; set; }
+
+        public int? ImplementerId { get; set; }
+
+        public OrderStatus? Status { get; set; }
+
     }
 }

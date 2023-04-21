@@ -21,6 +21,10 @@ namespace FoodOrdersFileImplement.Implements
         }
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
+            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue && !model.Status.HasValue)
+            {
+                return new();
+            }
             if (model.ClientId.HasValue)
             {
                 return _source.Orders
@@ -28,14 +32,24 @@ namespace FoodOrdersFileImplement.Implements
                     .Select(x => GetViewModel(x))
                     .ToList();
             }
-            if (!model.Id.HasValue && model.DateFrom.HasValue && model.DateTo.HasValue)
+            if (model.DateFrom.HasValue && model.DateTo.HasValue)
             {
                 return _source.Orders
                     .Where(x => x.DateCreate >= model.DateFrom && x.DateCreate <= model.DateTo)
                     .Select(x => GetViewModel(x))
                     .ToList();
             }
-            return _source.Orders.Where(x => x.Id == model.Id).Select(x => GetViewModel(x)).ToList();
+            if (model.Status != null)
+            {
+                return _source.Orders
+                    .Where(x => model.Status == x.Status)
+                    .Select(x => GetViewModel(x))
+                    .ToList();
+            }
+            return _source.Orders
+                .Where(x => x.Id == model.Id)
+                .Select(x => GetViewModel(x))
+                .ToList();
         }
 
         public OrderViewModel? GetElement(OrderSearchModel model)
