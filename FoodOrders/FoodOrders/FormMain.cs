@@ -12,7 +12,7 @@ namespace FoodOrdersView
         private readonly IOrderLogic _logicO;
         private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess) 
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess)
         {
             InitializeComponent();
             _logger = logger;
