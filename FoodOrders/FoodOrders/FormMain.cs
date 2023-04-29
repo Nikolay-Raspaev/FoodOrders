@@ -15,13 +15,15 @@ namespace FoodOrdersView
         private readonly IOrderLogic _logicO;
         private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess)
+        private readonly IBackUpLogic _backUpLogic;
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess, IBackUpLogic backUpLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logicO = orderLogic;
             _logicR = reportLogic;
             _workProcess = workProcess;
+            _backUpLogic = backUpLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -133,6 +135,31 @@ namespace FoodOrdersView
         {
             var form = DependencyManager.Instance.Resolve<FormMails>();
             form.ShowDialog();
+        }
+
+        private void createBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_backUpLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        _backUpLogic.CreateBackUp(new BackUpSaveBinidngModel
+                        {
+                            FolderName = fbd.SelectedPath
+                        });
+                        MessageBox.Show("Бекап создан", "Сообщение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
         }
     }
 }

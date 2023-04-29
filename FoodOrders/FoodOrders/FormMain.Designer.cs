@@ -39,18 +39,19 @@
             componentDishesToolStripMenuItem = new ToolStripMenuItem();
             ordersToolStripMenuItem = new ToolStripMenuItem();
             DoWorkToolStripMenuItem = new ToolStripMenuItem();
+            письмаToolStripMenuItem = new ToolStripMenuItem();
             buttonUpdate = new Button();
             buttonSetToFinish = new Button();
             buttonCreateOrder = new Button();
             dataGridView = new DataGridView();
-            письмаToolStripMenuItem = new ToolStripMenuItem();
+            createBackupToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem, createBackupToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(975, 24);
@@ -127,6 +128,13 @@
             DoWorkToolStripMenuItem.Text = "Запуск работ";
             DoWorkToolStripMenuItem.Click += DoWorkToolStripMenuItem_Click;
             // 
+            // письмаToolStripMenuItem
+            // 
+            письмаToolStripMenuItem.Name = "письмаToolStripMenuItem";
+            письмаToolStripMenuItem.Size = new Size(62, 20);
+            письмаToolStripMenuItem.Text = "Письма";
+            письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
+            // 
             // buttonUpdate
             // 
             buttonUpdate.Location = new Point(780, 230);
@@ -172,12 +180,12 @@
             dataGridView.Size = new Size(755, 426);
             dataGridView.TabIndex = 7;
             // 
-            // письмаToolStripMenuItem
+            // createBackupToolStripMenuItem
             // 
-            письмаToolStripMenuItem.Name = "письмаToolStripMenuItem";
-            письмаToolStripMenuItem.Size = new Size(62, 20);
-            письмаToolStripMenuItem.Text = "Письма";
-            письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
+            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
+            createBackupToolStripMenuItem.Size = new Size(97, 20);
+            createBackupToolStripMenuItem.Text = "Создать бекап";
+            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -218,5 +226,6 @@
         private ToolStripMenuItem исполнителиToolStripMenuItem;
         private ToolStripMenuItem DoWorkToolStripMenuItem;
         private ToolStripMenuItem письмаToolStripMenuItem;
+        private ToolStripMenuItem createBackupToolStripMenuItem;
     }
 }
