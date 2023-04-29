@@ -13,7 +13,7 @@ namespace FoodOrdersDatabaseImplement.Implements
             using var context = new FoodOrdersDatabase();
             if (!string.IsNullOrEmpty(model.MessageId))
             {
-                return context.EmailMessages.FirstOrDefault(x => x.MessageId == model.MessageId)?.GetViewModel;
+                return context.Messages.FirstOrDefault(x => x.MessageId == model.MessageId)?.GetViewModel;
             }
             return null;
         }
@@ -25,7 +25,7 @@ namespace FoodOrdersDatabaseImplement.Implements
                 return new();
             }
             using var context = new FoodOrdersDatabase();
-            return context.EmailMessages
+            return context.Messages
                     .Where(x => x.ClientId == model.ClientId)
                     .Select(x => x.GetViewModel)
                     .ToList();
@@ -34,22 +34,22 @@ namespace FoodOrdersDatabaseImplement.Implements
         public List<MessageInfoViewModel> GetFullList()
         {
             using var context = new FoodOrdersDatabase();
-            return context.EmailMessages
+            return context.Messages
                     .Select(x => x.GetViewModel)
                     .ToList();
         }
 
         public MessageInfoViewModel? Insert(MessageInfoBindingModel model)
         {
-            var newMessage = EmailMessage.Create(model);
+            var newMessage = MessageInfo.Create(model);
             if (newMessage == null)
             {
                 return null;
             }
             using var context = new FoodOrdersDatabase();
-            context.EmailMessages.Add(newMessage);
+            context.Messages.Add(newMessage);
             context.SaveChanges();
-            return context.EmailMessages
+            return context.Messages
                                  .FirstOrDefault(x => x.MessageId == newMessage.MessageId)?.GetViewModel;
         }
     }

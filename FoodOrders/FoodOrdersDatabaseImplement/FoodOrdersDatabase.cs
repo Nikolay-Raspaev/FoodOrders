@@ -26,6 +26,6 @@ namespace FoodOrdersDatabaseImplement
 
         public virtual DbSet<Implementer> Implementers { set; get; }
 
-        public virtual DbSet<EmailMessage> EmailMessages { set; get; }
+        public virtual DbSet<MessageInfo> Messages { set; get; }
     }
 }
