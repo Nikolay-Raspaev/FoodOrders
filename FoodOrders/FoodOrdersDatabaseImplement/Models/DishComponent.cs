@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
+    [DataContract]
     public class DishComponent
     {
         public int Id { get; set; }

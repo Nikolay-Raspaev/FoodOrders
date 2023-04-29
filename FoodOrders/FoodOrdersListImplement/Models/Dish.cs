@@ -1,6 +1,7 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersListImplement.Models
 {

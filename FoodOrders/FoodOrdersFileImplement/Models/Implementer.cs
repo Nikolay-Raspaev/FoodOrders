@@ -6,23 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace FoodOrdersFileImplement.Models
 {
-	public class Implementer : IImplementerModel
+    [DataContract]
+    public class Implementer : IImplementerModel
 	{
-		public int Id { get; private set; }
-
-		public string ImplementerFIO { get; private set; } = string.Empty;
-
-		public string Password { get; private set; } = string.Empty;
-
-		public int WorkExperience { get; private set; }
-
-		public int Qualification { get; private set; }
+        [DataMember]
+        public int Id { get; private set; }
+        [DataMember]
+        public string ImplementerFIO { get; private set; } = string.Empty;
+        [DataMember]
+        public string Password { get; private set; } = string.Empty;
+        [DataMember]
+        public int WorkExperience { get; private set; }
+        [DataMember]
+        public int Qualification { get; private set; }
 
 		public static Implementer? Create(XElement element)
 		{

@@ -1,18 +1,21 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
+using System.Runtime.Serialization;
 using System.Xml.Linq;
 
 namespace FoodOrdersFileImplement.Models
 {
+    [DataContract]
     public class Client : IClientModel
     {
+        [DataMember]
         public int Id { get; set; }
-
+        [DataMember]
         public string ClientFIO { get; set; } = string.Empty;
-
+        [DataMember]
         public string Email { get; set; } = string.Empty;
-
+        [DataMember]
         public string Password { get; set; } = string.Empty;
 
         public static Client? Create(ClientBindingModel? model)

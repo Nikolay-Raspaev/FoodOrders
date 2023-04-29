@@ -3,20 +3,23 @@ using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
-	public class Implementer : IImplementerModel
+    [DataContract]
+    public class Implementer : IImplementerModel
 	{
-		public int Id { get; private set; }
-
-		public string ImplementerFIO { get; private set; } = string.Empty;
-
-		public string Password { get; private set; } = string.Empty;
-
-		public int WorkExperience { get; private set; }
-
-		public int Qualification { get; private set; }
+        [DataMember]
+        public int Id { get; private set; }
+        [DataMember]
+        public string ImplementerFIO { get; private set; } = string.Empty;
+        [DataMember]
+        public string Password { get; private set; } = string.Empty;
+        [DataMember]
+        public int WorkExperience { get; private set; }
+        [DataMember]
+        public int Qualification { get; private set; }
 
 		[ForeignKey("ImplementerId")]
 		public virtual List<Order> Orders { get; private set; } = new(); 

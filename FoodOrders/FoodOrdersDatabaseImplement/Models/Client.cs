@@ -4,19 +4,22 @@ using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
+    [DataContract]
     public class Client : IClientModel
     {
+        [DataMember]
         public int Id { get; set; }
-
+        [DataMember]
         [Required]
         public string ClientFIO { get; set; } = string.Empty;
-
+        [DataMember]
         [Required]
         public string Email { get; set; } = string.Empty;
-
+        [DataMember]
         [Required]
         public string Password { get; set; } = string.Empty;
 
