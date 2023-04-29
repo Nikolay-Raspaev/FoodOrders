@@ -10,13 +10,12 @@ using NLog.Extensions.Logging;
 using FoodOrdersBusinessLogic.MailWorker;
 using FoodOrdersContracts.BindingModels;
 using FoodOrdersDatabaseImplement;
+using FoodOrdersContracts.DI;
 
 namespace FoodOrdersView
 {
     internal static class Program
     {
-        private static ServiceProvider? _serviceProvider;
-        public static ServiceProvider? ServiceProvider => _serviceProvider;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -26,14 +25,11 @@ namespace FoodOrdersView
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            InitDependency();
 
-            var services = new ServiceCollection();
-            ConfigureServices(services);
-            _serviceProvider = services.BuildServiceProvider();
-            
             try
             {
-                var mailSender = _serviceProvider.GetService<AbstractMailWorker>();
+                var mailSender = DependencyManager.Instance.Resolve<AbstractMailWorker>();
                 mailSender?.MailConfig(new MailConfigBindingModel
                 {
                     MailLogin = System.Configuration.ConfigurationManager.AppSettings["MailLogin"] ?? string.Empty,
@@ -49,57 +45,49 @@ namespace FoodOrdersView
             }
             catch (Exception ex)
             {
-                var logger = _serviceProvider.GetService<ILogger>();
+                var logger = DependencyManager.Instance.Resolve<ILogger>();
                 logger?.LogError(ex, "Ошибка работы с почтой");
             }
 
-            Application.Run(_serviceProvider.GetRequiredService<FormMain>());
+            Application.Run(DependencyManager.Instance.Resolve<FormMain>());
         }
 
-        private static void ConfigureServices(ServiceCollection services)
+        private static void InitDependency()
         {
-            services.AddLogging(option =>
+            DependencyManager.InitDependency();
+
+            DependencyManager.Instance.AddLogging(option =>
             {
                 option.SetMinimumLevel(LogLevel.Information);
                 option.AddNLog("nlog.config");
             });
-            services.AddTransient<IComponentStorage, ComponentStorage>();
-            services.AddTransient<IOrderStorage, OrderStorage>();
-            services.AddTransient<IDishStorage, DishStorage>();
-            services.AddTransient<IClientStorage, ClientStorage>();
-            services.AddTransient<IImplementerStorage, ImplementerStorage>();
-            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
 
-            services.AddTransient<IComponentLogic, ComponentLogic>();
-            services.AddTransient<IOrderLogic, OrderLogic>();
-            services.AddTransient<IDishLogic, DishLogic>();
-            services.AddTransient<IReportLogic, ReportLogic>();
-            services.AddTransient<IClientLogic, ClientLogic>();
-            services.AddTransient<IImplementerLogic, ImplementerLogic>();   
-            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            DependencyManager.Instance.RegisterType<IComponentLogic, ComponentLogic>();
+            DependencyManager.Instance.RegisterType<IOrderLogic, OrderLogic>();
+            DependencyManager.Instance.RegisterType<IDishLogic, DishLogic>();
+            DependencyManager.Instance.RegisterType<IReportLogic, ReportLogic>();
+            DependencyManager.Instance.RegisterType<IClientLogic, ClientLogic>();
+            DependencyManager.Instance.RegisterType<IImplementerLogic, ImplementerLogic>();
+            DependencyManager.Instance.RegisterType<IMessageInfoLogic, MessageInfoLogic>();
 
-            services.AddTransient<IWorkProcess, WorkModeling>();
-            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+            DependencyManager.Instance.RegisterType<AbstractSaveToExcel, SaveToExcel>();
+            DependencyManager.Instance.RegisterType<AbstractSaveToWord, SaveToWord>();
+            DependencyManager.Instance.RegisterType<AbstractSaveToPdf, SaveToPdf>();
+            DependencyManager.Instance.RegisterType<IWorkProcess, WorkModeling>();
+            DependencyManager.Instance.RegisterType<AbstractMailWorker, MailKitWorker>(true);
+            DependencyManager.Instance.RegisterType<IBackUpLogic, BackUpLogic>();
 
-            services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
-            services.AddTransient<AbstractSaveToWord, SaveToWord>();
-            services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
-
-            services.AddTransient<FormMain>();
-            services.AddTransient<FormClients>();
-            services.AddTransient<FormComponent>();
-            services.AddTransient<FormComponents>();
-            services.AddTransient<FormCreateOrder>();
-            services.AddTransient<FormDish>();
-            services.AddTransient<FormDishComponents>();
-            services.AddTransient<FormDishes>();
-            services.AddTransient<FormReportDishComponents>();
-            services.AddTransient<FormReportOrders>();
-            services.AddTransient<FormViewImplementers>();
-            services.AddTransient<FormImplementer>();
-            services.AddTransient<FormMails>();
+            DependencyManager.Instance.RegisterType<FormMain>();
+            DependencyManager.Instance.RegisterType<FormComponent>();
+            DependencyManager.Instance.RegisterType<FormComponents>();
+            DependencyManager.Instance.RegisterType<FormCreateOrder>();
+            DependencyManager.Instance.RegisterType<FormDish>();
+            DependencyManager.Instance.RegisterType<FormDishComponents>();
+            DependencyManager.Instance.RegisterType<FormReportDishComponents>();
+            DependencyManager.Instance.RegisterType<FormReportOrders>();
+            DependencyManager.Instance.RegisterType<FormClients>();
         }
 
-        private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
+        private static void MailCheck(object obj) => DependencyManager.Instance.Resolve<AbstractMailWorker>()?.MailCheck();
     }
 }

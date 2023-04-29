@@ -1,6 +1,8 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using FoodOrdersView;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using Microsoft.Extensions.Logging;
+using FoodOrdersContracts.DI;
 
 namespace FoodOrdersView
 {
@@ -22,14 +24,8 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logicC.ReadList(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["ComponentName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
-                _logger.LogInformation("Загрузка Блюд");
+                dataGridView.FillAndConfigGrid(_logicC.ReadList(null));
+                _logger.LogInformation("Загрузка компонентов");
             }
             catch (Exception ex)
             {
@@ -40,27 +36,21 @@ namespace FoodOrdersView
         }
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
-            if (service is FormComponent form)
+            var form = DependencyManager.Instance.Resolve<FormComponent>();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
+                LoadData();
             }
         }
         private void ButtonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormComponent));
-                if (service is FormComponent form)
+                var form = DependencyManager.Instance.Resolve<FormComponent>();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
+                    LoadData();
                 }
             }
         }

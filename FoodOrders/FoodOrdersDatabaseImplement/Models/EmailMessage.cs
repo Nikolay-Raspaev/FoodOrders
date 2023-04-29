@@ -45,5 +45,7 @@ namespace FoodOrdersDatabaseImplement.Models
 			Subject = Subject,
 			DateDelivery = DateDelivery,
 		};
-	}
+
+        public int Id => throw new NotImplementedException();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using FoodOrdersBusinessLogic.BusinessLogics;
+﻿using FoodOrdersView;
+using FoodOrdersBusinessLogic.BusinessLogics;
 using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersDataModels.Enums;
@@ -28,14 +29,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logicO.ReadList(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["DishId"].Visible = false;
-                    dataGridView.Columns["ClientId"].Visible = false;
-                    dataGridView.Columns["ImplementerId"].Visible = false;
-                }
+                dataGridView.FillAndConfigGrid(_logicO.ReadList(null));
                 _logger.LogInformation("Загрузка заказов");
             }
             catch (Exception ex)

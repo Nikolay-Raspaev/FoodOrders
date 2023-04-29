@@ -15,5 +15,7 @@ namespace FoodOrdersContracts.BindingModels
         public string Body { get; set; } = string.Empty;
 
         public DateTime DateDelivery { get; set; }
+
+        public int Id => throw new NotImplementedException();
     }
 }

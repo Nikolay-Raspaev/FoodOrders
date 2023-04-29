@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using FoodOrdersContracts.BusinessLogicsContracts;
+using FoodOrdersView;
 
 namespace FoodOrdersView
 {
@@ -19,15 +20,8 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logic.ReadList(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["ClientId"].Visible = false;
-                    dataGridView.Columns["MessageId"].Visible = false;
-                    dataGridView.Columns["Body"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
-                _logger.LogInformation("Загрузка писем");
+                dataGridView.FillAndConfigGrid(_logic.ReadList(null));
+                _logger.LogInformation("Загрузка списка писем");
             }
             catch (Exception ex)
             {

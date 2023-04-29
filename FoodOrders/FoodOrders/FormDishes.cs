@@ -1,4 +1,5 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using FoodOrdersView;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using Microsoft.Extensions.Logging;
 
@@ -23,14 +24,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logicD.ReadList(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["DishName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["DishComponents"].Visible = false;
-                }
+                dataGridView.FillAndConfigGrid(_logicD.ReadList(null));
                 _logger.LogInformation("Загрузка набор блюд");
             }
             catch (Exception ex)

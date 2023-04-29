@@ -1,19 +1,21 @@
-﻿using FoodOrdersDataModels.Models;
+﻿using FoodOrdersContracts.Attributes;
+using FoodOrdersDataModels.Models;
 using System.ComponentModel;
 
 namespace FoodOrdersContracts.ViewModels
 {
     public class ClientViewModel : IClientModel
     {
+        [Column(visible: false)]
         public int Id { get; set; }
 
-        [DisplayName("ФИО клиента")]
+        [Column(title: "ФИО клиента", width: 150)]
         public string ClientFIO { get; set; } = string.Empty;
 
-        [DisplayName("Логин (эл. почта)")]
+        [Column(title: "Логин (эл. почта)", gridViewAutoSize: GridViewAutoSize.Fill, isUseAutoSize: true)]
         public string Email { get; set; } = string.Empty;
 
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 150)]
         public string Password { get; set; } = string.Empty;
     }
 }
