@@ -23,11 +23,21 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public List<OrderViewModel> GetFilteredList(OrderSearchModel model)
         {
-            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue && !model.Status.HasValue)
+            if (!model.Id.HasValue && !model.DateFrom.HasValue && !model.ClientId.HasValue && !model.Status.HasValue && !model.ImplementerId.HasValue)
             {
                 return new();
             }
             using var context = new FoodOrdersDatabase();
+            if (model.Status.HasValue && model.ImplementerId.HasValue)
+            {
+                return context.Orders
+                    .Include(x => x.Dish)
+                    .Include(x => x.Client)
+                    .Include(x => x.Implementer)
+                    .Where(x => x.ImplementerId == model.ImplementerId && x.Status == model.Status)
+                    .Select(x => x.GetViewModel)
+                    .ToList();
+            }
             if (model.ClientId.HasValue)
             {
                 return context.Orders

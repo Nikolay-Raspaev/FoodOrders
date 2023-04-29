@@ -32,19 +32,6 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 return;
             }
             var orders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Принят });
-            if (orders == null || orders.Count == 0)
-            {
-                var waitingOrders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Ожидание });
-                if (waitingOrders == null || waitingOrders.Count == 0)
-                {
-                    var relatedOrders = _orderLogic.ReadList(new OrderSearchModel { Status = OrderStatus.Выполняется });
-                    if (relatedOrders == null || relatedOrders.Count == 0)
-                    {
-                        _logger.LogWarning("DoWork. Orders is null or empty");
-                        return;
-                    }
-                }             
-            }
             _logger.LogDebug("DoWork for {Count} orders", orders.Count);
             foreach (var implementer in implementers)
             {
@@ -161,39 +148,41 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             {
                 return;
             }
-            try
+            var listExpectOrder = await Task.Run(() => _orderLogic.ReadList(new OrderSearchModel
             {
-                var expectOrder = await Task.Run(() => _orderLogic.ReadElement(new OrderSearchModel
+                ImplementerId = implementer.Id,
+                Status = OrderStatus.Ожидание
+            }));
+            if (listExpectOrder == null)
+            {
+                return;
+            }
+            foreach (var order in listExpectOrder)
+            {
+                try
                 {
-                    ImplementerId = implementer.Id,
-                    Status = OrderStatus.Ожидание
-                }));
-                if (expectOrder == null)
-                {
-                    return;
+                    _logger.LogDebug("DoWork. Worker {Id} back to order {Order}", implementer.Id, order.Id);
+                    _logger.LogDebug("DoWork. Worker {Id} finish order {Order}", implementer.Id, order.Id);
+                    _orderLogic.FinishOrder(new OrderBindingModel
+                    {
+                        Id = order.Id
+                    });
+                    // отдыхаем
+                    Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
                 }
-                _logger.LogDebug("DoWork. Worker {Id} back to order {Order}", implementer.Id, expectOrder.Id);
-                // доделываем работу
-                Thread.Sleep(implementer.WorkExperience * _rnd.Next(100, 300) * expectOrder.Count);
-                _logger.LogDebug("DoWork. Worker {Id} finish order {Order}", implementer.Id, expectOrder.Id);
-                _orderLogic.FinishOrder(new OrderBindingModel
+                // заказа может не быть, просто игнорируем ошибку
+                catch (InvalidOperationException ex)
                 {
-                    Id = expectOrder.Id
-                });
-                // отдыхаем
-                Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
+                    _logger.LogWarning(ex, "Error try get work");
+                }
+                // а может возникнуть иная ошибка, тогда просто заканчиваем выполнение имитации
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error while do work");
+                    throw;
+                }
             }
-            // заказа может не быть, просто игнорируем ошибку
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Error try get work");
-            }
-            // а может возникнуть иная ошибка, тогда просто заканчиваем выполнение имитации
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while do work");
-                throw;
-            }
+
         }
     }
 }
