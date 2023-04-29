@@ -10,11 +10,13 @@ namespace FoodOrdersFileImplement
         private readonly string DishFileName = "Dish.xml";
         private readonly string ClientFileName = "Clients.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
+        private readonly string MessageInfoFileName = "MessageInfo.xml";
         public List<Component> Components { get; private set; }
         public List<Order> Orders { get; private set; }
         public List<Dish> Dishes { get; private set; }
         public List<Client> Clients { get; private set; }
         public List<Implementer> Implementers { get; private set; }
+        public List<MessageInfo> Messages { get; private set; }
 
         public static DataFileSingleton GetInstance()
         {
@@ -29,6 +31,7 @@ namespace FoodOrdersFileImplement
         public void SaveOrders() => SaveData(Orders, OrderFileName, "Orders", x => x.GetXElement);
         public void SaveClients() => SaveData(Clients, ClientFileName, "Clients", x => x.GetXElement);
         public void SaveImplementer() => SaveData(Implementers, ImplementerFileName, "Implementer", x => x.GetXElement);
+        public void SaveMessages() => SaveData(Orders, ImplementerFileName, "Messages", x => x.GetXElement);
         private DataFileSingleton()
         {
             Components = LoadData(ComponentFileName, "Component", x => Component.Create(x)!)!;
@@ -36,6 +39,7 @@ namespace FoodOrdersFileImplement
             Orders = LoadData(OrderFileName, "Order", x => Order.Create(x)!)!;
             Clients = LoadData(ClientFileName, "Client", x => Client.Create(x)!)!;
             Implementers = LoadData(ImplementerFileName, "Implementer", x => Implementer.Create(x)!)!;
+            Messages = LoadData(MessageInfoFileName, "MessageInfo", x => MessageInfo.Create(x)!)!;
         }
         private static List<T>? LoadData<T>(string filename, string xmlNodeName, Func<XElement, T> selectFunction)
         {
