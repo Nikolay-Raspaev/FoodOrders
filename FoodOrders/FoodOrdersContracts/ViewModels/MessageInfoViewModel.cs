@@ -20,5 +20,11 @@ namespace FoodOrdersContracts.ViewModels
 
         [DisplayName("Текст")]
         public string Body { get; set; } = string.Empty;
+
+        [DisplayName("Прочитано")]
+        public bool HasRead { get; set; }
+
+        [DisplayName("Ответ")]
+        public string? Reply { get; set; }
     }
 }

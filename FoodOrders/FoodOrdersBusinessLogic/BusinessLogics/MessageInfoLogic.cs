@@ -27,6 +27,27 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
             return true;
         }
 
+        public MessageInfoViewModel? ReadElement(MessageInfoSearchModel model)
+        {
+            var res = _messageInfoStorage.GetElement(model);
+            if (res == null)
+            {
+                _logger.LogWarning("Read element operation failed");
+                return null;
+            }
+            return res;
+        }
+
+        public bool Update(MessageInfoBindingModel model)
+        {
+            if (_messageInfoStorage.Update(model) == null)
+            {
+                _logger.LogWarning("Update operation failed");
+                return false;
+            }
+            return true;
+        }
+
         public List<MessageInfoViewModel>? ReadList(MessageInfoSearchModel? model)
         {
             _logger.LogInformation("ReadList. ClientId:{ClientId}", model?.ClientId);

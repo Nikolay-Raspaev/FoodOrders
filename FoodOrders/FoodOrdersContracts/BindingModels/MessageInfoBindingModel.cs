@@ -15,5 +15,9 @@ namespace FoodOrdersContracts.BindingModels
         public string Body { get; set; } = string.Empty;
 
         public DateTime DateDelivery { get; set; }
+
+        public bool HasRead { get; set; }
+
+        public string? Reply { get; set; }
     }
 }

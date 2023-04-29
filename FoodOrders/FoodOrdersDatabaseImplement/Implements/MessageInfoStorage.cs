@@ -20,15 +20,15 @@ namespace FoodOrdersDatabaseImplement.Implements
 
         public List<MessageInfoViewModel> GetFilteredList(MessageInfoSearchModel model)
         {
-            if (!model.ClientId.HasValue)
-            {
-                return new();
-            }
             using var context = new FoodOrdersDatabase();
-            return context.Messages
-                    .Where(x => x.ClientId == model.ClientId)
-                    .Select(x => x.GetViewModel)
-                    .ToList();
+            var res = context.Messages
+                .Where(x => !model.ClientId.HasValue || x.ClientId == model.ClientId)
+                .Select(x => x.GetViewModel);
+            if (!(model.Page.HasValue && model.PageSize.HasValue))
+            {
+                return res.ToList();
+            }
+            return res.Skip((model.Page.Value - 1) * model.PageSize.Value).Take(model.PageSize.Value).ToList();
         }
 
         public List<MessageInfoViewModel> GetFullList()
@@ -50,7 +50,19 @@ namespace FoodOrdersDatabaseImplement.Implements
             context.Messages.Add(newMessage);
             context.SaveChanges();
             return context.Messages
-                                 .FirstOrDefault(x => x.MessageId == newMessage.MessageId)?.GetViewModel;
+                                 .FirstOrDefault(x => x.MessageId == newMessage.MessageId)?
+                                 .GetViewModel;
+        }
+        public MessageInfoViewModel? Update(MessageInfoBindingModel model)
+        {
+            using var context = new FoodOrdersDatabase();
+            var res = context.Messages.FirstOrDefault(x => x.MessageId.Equals(model.MessageId));
+            if (res != null)
+            {
+                res.Update(model);
+                context.SaveChanges();
+            }
+            return res?.GetViewModel;
         }
     }
 }

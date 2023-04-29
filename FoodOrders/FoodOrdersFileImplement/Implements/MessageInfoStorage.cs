@@ -26,5 +26,10 @@ namespace FoodOrdersFileImplement.Implements
         {
             throw new NotImplementedException();
         }
+
+        public MessageInfoViewModel? Update(MessageInfoBindingModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
