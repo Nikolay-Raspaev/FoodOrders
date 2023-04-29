@@ -1,4 +1,5 @@
 ﻿using FoodOrdersListImplement.Models;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace FoodOrdersListImplement
 {
@@ -11,6 +12,7 @@ namespace FoodOrdersListImplement
         public List<Shop> Shops { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> Messages { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
@@ -19,6 +21,7 @@ namespace FoodOrdersListImplement
             Clients = new List<Client>();
             Shops = new List<Shop>();
             Implementers = new List<Implementer>();
+            Messages = new List<MessageInfo>();
         }
         public static DataListSingleton GetInstance()
         {

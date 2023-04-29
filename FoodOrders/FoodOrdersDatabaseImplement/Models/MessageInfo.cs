@@ -22,7 +22,7 @@ namespace FoodOrdersDatabaseImplement.Models
 		public virtual Client? Client { get; set; }
         public bool HasRead { get; private set; }
         public string? Reply { get; private set; }
-        public static MessageInfo? Create(MessageInfoBindingModel model)
+		public static MessageInfo? Create(MessageInfoBindingModel model)
 		{
 			if (model == null)
 			{
@@ -35,10 +35,13 @@ namespace FoodOrdersDatabaseImplement.Models
                 HasRead = model.HasRead,
                 Subject = model.Subject,
                 ClientId = model.ClientId,
-                MessageId = model.MessageId,
-                SenderName = model.SenderName,
-                DateDelivery = model.DateDelivery,
-            };
+				MessageId = model.MessageId,
+				ClientId = model.ClientId,
+				SenderName = model.SenderName,
+				Body = model.Body,
+				Subject = model.Subject,
+				DateDelivery = model.DateDelivery,
+			};
 		}
         public void Update(MessageInfoBindingModel model)
         {
@@ -50,16 +53,19 @@ namespace FoodOrdersDatabaseImplement.Models
             HasRead = model.HasRead;
         }
 
-        public MessageInfoViewModel GetViewModel => new()
-        {
+		public MessageInfoViewModel GetViewModel => new()
+		{
             Body = Body,
             Reply = Reply,
             HasRead = HasRead,
             Subject = Subject,
             ClientId = ClientId,
-            MessageId = MessageId,
-            SenderName = SenderName,
-            DateDelivery = DateDelivery,
-        };
-    }
+			MessageId = MessageId,
+			ClientId = ClientId,
+			SenderName = SenderName,
+			Body = Body,
+			Subject = Subject,
+			DateDelivery = DateDelivery,
+		};
+	}
 }
