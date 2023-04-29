@@ -7,8 +7,8 @@ using System.Runtime.Serialization;
 namespace FoodOrdersDatabaseImplement.Models
 {
     [DataContract]
-    public class EmailMessage : IMessageInfoModel
-	{
+    public class MessageInfo : IMessageInfoModel
+    {
 		[Key]
         [DataMember]
         public string MessageId { get; private set; } = string.Empty;
@@ -27,13 +27,13 @@ namespace FoodOrdersDatabaseImplement.Models
         [Required]
 		public string Body { get; private set; } = string.Empty;
 		public virtual Client? Client { get; set; }
-		public static EmailMessage? Create(MessageInfoBindingModel model)
+		public static MessageInfo? Create(MessageInfoBindingModel model)
 		{
 			if (model == null)
 			{
 				return null;
 			}
-			return new EmailMessage()
+			return new MessageInfo()
 			{
 				MessageId = model.MessageId,
 				ClientId = model.ClientId,
