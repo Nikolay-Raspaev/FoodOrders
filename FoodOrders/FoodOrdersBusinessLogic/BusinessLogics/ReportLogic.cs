@@ -86,10 +86,10 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                     ListDish = new(),
                     TotalCount = 0
                 };
-                foreach (var sushi in shop.ShopDishes)
+                foreach (var dish in shop.ShopDishes)
                 {
-                    record.ListDish.Add(new(sushi.Value.Item1.DishName, sushi.Value.Item2));
-                    record.TotalCount += sushi.Value.Item2;
+                    record.ListDish.Add(new(dish.Value.Item1.DishName, dish.Value.Item2));
+                    record.TotalCount += dish.Value.Item2;
                 }
                 list.Add(record);
             }
