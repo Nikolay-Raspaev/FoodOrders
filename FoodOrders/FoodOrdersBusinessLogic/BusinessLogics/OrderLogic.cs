@@ -1,4 +1,6 @@
-﻿using FoodOrdersContracts.BindingModels;
+﻿using DocumentFormat.OpenXml.EMMA;
+using FoodOrdersBusinessLogic.MailWorker;
+using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersContracts.StoragesContracts;
@@ -12,12 +14,16 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
     {
         private readonly ILogger _logger;
         private readonly IOrderStorage _orderStorage;
+        private readonly AbstractMailWorker _mailWorker;
+        private readonly IClientLogic _clientLogic;
         private readonly IShopLogic _logicS;
         private readonly IDishStorage _dishStorage;
-        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage, IShopLogic logicS, IDishStorage dishStorage)
+        public OrderLogic(ILogger<OrderLogic> logger, IOrderStorage orderStorage, IShopLogic logicS, IDishStorage dishStorage, AbstractMailWorker mailWorker, IClientLogic clientLogic)
         {
             _logger = logger;
             _orderStorage = orderStorage;
+            _mailWorker = mailWorker;
+            _clientLogic = clientLogic;
             _logicS = logicS;
             _dishStorage = dishStorage;
         }
@@ -61,12 +67,14 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 return false;
             }
             model.Status = OrderStatus.Принят;
-            if (_orderStorage.Insert(model) == null)
+            var order = _orderStorage.Insert(model);
+            if (order == null)
             {
                 model.Status = OrderStatus.Неизвестен;
                 _logger.LogWarning("Insert operation failed");
                 return false;
             }
+            SendToClient(order.ClientId, $"Заказ №{order.Id}", $"Заказ №{order.Id} от {order.DateCreate} на сумму {order.Sum} принят.");
             return true;
         }
 
@@ -152,11 +160,30 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                 model.DateImplement = viewModel.DateImplement;
             }
             CheckModel(model, false);
-            if (_orderStorage.Update(model) == null)
+            var order = _orderStorage.Update(model);
+            if (order == null)
             {
                 _logger.LogWarning("Change status operation failed");
                 return false;
             }
+            
+            SendToClient(order.ClientId, $"Заказ №{order.Id}", $"У заказа №{order.Id} изменен статус на {order.Status}.");
+            return true;
+        }
+
+        private bool SendToClient(int clientId, string subject, string text)
+        {
+            var client = _clientLogic.ReadElement(new() { Id = clientId });
+            if (client == null)
+            {
+                return false;
+            }
+            _mailWorker.MailSendAsync(new()
+            {
+                MailAddress = client.Email,
+                Subject = subject,
+                Text = text
+            });
             return true;
         }
     }

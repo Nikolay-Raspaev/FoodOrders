@@ -140,6 +140,36 @@ namespace FoodOrdersDatabaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -253,6 +283,15 @@ namespace FoodOrdersDatabaseImplement.Migrations
                     b.Navigation("Component");
 
                     b.Navigation("Dish");
+                });
+
+            modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("FoodOrdersDatabaseImplement.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("FoodOrdersDatabaseImplement.Models.Order", b =>
