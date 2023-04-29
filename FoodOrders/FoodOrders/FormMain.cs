@@ -4,6 +4,8 @@ using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersDataModels.Enums;
 using Microsoft.Extensions.Logging;
+using FoodOrdersContracts.DI;
+using System.Windows.Forms;
 
 namespace FoodOrdersView
 {
@@ -40,28 +42,19 @@ namespace FoodOrdersView
         }
         private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormComponents));
-            if (service is FormComponents form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
         }
         private void DishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDishes));
-            if (service is FormDishes form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
         }
         private void ButtonCreateOrder_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormCreateOrder));
-            if (service is FormCreateOrder form)
-            {
-                form.ShowDialog();
-                LoadData();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
+            LoadData();
         }
 
         private void ButtonIssuedOrder_Click(object sender, EventArgs e)
@@ -107,54 +100,39 @@ namespace FoodOrdersView
 
         private void ComponentDishesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportDishComponents));
-            if (service is FormReportDishComponents form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportDishComponents>();
+            form.ShowDialog();
         }
 
         private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportOrders));
-            if (service is FormReportOrders form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportOrders>();
+            form.ShowDialog();
         }
 
         private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormClients));
-            if (service is FormClients form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormClients>();
+            form.ShowDialog();
         }
 
         private void ImplementersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormViewImplementers));
-            if (service is FormViewImplementers form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormViewImplementers>();
+            form.ShowDialog();
         }
 
         private void DoWorkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _workProcess.DoWork((Program.ServiceProvider?.GetService(typeof(IImplementerLogic)) as IImplementerLogic)!, _logicO);
+            _workProcess.DoWork(DependencyManager.Instance.Resolve<IImplementerLogic>(), _logicO);
             MessageBox.Show("Процесс обработки запущен", "Сообщение",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormMails));
-            if (service is FormMails form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormMails>();
+            form.ShowDialog();
         }
     }
 }

@@ -2,6 +2,7 @@
 using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using Microsoft.Extensions.Logging;
+using FoodOrdersContracts.DI;
 
 namespace FoodOrdersView
 {
@@ -36,13 +37,10 @@ namespace FoodOrdersView
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDish));
-            if (service is FormDish form)
+            var form = DependencyManager.Instance.Resolve<FormDish>();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
+                LoadData();
             }
         }
 
@@ -50,14 +48,11 @@ namespace FoodOrdersView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormDish));
-                if (service is FormDish form)
+                var form = DependencyManager.Instance.Resolve<FormDish>();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
+                    LoadData();
                 }
             }
         }
