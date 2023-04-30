@@ -30,16 +30,16 @@ namespace FoodOrdersContracts.ViewModels
         [Column("Количество", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public int Count { get; set; }
 
-        [Column("Сумма", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
+        [Column("Сумма", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true, format: "0.00")]
         public double Sum { get; set; }
 
         [Column("Статус", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public OrderStatus Status { get; set; } = OrderStatus.Неизвестен;
 
-        [Column("Дата создания", width: 100)]
+        [Column("Дата создания", width: 100, format: "D")]
         public DateTime DateCreate { get; set; } = DateTime.Now;
 
-        [Column("Дата выполнения", width: 100)]
+        [Column("Дата выполнения", width: 100, format: "D")]
         public DateTime? DateImplement { get; set; }
     }
 }

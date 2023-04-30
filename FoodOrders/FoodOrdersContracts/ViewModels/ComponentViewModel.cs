@@ -11,7 +11,7 @@ namespace FoodOrdersContracts.ViewModels
         [Column("Название компонента", gridViewAutoSize: GridViewAutoSize.Fill, isUseAutoSize: true)]
         public string ComponentName { get; set; } = string.Empty;
 
-        [Column("Цена", width: 80)]
+        [Column("Цена", width: 80, format: "0.00")]
         public double Cost { get; set; }
     }
 }

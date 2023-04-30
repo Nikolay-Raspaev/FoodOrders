@@ -15,7 +15,7 @@ namespace FoodOrdersContracts.ViewModels
         [Column("Отправитель", gridViewAutoSize: GridViewAutoSize.DisplayedCells, isUseAutoSize: true)]
         public string SenderName { get; set; } = string.Empty;
 
-        [Column("Дата письма", width: 100)]
+        [Column("Дата письма", width: 100, format: "D")]
         public DateTime DateDelivery { get; set; }
 
         [Column("Заголовок", width: 150)]

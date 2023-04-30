@@ -19,13 +19,16 @@ namespace FoodOrdersContracts.Attributes
 
         public bool IsUseAutoSize { get; private set; }
 
-        public ColumnAttribute(string title = "", bool visible = true, int width = 0, GridViewAutoSize gridViewAutoSize = GridViewAutoSize.None, bool isUseAutoSize = false)
+        public string Format { get; private set; }
+
+        public ColumnAttribute(string title = "", bool visible = true, int width = 0, GridViewAutoSize gridViewAutoSize = GridViewAutoSize.None, bool isUseAutoSize = false, string format = "")
         {
             Title = title;
             Visible = visible;
             Width = width;
             GridViewAutoSize = gridViewAutoSize;
             IsUseAutoSize = isUseAutoSize;
+            Format = format;
         }
     }
 }
