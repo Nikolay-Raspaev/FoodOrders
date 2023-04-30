@@ -2,22 +2,29 @@
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
-	public class MessageInfo : IMessageInfoModel
-	{
+    [DataContract]
+    public class MessageInfo : IMessageInfoModel
+    {
 		[Key]
-		public string MessageId { get; private set; } = string.Empty;
-
-		public int? ClientId { get; private set; }
-		[Required]
+        [DataMember]
+        public string MessageId { get; private set; } = string.Empty;
+        [DataMember]
+        public int? ClientId { get; private set; }
+        [DataMember]
+        [Required]
 		public string SenderName { get; private set; } = string.Empty;
-		[Required]
+        [DataMember]
+        [Required]
 		public DateTime DateDelivery { get; private set; }
-		[Required]
+        [DataMember]
+        [Required]
 		public string Subject { get; private set; } = string.Empty;
-		[Required]
+        [DataMember]
+        [Required]
 		public string Body { get; private set; } = string.Empty;
 		public virtual Client? Client { get; set; }
         public bool HasRead { get; private set; }
@@ -61,5 +68,7 @@ namespace FoodOrdersDatabaseImplement.Models
 			SenderName = SenderName,
 			DateDelivery = DateDelivery,
 		};
-	}
+
+        public int Id => throw new NotImplementedException();
+    }
 }

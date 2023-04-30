@@ -4,20 +4,31 @@ using FoodOrdersDataModels.Enums;
 using FoodOrdersDataModels.Models;
 using System.Reflection;
 using System.Reflection.Metadata;
+using System.Runtime.Serialization;
 using System.Xml.Linq;
 
 namespace FoodOrdersFileImplement.Models
 {
+    [DataContract]
     public class Order : IOrderModel
     {
+        [DataMember]
         public int Id { get; private set; }
+        [DataMember]
         public int DishId { get; private set; }
+        [DataMember]
         public int ClientId { get; private set; }
+        [DataMember]
         public int? ImplementerId { get; set; }
+        [DataMember]
         public int Count { get; private set; }
+        [DataMember]
         public double Sum { get; private set; }
+        [DataMember]
         public OrderStatus Status { get; private set; }
+        [DataMember]
         public DateTime DateCreate { get; private set; }
+        [DataMember]
         public DateTime? DateImplement { get; private set; }
 
         public static Order? Create(XElement element)

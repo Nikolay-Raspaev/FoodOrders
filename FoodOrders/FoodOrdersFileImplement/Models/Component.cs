@@ -1,13 +1,18 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
+using System.Runtime.Serialization;
 using System.Xml.Linq;
 namespace FoodOrdersFileImplement.Models
 {
+    [DataContract]
     public class Component : IComponentModel
     {
+        [DataMember]
         public int Id { get; private set; }
+        [DataMember]
         public string ComponentName { get; private set; } = string.Empty;
+        [DataMember]
         public double Cost { get; set; }
         public static Component? Create(ComponentBindingModel model)
         {

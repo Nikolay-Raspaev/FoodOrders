@@ -1,8 +1,11 @@
-﻿using FoodOrdersBusinessLogic.BusinessLogics;
+﻿using FoodOrdersView;
+using FoodOrdersBusinessLogic.BusinessLogics;
 using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersDataModels.Enums;
 using Microsoft.Extensions.Logging;
+using FoodOrdersContracts.DI;
+using System.Windows.Forms;
 
 namespace FoodOrdersView
 {
@@ -12,13 +15,15 @@ namespace FoodOrdersView
         private readonly IOrderLogic _logicO;
         private readonly IWorkProcess _workProcess;
         private readonly IReportLogic _logicR;
-        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess)
+        private readonly IBackUpLogic _backUpLogic;
+        public FormMain(ILogger<FormMain> logger, IOrderLogic orderLogic, IReportLogic reportLogic, IWorkProcess workProcess, IBackUpLogic backUpLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logicO = orderLogic;
             _logicR = reportLogic;
             _workProcess = workProcess;
+            _backUpLogic = backUpLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -28,14 +33,7 @@ namespace FoodOrdersView
         {
             try
             {
-                var list = _logicO.ReadList(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["DishId"].Visible = false;
-                    dataGridView.Columns["ClientId"].Visible = false;
-                    dataGridView.Columns["ImplementerId"].Visible = false;
-                }
+                dataGridView.FillAndConfigGrid(_logicO.ReadList(null));
                 _logger.LogInformation("Загрузка заказов");
             }
             catch (Exception ex)
@@ -46,28 +44,19 @@ namespace FoodOrdersView
         }
         private void ComponentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormComponents));
-            if (service is FormComponents form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
         }
         private void DishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDishes));
-            if (service is FormDishes form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
         }
         private void ButtonCreateOrder_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormCreateOrder));
-            if (service is FormCreateOrder form)
-            {
-                form.ShowDialog();
-                LoadData();
-            }
+            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            form.ShowDialog();
+            LoadData();
         }
         private void ButtonTakeOrderInWork_Click(object sender, EventArgs e)
         {
@@ -180,20 +169,14 @@ namespace FoodOrdersView
 
         private void ComponentDishesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportDishComponents));
-            if (service is FormReportDishComponents form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportDishComponents>();
+            form.ShowDialog();
         }
 
         private void OrdersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportOrders));
-            if (service is FormReportOrders form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportOrders>();
+            form.ShowDialog();
         }
 
         private void ShopsReportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -226,35 +209,51 @@ namespace FoodOrdersView
 
         private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormClients));
-            if (service is FormClients form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormClients>();
+            form.ShowDialog();
         }
 
         private void ImplementersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormViewImplementers));
-            if (service is FormViewImplementers form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormViewImplementers>();
+            form.ShowDialog();
         }
 
         private void DoWorkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _workProcess.DoWork((Program.ServiceProvider?.GetService(typeof(IImplementerLogic)) as IImplementerLogic)!, _logicO);
+            _workProcess.DoWork(DependencyManager.Instance.Resolve<IImplementerLogic>(), _logicO);
             MessageBox.Show("Процесс обработки запущен", "Сообщение",
             MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormMails));
-            if (service is FormMails form)
+            var form = DependencyManager.Instance.Resolve<FormMails>();
+            form.ShowDialog();
+        }
+
+        private void createBackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
             {
-                form.ShowDialog();
+                if (_backUpLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        _backUpLogic.CreateBackUp(new BackUpSaveBinidngModel
+                        {
+                            FolderName = fbd.SelectedPath
+                        });
+                        MessageBox.Show("Бекап создан", "Сообщение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
             }
         }
     }

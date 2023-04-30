@@ -3,22 +3,25 @@ using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
+    [DataContract]
     public class Dish : IDishModel
     {
+        [DataMember]
         public int Id { get; set; }
-
+        [DataMember]
         [Required]
         public string DishName { get; set; } = string.Empty;
-
+        [DataMember]
         [Required]
         public double Price { get; set; }
 
         private Dictionary<int, (IComponentModel, int)>? _dishComponents = null;
 
-        //??
+        [DataMember]
         [NotMapped]
         public Dictionary<int, (IComponentModel, int)> DishComponents
         {

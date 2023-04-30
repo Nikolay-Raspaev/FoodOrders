@@ -3,30 +3,33 @@ using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Enums;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersDatabaseImplement.Models
 {
+    [DataContract]
     public class Order : IOrderModel
     {
+        [DataMember]
         public int Id { get; set; }
-
+        [DataMember]
         [Required]
         public int DishId { get; set; }
-
+        [DataMember]
         [Required]
         public int ClientId { get; set; }
-
+        [DataMember]
         public int? ImplementerId { get; set; }
-
+        [DataMember]
         [Required]
         public int Count { get; set; }
-
+        [DataMember]
         [Required]
         public double Sum { get; set; }
-
+        [DataMember]
         [Required]
         public OrderStatus Status { get; set; }
-
+        [DataMember]
         [Required]
         public DateTime DateCreate { get; set; }
 
@@ -35,7 +38,7 @@ namespace FoodOrdersDatabaseImplement.Models
         public virtual Client Client { get; set; }
 
         public Implementer? Implementer { get; private set; }
-
+        [DataMember]
         public DateTime? DateImplement { get; set; }
 
         public static Order? Create(OrderBindingModel? model)

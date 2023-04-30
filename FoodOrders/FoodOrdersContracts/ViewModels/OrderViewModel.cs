@@ -1,41 +1,45 @@
-﻿using FoodOrdersDataModels.Enums;
+﻿using FoodOrdersContracts.Attributes;
+using FoodOrdersDataModels.Enums;
 using FoodOrdersDataModels.Models;
 using System.ComponentModel;
 namespace FoodOrdersContracts.ViewModels
 {
     public class OrderViewModel : IOrderModel
     {
-        [DisplayName("Номер")]
+        [Column("Номер", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public int Id { get; set; }
 
+        [Column(visible: false)]
         public int DishId { get; set; }
 
-        [DisplayName("Набор")]
+        [Column("Набор", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public string DishName { get; set; } = string.Empty;
 
+        [Column(visible: false)]
         public int ClientId { get; set; }
 
-        [DisplayName("Клиент")]
+        [Column("Клиент", gridViewAutoSize: GridViewAutoSize.Fill, isUseAutoSize: true)]
         public string ClientFIO { get; set; } = string.Empty;
 
-        [DisplayName("Исполнитель")]
+        [Column("Исполнитель", gridViewAutoSize: GridViewAutoSize.Fill, isUseAutoSize: true)]
         public string ImplementerFIO { get; set; } = string.Empty;
 
+        [Column(visible: false)]
         public int? ImplementerId { get; set; }
 
-        [DisplayName("Количество")]
+        [Column("Количество", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public int Count { get; set; }
 
-        [DisplayName("Сумма")]
+        [Column("Сумма", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public double Sum { get; set; }
 
-        [DisplayName("Статус")]
+        [Column("Статус", gridViewAutoSize: GridViewAutoSize.AllCells, isUseAutoSize: true)]
         public OrderStatus Status { get; set; } = OrderStatus.Неизвестен;
-        
-        [DisplayName("Дата создания")]
+
+        [Column("Дата создания", width: 100)]
         public DateTime DateCreate { get; set; } = DateTime.Now;
-       
-        [DisplayName("Дата выполнения")]
+
+        [Column("Дата выполнения", width: 100)]
         public DateTime? DateImplement { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace FoodOrdersContracts.BindingModels
         public bool HasRead { get; set; }
 
         public string? Reply { get; set; }
+
+        public int Id => throw new NotImplementedException();
     }
 }

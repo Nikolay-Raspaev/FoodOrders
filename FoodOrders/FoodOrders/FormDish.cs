@@ -1,5 +1,6 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
+using FoodOrdersContracts.DI;
 using FoodOrdersContracts.SearchModels;
 using FoodOrdersDataModels.Models;
 using Microsoft.Extensions.Logging;
@@ -71,49 +72,43 @@ namespace FoodOrdersView
         }
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDishComponents));
-            if (service is FormDishComponents form)
+            var form = DependencyManager.Instance.Resolve<FormDishComponents>();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
+                if (form.ComponentModel == null)
                 {
-                    if (form.ComponentModel == null)
-                    {
-                        return;
-                    }
-                    _logger.LogInformation("Добавление нового блюда: { ComponentName} - { Count}", form.ComponentModel.ComponentName, form.Count);
-                    if (_dishComponents.ContainsKey(form.Id))
-                    {
-                        _dishComponents[form.Id] = (form.ComponentModel, form.Count);
-                    }
-                    else
-                    {
-                        _dishComponents.Add(form.Id, (form.ComponentModel, form.Count));
-                    }
-                    LoadData();
+                    return;
                 }
+                _logger.LogInformation("Добавление нового блюда: { ComponentName} - { Count}", form.ComponentModel.ComponentName, form.Count);
+                if (_dishComponents.ContainsKey(form.Id))
+                {
+                    _dishComponents[form.Id] = (form.ComponentModel, form.Count);
+                }
+                else
+                {
+                    _dishComponents.Add(form.Id, (form.ComponentModel, form.Count));
+                }
+                LoadData();
             }
         }
         private void ButtonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormDishComponents));
-                if (service is FormDishComponents form)
+                var form = DependencyManager.Instance.Resolve<FormDishComponents>();
+                int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = id;
+                form.Count = _dishComponents[id].Item2;
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
-                    form.Id = id;
-                    form.Count = _dishComponents[id].Item2;
-                    if (form.ShowDialog() == DialogResult.OK)
+                    if (form.ComponentModel == null)
                     {
-                        if (form.ComponentModel == null)
-                        {
-                            return;
-                        }
-                        _logger.LogInformation("Изменение блюда: { ComponentName} - { Count} ", form.ComponentModel.ComponentName, form.Count);
-                        _dishComponents[form.Id] = (form.ComponentModel, form.Count);
-                        LoadData();
+                        return;
                     }
-                }
+                    _logger.LogInformation("Изменение блюда: { ComponentName} - { Count} ", form.ComponentModel.ComponentName, form.Count);
+                    _dishComponents[form.Id] = (form.ComponentModel, form.Count);
+                    LoadData();
+                }               
             }
         }
         private void ButtonDel_Click(object sender, EventArgs e)

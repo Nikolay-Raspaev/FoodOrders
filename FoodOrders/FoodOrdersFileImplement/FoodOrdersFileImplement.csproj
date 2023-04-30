@@ -11,4 +11,8 @@
     <ProjectReference Include="..\FoodOrdersDataModels\FoodOrdersDataModels.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(targetDir)*.dll&quot; &quot;$(solutionDir)ImplementationExtensions\*.dll&quot;" />
+  </Target>
+
 </Project>

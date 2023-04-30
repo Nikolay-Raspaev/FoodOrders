@@ -2,6 +2,7 @@
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersListImplement.Models
 {

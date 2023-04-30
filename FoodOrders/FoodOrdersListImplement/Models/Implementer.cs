@@ -2,10 +2,11 @@
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels;
 using FoodOrdersDataModels.Models;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersListImplement.Models
 {
-	public class Implementer : IImplementerModel
+    public class Implementer : IImplementerModel
 	{
 		public int Id { get; private set; }
 

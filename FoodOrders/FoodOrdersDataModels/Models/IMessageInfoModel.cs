@@ -1,6 +1,6 @@
 ﻿namespace FoodOrdersDataModels.Models
 {
-    public interface IMessageInfoModel
+    public interface IMessageInfoModel : IId
     {
         string MessageId { get; }
 

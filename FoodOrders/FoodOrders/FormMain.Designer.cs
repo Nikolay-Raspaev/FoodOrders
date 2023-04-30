@@ -51,11 +51,13 @@
             componentsToolStripMenuItem = new ToolStripMenuItem();
             componentDishesToolStripMenuItem = new ToolStripMenuItem();
             ordersToolStripMenuItem = new ToolStripMenuItem();
+            DoWorkToolStripMenuItem = new ToolStripMenuItem();
             письмаToolStripMenuItem = new ToolStripMenuItem();
             dishesToolStripMenuItem = new ToolStripMenuItem();
             buttonUpdate = new Button();
             buttonCreateOrder = new Button();
             dataGridView = new DataGridView();
+            createBackupToolStripMenuItem = new ToolStripMenuItem();
             buttonAddDishInShop = new Button();
             buttonSetToFinish = new Button();
             menuStrip.SuspendLayout();
@@ -64,7 +66,7 @@
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { guidesToolStripMenuItem, reportToolStripMenuItem, справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { createBackupToolStripMenuItem guidesToolStripMenuItem, reportToolStripMenuItem, справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1157, 24);
@@ -232,6 +234,13 @@
             письмаToolStripMenuItem.Text = "Письма";
             письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
             // 
+            // письмаToolStripMenuItem
+            // 
+            письмаToolStripMenuItem.Name = "письмаToolStripMenuItem";
+            письмаToolStripMenuItem.Size = new Size(62, 20);
+            письмаToolStripMenuItem.Text = "Письма";
+            письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
+            // 
             // dishesToolStripMenuItem
             // 
             dishesToolStripMenuItem.Name = "dishesToolStripMenuItem";
@@ -294,6 +303,13 @@
             buttonSetToFinish.Text = "Заказ выдан";
             buttonSetToFinish.UseVisualStyleBackColor = true;
             buttonSetToFinish.Click += ButtonIssuedOrder_Click;
+            //
+            // createBackupToolStripMenuItem
+            //
+            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
+            createBackupToolStripMenuItem.Size = new Size(97, 20);
+            createBackupToolStripMenuItem.Text = "Создать бекап";
+            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -350,5 +366,6 @@
         private ToolStripMenuItem исполнителиToolStripMenuItem1;
         private Button buttonSetToFinish;
         private ToolStripMenuItem письмаToolStripMenuItem;
+        private ToolStripMenuItem createBackupToolStripMenuItem;
     }
 }

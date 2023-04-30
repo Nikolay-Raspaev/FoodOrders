@@ -3,6 +3,7 @@ using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Enums;
 using FoodOrdersDataModels.Models;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace FoodOrdersListImplement.Models
 {

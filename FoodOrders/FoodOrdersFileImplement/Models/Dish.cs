@@ -2,22 +2,25 @@
 using FoodOrdersContracts.ViewModels;
 using FoodOrdersDataModels.Models;
 using FoodOrdersFileImplement;
+using System.Runtime.Serialization;
 using System.Xml.Linq;
 namespace FoodOrdersFileImplement.Models
 {
+    [DataContract]
     public class Dish : IDishModel
     {
+        [DataMember]
         public int Id { get; private set; }
-
+        [DataMember]
         public string DishName { get; private set; } = string.Empty;
-
+        [DataMember]
         public double Price { get; private set; }
 
         //словарь для файла, так как нам в файле нужно хранить просто id компонента и его количество
         public Dictionary<int, int> Components { get; private set; } = new();
 
         private Dictionary<int, (IComponentModel, int)>? _dishComponents = null;
-
+        [DataMember]
         public Dictionary<int, (IComponentModel, int)> DishComponents
         {
             get
