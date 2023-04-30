@@ -39,7 +39,7 @@ namespace FoodOrdersContracts.ViewModels
         [Column("Дата создания", width: 100, format: "D")]
         public DateTime DateCreate { get; set; } = DateTime.Now;
 
-        [Column("Дата выполнения", width: 100, format: "D")]
+        [Column("Дата выполнения", width: 150, format: "f")]
         public DateTime? DateImplement { get; set; }
     }
 }

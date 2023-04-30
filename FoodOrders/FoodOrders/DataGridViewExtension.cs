@@ -31,6 +31,7 @@ namespace FoodOrdersView
                 {
                     column.HeaderText = columnAttr.Title;
                     column.Visible = columnAttr.Visible;
+                    column.DefaultCellStyle.Format = columnAttr.Format;
                     if (columnAttr.IsUseAutoSize)
                     {
                         column.AutoSizeMode = (DataGridViewAutoSizeColumnMode)Enum.Parse(typeof(DataGridViewAutoSizeColumnMode), columnAttr.GridViewAutoSize.ToString());
