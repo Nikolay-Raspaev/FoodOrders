@@ -61,13 +61,13 @@ namespace FoodOrdersView
                 option.SetMinimumLevel(LogLevel.Information);
                 option.AddNLog("nlog.config");
             });
-            services.AddTransient<IComponentStorage, ComponentStorage>();
-            services.AddTransient<IOrderStorage, OrderStorage>();
-            services.AddTransient<IDishStorage, DishStorage>();
-            services.AddTransient<IClientStorage, ClientStorage>();
-            services.AddTransient<IImplementerStorage, ImplementerStorage>();
-            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
-            services.AddTransient<IShopStorage, ShopStorage>();
+            DependencyManager.Instance.RegisterType<IComponentStorage, ComponentStorage>();
+            DependencyManager.Instance.RegisterType<IOrderStorage, OrderStorage>();
+            DependencyManager.Instance.RegisterType<IDishStorage, DishStorage>();
+            DependencyManager.Instance.RegisterType<IClientStorage, ClientStorage>();
+            DependencyManager.Instance.RegisterType<IImplementerStorage, ImplementerStorage>();
+            DependencyManager.Instance.RegisterType<IMessageInfoStorage, MessageInfoStorage>();
+            DependencyManager.Instance.RegisterType<IShopStorage, ShopStorage>();
 
             DependencyManager.Instance.RegisterType<IComponentLogic, ComponentLogic>();
             DependencyManager.Instance.RegisterType<IOrderLogic, OrderLogic>();
@@ -76,55 +76,37 @@ namespace FoodOrdersView
             DependencyManager.Instance.RegisterType<IClientLogic, ClientLogic>();
             DependencyManager.Instance.RegisterType<IImplementerLogic, ImplementerLogic>();
             DependencyManager.Instance.RegisterType<IMessageInfoLogic, MessageInfoLogic>();
-            services.AddTransient<IComponentLogic, ComponentLogic>();
-            services.AddTransient<IOrderLogic, OrderLogic>();
-            services.AddTransient<IDishLogic, DishLogic>();
-            services.AddTransient<IReportLogic, ReportLogic>();
-            services.AddTransient<IClientLogic, ClientLogic>();
-            services.AddTransient<IImplementerLogic, ImplementerLogic>();   
-            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
 
-            services.AddTransient<IWorkProcess, WorkModeling>();
-            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
-            services.AddTransient<IShopLogic, ShopLogic>();
+            DependencyManager.Instance.RegisterType<IWorkProcess, WorkModeling>();
+            DependencyManager.Instance.RegisterType<IShopLogic, ShopLogic>();
 
             DependencyManager.Instance.RegisterType<AbstractSaveToExcel, SaveToExcel>();
             DependencyManager.Instance.RegisterType<AbstractSaveToWord, SaveToWord>();
             DependencyManager.Instance.RegisterType<AbstractSaveToPdf, SaveToPdf>();
-            DependencyManager.Instance.RegisterType<IWorkProcess, WorkModeling>();
             DependencyManager.Instance.RegisterType<AbstractMailWorker, MailKitWorker>(true);
             DependencyManager.Instance.RegisterType<IBackUpLogic, BackUpLogic>();
 
+
             DependencyManager.Instance.RegisterType<FormMain>();
+            DependencyManager.Instance.RegisterType<FormClients>();
             DependencyManager.Instance.RegisterType<FormComponent>();
             DependencyManager.Instance.RegisterType<FormComponents>();
             DependencyManager.Instance.RegisterType<FormCreateOrder>();
             DependencyManager.Instance.RegisterType<FormDish>();
             DependencyManager.Instance.RegisterType<FormDishComponents>();
+            DependencyManager.Instance.RegisterType<FormDishes>();
             DependencyManager.Instance.RegisterType<FormReportDishComponents>();
             DependencyManager.Instance.RegisterType<FormReportOrders>();
-            DependencyManager.Instance.RegisterType<FormClients>();
-        }
-            services.AddTransient<FormMain>();
-            services.AddTransient<FormClients>();
-            services.AddTransient<FormComponent>();
-            services.AddTransient<FormComponents>();
-            services.AddTransient<FormCreateOrder>();
-            services.AddTransient<FormDish>();
-            services.AddTransient<FormDishComponents>();
-            services.AddTransient<FormDishes>();
-            services.AddTransient<FormReportDishComponents>();
-            services.AddTransient<FormReportOrders>();
-            services.AddTransient<FormShops>();
-            services.AddTransient<FormShop>();
-            services.AddTransient<FormDeliveryDishes>();
-            services.AddTransient<FormSellDishes>();
-            services.AddTransient<FormReportShopListDish>();
-            services.AddTransient<FormReportOrdersGroupedByDate>();
-            services.AddTransient<FormViewImplementers>();
-            services.AddTransient<FormImplementer>();
-            services.AddTransient<FormMails>();
-			services.AddTransient<FormReplyMail>();
+            DependencyManager.Instance.RegisterType<FormShops>();
+            DependencyManager.Instance.RegisterType<FormShop>();
+            DependencyManager.Instance.RegisterType<FormDeliveryDishes>();
+            DependencyManager.Instance.RegisterType<FormSellDishes>();
+            DependencyManager.Instance.RegisterType<FormReportShopListDish>();
+            DependencyManager.Instance.RegisterType<FormReportOrdersGroupedByDate>();
+            DependencyManager.Instance.RegisterType<FormViewImplementers>();
+            DependencyManager.Instance.RegisterType<FormImplementer>();
+            DependencyManager.Instance.RegisterType<FormMails>();
+			DependencyManager.Instance.RegisterType<FormReplyMail>();
 
 		}
 

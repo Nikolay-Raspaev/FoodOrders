@@ -66,7 +66,7 @@
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { createBackupToolStripMenuItem guidesToolStripMenuItem, reportToolStripMenuItem, справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { createBackupToolStripMenuItem, guidesToolStripMenuItem, reportToolStripMenuItem, справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1157, 24);

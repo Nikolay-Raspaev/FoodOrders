@@ -141,20 +141,14 @@ namespace FoodOrdersView
 
         private void ButtonDeliveryDish_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormDeliveryDishes));
-            if (service is FormDeliveryDishes form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormDeliveryDishes>();
+            form.ShowDialog();
         }
 
         private void ShopsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormShops));
-            if (service is FormShops form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormShops>();
+            form.ShowDialog();
         }
 
         private void ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -191,20 +185,14 @@ namespace FoodOrdersView
 
         private void ShopDishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportShopListDish));
-            if (service is FormReportShopListDish form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportShopListDish>();
+            form.ShowDialog();
         }
 
         private void OrdersGroupedByDateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormReportOrdersGroupedByDate));
-            if (service is FormReportOrdersGroupedByDate form)
-            {
-                form.ShowDialog();
-            }
+            var form = DependencyManager.Instance.Resolve<FormReportOrdersGroupedByDate>();
+            form.ShowDialog();
         }
 
         private void ClientToolStripMenuItem_Click(object sender, EventArgs e)
