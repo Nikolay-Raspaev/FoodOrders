@@ -3,6 +3,9 @@ using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text;
+using FoodOrdersContracts.SearchModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FoodOrdersClientApp.Controllers
 {
@@ -151,7 +154,48 @@ namespace FoodOrdersClientApp.Controllers
             {
                 return Redirect("~/Home/Enter");
             }
-            return View(APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessages?clientId={APIClient.Client.Id}"));
+            return View();
+        }
+
+        /// <summary>
+        /// Switches the page.
+        /// </summary>
+        /// <returns>Возвращает кортеж с таблицой в html, текущей страницей писем, выключать ли кнопку пред. страницы, выключать ли кнопку след. страницы</returns>
+        [HttpGet]
+        public Tuple<string?, string?, bool, bool>? SwitchPage(bool isNext)
+        {
+            if (isNext)
+            {
+                APIClient.CurrentPage++;
+            }
+            else
+            {
+                if (APIClient.CurrentPage == 1)
+                {
+                    return null;
+                }
+                APIClient.CurrentPage--;
+            }
+
+            var res = APIClient.GetRequest<List<MessageInfoViewModel>>($"api/client/getmessages?clientId={APIClient.Client!.Id}&page={APIClient.CurrentPage}");
+            if (isNext && (res == null || res.Count == 0))
+            {
+                APIClient.CurrentPage--;
+                return Tuple.Create<string?, string?, bool, bool>(null, null, APIClient.CurrentPage != 1, false);
+            }
+
+            StringBuilder htmlTable = new();
+            foreach (var mail in res)
+            {
+                htmlTable.Append("<tr>" +
+                                 $"<td>{mail.DateDelivery}</td>" +
+                                 $"<td>{mail.Subject}</td>" +
+                                 $"<td>{mail.Body}</td>" +
+                                 "<td>" + (mail.HasRead ? "Прочитано" : "Непрочитано") + "</td>" +
+                                 $"<td>{mail.Reply}</td>" +
+                                 "</tr>");
+            }
+            return Tuple.Create<string?, string?, bool, bool>(htmlTable.ToString(), APIClient.CurrentPage.ToString(), APIClient.CurrentPage != 1, true);
         }
     }
 }

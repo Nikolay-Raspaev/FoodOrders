@@ -36,10 +36,7 @@ namespace FoodOrdersDatabaseImplement.Models
                 Subject = model.Subject,
                 ClientId = model.ClientId,
 				MessageId = model.MessageId,
-				ClientId = model.ClientId,
 				SenderName = model.SenderName,
-				Body = model.Body,
-				Subject = model.Subject,
 				DateDelivery = model.DateDelivery,
 			};
 		}
@@ -61,10 +58,7 @@ namespace FoodOrdersDatabaseImplement.Models
             Subject = Subject,
             ClientId = ClientId,
 			MessageId = MessageId,
-			ClientId = ClientId,
 			SenderName = SenderName,
-			Body = Body,
-			Subject = Subject,
 			DateDelivery = DateDelivery,
 		};
 	}

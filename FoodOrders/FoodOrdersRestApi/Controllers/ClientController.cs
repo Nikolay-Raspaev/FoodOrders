@@ -16,7 +16,9 @@ namespace FoodOrdersRestApi.Controllers
 
         private readonly IMessageInfoLogic _mailLogic;
 
-        public ClientController(IClientLogic logic, IMessageInfoLogic mailLogic, ILogger<ClientController> logger)
+		public int pageSize = 3;
+
+		public ClientController(IClientLogic logic, IMessageInfoLogic mailLogic, ILogger<ClientController> logger)
         {
             _logger = logger;
             _logic = logic;
@@ -70,14 +72,16 @@ namespace FoodOrdersRestApi.Controllers
         }
 
         [HttpGet]
-        public List<MessageInfoViewModel>? GetMessages(int clientId)
+        public List<MessageInfoViewModel>? GetMessages(int clientId, int page)
         {
             try
             {
                 return _mailLogic.ReadList(new MessageInfoSearchModel
                 {
-                    ClientId = clientId
-                });
+                    ClientId = clientId,
+					Page = page,
+					PageSize = pageSize
+				});
             }
             catch (Exception ex)
             {

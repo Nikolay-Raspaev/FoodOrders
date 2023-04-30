@@ -11,6 +11,7 @@ namespace FoodOrdersClientApp
         private static readonly HttpClient _client = new();
 
         public static ClientViewModel? Client { get; set; } = null;
+        public static int CurrentPage { get; set; } = 0;
 
         public static void Connect(IConfiguration configuration)
         {

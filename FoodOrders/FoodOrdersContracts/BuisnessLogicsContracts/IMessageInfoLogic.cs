@@ -6,8 +6,12 @@ namespace FoodOrdersContracts.BusinessLogicsContracts
 {
     public interface IMessageInfoLogic
     {
-        List<MessageInfoViewModel>? ReadList(MessageInfoSearchModel? model);
+		List<MessageInfoViewModel>? ReadList(MessageInfoSearchModel? model);
 
-        bool Create(MessageInfoBindingModel model);
-    }
+		bool Create(MessageInfoBindingModel model);
+
+		bool Update(MessageInfoBindingModel model);
+
+		MessageInfoViewModel? ReadElement(MessageInfoSearchModel model);
+	}
 }

@@ -13,5 +13,9 @@
         string Subject { get; }
 
         string Body { get; }
-    }
+
+		public bool HasRead { get; }
+
+		public string? Reply { get; }
+	}
 }

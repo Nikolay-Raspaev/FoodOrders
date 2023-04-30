@@ -27,6 +27,8 @@ namespace FoodOrdersFileImplement.Models
 
         [DataMember]
         public string Body { get; private set; } = string.Empty;
+        public bool HasRead { get; private set; }
+        public string? Reply { get; private set; }
 
         public static MessageInfo? Create(MessageInfoBindingModel model)
 		{
@@ -36,13 +38,15 @@ namespace FoodOrdersFileImplement.Models
 			}
 			return new()
 			{
-				Body = model.Body,
-				Subject = model.Subject,
-				ClientId = model.ClientId,
-				MessageId = model.MessageId,
-				SenderName = model.SenderName,
-				DateDelivery = model.DateDelivery,
-			};
+                Body = model.Body,
+                Reply = model.Reply,
+                HasRead = model.HasRead,
+                Subject = model.Subject,
+                ClientId = model.ClientId,
+                MessageId = model.MessageId,
+                SenderName = model.SenderName,
+                DateDelivery = model.DateDelivery,
+            };
 		}
 
 		public static MessageInfo? Create(XElement element)
@@ -53,35 +57,49 @@ namespace FoodOrdersFileImplement.Models
 			}
 			return new()
 			{
-				Body = element.Attribute("Body")!.Value,
-				Subject = element.Attribute("Subject")!.Value,
-				ClientId = Convert.ToInt32(element.Attribute("ClientId")!.Value),
-				MessageId = element.Attribute("MessageId")!.Value,
-				SenderName = element.Attribute("SenderName")!.Value,
-				DateDelivery = Convert.ToDateTime(element.Attribute("DateDelivery")!.Value),
-			};
+                Body = element.Attribute("Body")!.Value,
+                Reply = element.Attribute("Reply")!.Value,
+                HasRead = Convert.ToBoolean(element.Attribute("HasRead")!.Value),
+                Subject = element.Attribute("Subject")!.Value,
+                ClientId = Convert.ToInt32(element.Attribute("ClientId")!.Value),
+                MessageId = element.Attribute("MessageId")!.Value,
+                SenderName = element.Attribute("SenderName")!.Value,
+                DateDelivery = Convert.ToDateTime(element.Attribute("DateDelivery")!.Value),
+            };
 		}
 
-		public MessageInfoViewModel GetViewModel => new()
-		{
-			Body = Body,
-			Subject = Subject,
-			ClientId = ClientId,
-			MessageId = MessageId,
-			SenderName = SenderName,
-			DateDelivery = DateDelivery,
-		};
+        public void Update(MessageInfoBindingModel model)
+        {
+            if (model == null)
+            {
+                return;
+            }
+            Reply = model.Reply;
+            HasRead = model.HasRead;
+        }
 
-		public XElement GetXElement => new("MessageInfo",
-			new XAttribute("Body", Body),
-			new XAttribute("Subject", Subject),
-			new XAttribute("ClientId", ClientId),
-			new XAttribute("MessageId", MessageId),
-			new XAttribute("SenderName", SenderName),
-			new XAttribute("DateDelivery", DateDelivery)
-			);
+        public MessageInfoViewModel GetViewModel => new()
+        {
+            Body = Body,
+            Reply = Reply,
+            HasRead = HasRead,
+            Subject = Subject,
+            ClientId = ClientId,
+            MessageId = MessageId,
+            SenderName = SenderName,
+            DateDelivery = DateDelivery,
+        };
 
-        public int Id => throw new NotImplementedException();
+        public XElement GetXElement => new("MessageInfo",
+            new XAttribute("Body", Body),
+            new XAttribute("Reply", Reply),
+            new XAttribute("HasRead", HasRead),
+            new XAttribute("Subject", Subject),
+            new XAttribute("ClientId", ClientId),
+            new XAttribute("MessageId", MessageId),
+            new XAttribute("SenderName", SenderName),
+            new XAttribute("DateDelivery", DateDelivery)
+            );
     }
 
 }

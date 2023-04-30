@@ -19,7 +19,10 @@ namespace FoodOrdersListImplement.Models
 
 		public string Body { get; private set; } = string.Empty;
 
-		public static MessageInfo? Create(MessageInfoBindingModel model)
+        public bool HasRead { get; private set; }
+
+        public string? Reply { get; private set; }
+        public static MessageInfo? Create(MessageInfoBindingModel model)
 		{
 			if (model == null)
 			{
@@ -27,26 +30,38 @@ namespace FoodOrdersListImplement.Models
 			}
 			return new()
 			{
-				Body = model.Body,
-				Subject = model.Subject,
-				ClientId = model.ClientId,
-				MessageId = model.MessageId,
-				SenderName = model.SenderName,
-				DateDelivery = model.DateDelivery,
-			};
+                Body = model.Body,
+                Reply = model.Reply,
+                HasRead = model.HasRead,
+                Subject = model.Subject,
+                ClientId = model.ClientId,
+                MessageId = model.MessageId,
+                SenderName = model.SenderName,
+                DateDelivery = model.DateDelivery,
+            };
 		}
 
-		public MessageInfoViewModel GetViewModel => new()
-		{
-			Body = Body,
-			Subject = Subject,
-			ClientId = ClientId,
-			MessageId = MessageId,
-			SenderName = SenderName,
-			DateDelivery = DateDelivery,
-		};
+        public void Update(MessageInfoBindingModel model)
+        {
+            if (model == null)
+            {
+                return;
+            }
+            Reply = model.Reply;
+            HasRead = model.HasRead;
+        }
 
-        public int Id => throw new NotImplementedException();
+        public MessageInfoViewModel GetViewModel => new()
+        {
+            Body = Body,
+            Reply = Reply,
+            HasRead = HasRead,
+            Subject = Subject,
+            ClientId = ClientId,
+            MessageId = MessageId,
+            SenderName = SenderName,
+            DateDelivery = DateDelivery,
+        };
     }
 
 }

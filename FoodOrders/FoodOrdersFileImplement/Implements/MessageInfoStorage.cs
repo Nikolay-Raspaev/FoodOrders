@@ -52,7 +52,13 @@ namespace FoodOrdersFileImplement.Implements
 
         public MessageInfoViewModel? Update(MessageInfoBindingModel model)
         {
-            throw new NotImplementedException();
+            var res = _source.Messages.FirstOrDefault(x => x.MessageId.Equals(model.MessageId));
+            if (res != null)
+            {
+                res.Update(model);
+                _source.SaveMessages();
+            }
+            return res?.GetViewModel;
         }
     }
 }

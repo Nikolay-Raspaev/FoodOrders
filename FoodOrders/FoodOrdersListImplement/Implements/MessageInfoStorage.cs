@@ -60,7 +60,15 @@ namespace FoodOrdersListImplement.Implements
 
         public MessageInfoViewModel? Update(MessageInfoBindingModel model)
         {
-            throw new NotImplementedException();
+            foreach (var message in _source.Messages)
+            {
+                if (message.MessageId.Equals(model.MessageId))
+                {
+                    message.Update(model);
+                    return message.GetViewModel;
+                }
+            }
+            return null;
         }
     }
 }

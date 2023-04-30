@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using FoodOrdersBusinessLogic.MailWorker;
 using FoodOrdersContracts.BindingModels;
-using FoodOrdersDatabaseImplement;
 
 namespace FoodOrdersView
 {
@@ -106,7 +105,9 @@ namespace FoodOrdersView
             services.AddTransient<FormViewImplementers>();
             services.AddTransient<FormImplementer>();
             services.AddTransient<FormMails>();
-        }
+			services.AddTransient<FormReplyMail>();
+
+		}
 
         private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
     }
