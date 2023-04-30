@@ -100,6 +100,8 @@ namespace FoodOrdersFileImplement.Models
             new XAttribute("SenderName", SenderName),
             new XAttribute("DateDelivery", DateDelivery)
             );
+
+        public int Id => throw new NotImplementedException();
     }
 
 }

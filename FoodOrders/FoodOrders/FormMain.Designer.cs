@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             menuStrip = new MenuStrip();
-            guidesToolStripMenuItem = new ToolStripMenuItem();
-            componentToolStripMenuItem = new ToolStripMenuItem();
-            dishToolStripMenuItem = new ToolStripMenuItem();
-            clientToolStripMenuItem = new ToolStripMenuItem();
-            shopsToolStripMenuItem = new ToolStripMenuItem();
-            исполнителиToolStripMenuItem1 = new ToolStripMenuItem();
+            createBackupToolStripMenuItem = new ToolStripMenuItem();
             reportToolStripMenuItem = new ToolStripMenuItem();
             listDishesToolStripMenuItem = new ToolStripMenuItem();
             componentDishToolStripMenuItem = new ToolStripMenuItem();
@@ -42,78 +37,39 @@
             listShopsToolStripMenuItem = new ToolStripMenuItem();
             shopDishToolStripMenuItem = new ToolStripMenuItem();
             listOrderToDateToolStripMenuItem = new ToolStripMenuItem();
-            DoWorkToolStripMenuItem = new ToolStripMenuItem();
             справочникиToolStripMenuItem = new ToolStripMenuItem();
             БлюдаToolStripMenuItem = new ToolStripMenuItem();
             наборблюдToolStripMenuItem = new ToolStripMenuItem();
+            clientToolStripMenuItem = new ToolStripMenuItem();
             исполнителиToolStripMenuItem = new ToolStripMenuItem();
-            отчётыToolStripMenuItem = new ToolStripMenuItem();
-            componentsToolStripMenuItem = new ToolStripMenuItem();
-            componentDishesToolStripMenuItem = new ToolStripMenuItem();
-            ordersToolStripMenuItem = new ToolStripMenuItem();
             DoWorkToolStripMenuItem = new ToolStripMenuItem();
             письмаToolStripMenuItem = new ToolStripMenuItem();
             dishesToolStripMenuItem = new ToolStripMenuItem();
             buttonUpdate = new Button();
             buttonCreateOrder = new Button();
             dataGridView = new DataGridView();
-            createBackupToolStripMenuItem = new ToolStripMenuItem();
             buttonAddDishInShop = new Button();
             buttonSetToFinish = new Button();
+            this.shopsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { createBackupToolStripMenuItem, guidesToolStripMenuItem, reportToolStripMenuItem, справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem, reportToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem, createBackupToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(1157, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
-            // guidesToolStripMenuItem
+            // createBackupToolStripMenuItem
             // 
-            guidesToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { componentToolStripMenuItem, dishToolStripMenuItem, shopsToolStripMenuItem, исполнителиToolStripMenuItem1 });
-            guidesToolStripMenuItem.Name = "guidesToolStripMenuItem";
-            guidesToolStripMenuItem.Size = new Size(94, 20);
-            guidesToolStripMenuItem.Text = "Справочники";
-            // 
-            // componentToolStripMenuItem
-            // 
-            componentToolStripMenuItem.Name = "componentToolStripMenuItem";
-            componentToolStripMenuItem.Size = new Size(149, 22);
-            componentToolStripMenuItem.Text = "Компоненты";
-            componentToolStripMenuItem.Click += ComponentsToolStripMenuItem_Click;
-            // 
-            // dishToolStripMenuItem
-            // 
-            dishToolStripMenuItem.Name = "dishToolStripMenuItem";
-            dishToolStripMenuItem.Size = new Size(149, 22);
-            dishToolStripMenuItem.Text = "Блюда";
-            dishToolStripMenuItem.Click += DishToolStripMenuItem_Click;
-            // 
-            // clientToolStripMenuItem
-            // 
-            clientToolStripMenuItem.Name = "clientToolStripMenuItem";
-            clientToolStripMenuItem.Size = new Size(149, 22);
-            clientToolStripMenuItem.Text = "Клиенты";
-            clientToolStripMenuItem.Click += ClientToolStripMenuItem_Click;
-            // 
-            // shopsToolStripMenuItem
-            // 
-            shopsToolStripMenuItem.Name = "shopsToolStripMenuItem";
-            shopsToolStripMenuItem.Size = new Size(149, 22);
-            shopsToolStripMenuItem.Text = "Магазины";
-            shopsToolStripMenuItem.Click += ShopsToolStripMenuItem_Click;
-            // 
-            // исполнителиToolStripMenuItem1
-            // 
-            исполнителиToolStripMenuItem1.Name = "исполнителиToolStripMenuItem1";
-            исполнителиToolStripMenuItem1.Size = new Size(149, 22);
-            исполнителиToolStripMenuItem1.Text = "Исполнители";
-            исполнителиToolStripMenuItem1.Click += ImplementersToolStripMenuItem_Click;
+            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
+            createBackupToolStripMenuItem.Size = new Size(97, 20);
+            createBackupToolStripMenuItem.Text = "Создать бекап";
+            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
             // 
             // reportToolStripMenuItem
             // 
@@ -164,16 +120,9 @@
             listOrderToDateToolStripMenuItem.Text = "Список заказов, сгрупированных по датам";
             listOrderToDateToolStripMenuItem.Click += OrdersGroupedByDateToolStripMenuItem_Click;
             // 
-            // DoWorkToolStripMenuItem
-            // 
-            DoWorkToolStripMenuItem.Name = "DoWorkToolStripMenuItem";
-            DoWorkToolStripMenuItem.Size = new Size(92, 20);
-            DoWorkToolStripMenuItem.Text = "Запуск работ";
-            DoWorkToolStripMenuItem.Click += DoWorkToolStripMenuItem_Click;
-            // 
             // справочникиToolStripMenuItem
             // 
-            справочникиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { БлюдаToolStripMenuItem, наборблюдToolStripMenuItem, clientToolStripMenuItem, исполнителиToolStripMenuItem });
+            справочникиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { БлюдаToolStripMenuItem, наборблюдToolStripMenuItem, clientToolStripMenuItem, исполнителиToolStripMenuItem, this.shopsToolStripMenuItem });
             справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             справочникиToolStripMenuItem.Size = new Size(94, 20);
             справочникиToolStripMenuItem.Text = "Справочники";
@@ -181,58 +130,37 @@
             // БлюдаToolStripMenuItem
             // 
             БлюдаToolStripMenuItem.Name = "БлюдаToolStripMenuItem";
-            БлюдаToolStripMenuItem.Size = new Size(149, 22);
+            БлюдаToolStripMenuItem.Size = new Size(180, 22);
             БлюдаToolStripMenuItem.Text = "Блюда";
             БлюдаToolStripMenuItem.Click += ComponentsToolStripMenuItem_Click;
             // 
             // наборблюдToolStripMenuItem
             // 
             наборблюдToolStripMenuItem.Name = "наборблюдToolStripMenuItem";
-            наборблюдToolStripMenuItem.Size = new Size(149, 22);
+            наборблюдToolStripMenuItem.Size = new Size(180, 22);
             наборблюдToolStripMenuItem.Text = "Набор блюд";
             наборблюдToolStripMenuItem.Click += DishToolStripMenuItem_Click;
+            // 
+            // clientToolStripMenuItem
+            // 
+            clientToolStripMenuItem.Name = "clientToolStripMenuItem";
+            clientToolStripMenuItem.Size = new Size(180, 22);
+            clientToolStripMenuItem.Text = "Клиенты";
+            clientToolStripMenuItem.Click += ClientToolStripMenuItem_Click;
             // 
             // исполнителиToolStripMenuItem
             // 
             исполнителиToolStripMenuItem.Name = "исполнителиToolStripMenuItem";
-            исполнителиToolStripMenuItem.Size = new Size(149, 22);
+            исполнителиToolStripMenuItem.Size = new Size(180, 22);
             исполнителиToolStripMenuItem.Text = "Исполнители";
             исполнителиToolStripMenuItem.Click += ImplementersToolStripMenuItem_Click;
             // 
-            // отчётыToolStripMenuItem
+            // DoWorkToolStripMenuItem
             // 
-            отчётыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { componentsToolStripMenuItem, componentDishesToolStripMenuItem, ordersToolStripMenuItem });
-            отчётыToolStripMenuItem.Name = "отчётыToolStripMenuItem";
-            отчётыToolStripMenuItem.Size = new Size(60, 20);
-            отчётыToolStripMenuItem.Text = "Отчёты";
-            // 
-            // componentsToolStripMenuItem
-            // 
-            componentsToolStripMenuItem.Name = "componentsToolStripMenuItem";
-            componentsToolStripMenuItem.Size = new Size(210, 22);
-            componentsToolStripMenuItem.Text = "Список Компонентов";
-            componentsToolStripMenuItem.Click += ToolStripMenuItem_Click;
-            // 
-            // componentDishesToolStripMenuItem
-            // 
-            componentDishesToolStripMenuItem.Name = "componentDishesToolStripMenuItem";
-            componentDishesToolStripMenuItem.Size = new Size(210, 22);
-            componentDishesToolStripMenuItem.Text = "Компоненты по блюдам";
-            componentDishesToolStripMenuItem.Click += ComponentDishesToolStripMenuItem_Click;
-            // 
-            // ordersToolStripMenuItem
-            // 
-            ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            ordersToolStripMenuItem.Size = new Size(210, 22);
-            ordersToolStripMenuItem.Text = "Список заказов";
-            ordersToolStripMenuItem.Click += OrdersToolStripMenuItem_Click;
-            // 
-            // письмаToolStripMenuItem
-            // 
-            письмаToolStripMenuItem.Name = "письмаToolStripMenuItem";
-            письмаToolStripMenuItem.Size = new Size(62, 20);
-            письмаToolStripMenuItem.Text = "Письма";
-            письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
+            DoWorkToolStripMenuItem.Name = "DoWorkToolStripMenuItem";
+            DoWorkToolStripMenuItem.Size = new Size(92, 20);
+            DoWorkToolStripMenuItem.Text = "Запуск работ";
+            DoWorkToolStripMenuItem.Click += DoWorkToolStripMenuItem_Click;
             // 
             // письмаToolStripMenuItem
             // 
@@ -303,13 +231,13 @@
             buttonSetToFinish.Text = "Заказ выдан";
             buttonSetToFinish.UseVisualStyleBackColor = true;
             buttonSetToFinish.Click += ButtonIssuedOrder_Click;
-            //
-            // createBackupToolStripMenuItem
-            //
-            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
-            createBackupToolStripMenuItem.Size = new Size(97, 20);
-            createBackupToolStripMenuItem.Text = "Создать бекап";
-            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
+            // 
+            // shopsToolStripMenuItem
+            // 
+            this.shopsToolStripMenuItem.Name = "shopsToolStripMenuItem";
+            this.shopsToolStripMenuItem.Size = new Size(180, 22);
+            this.shopsToolStripMenuItem.Text = "Магазины";
+            this.shopsToolStripMenuItem.Click += this.ShopsToolStripMenuItem_Click;
             // 
             // FormMain
             // 
@@ -342,14 +270,8 @@
         private ToolStripMenuItem справочникиToolStripMenuItem;
         private ToolStripMenuItem БлюдаToolStripMenuItem;
         private ToolStripMenuItem наборблюдToolStripMenuItem;
-        private ToolStripMenuItem отчётыToolStripMenuItem;
-        private ToolStripMenuItem componentsToolStripMenuItem;
         private ToolStripMenuItem dishesToolStripMenuItem;
-        private ToolStripMenuItem componentDishesToolStripMenuItem;
-        private ToolStripMenuItem ordersToolStripMenuItem;
         private ToolStripMenuItem guidesToolStripMenuItem;
-        private ToolStripMenuItem componentToolStripMenuItem;
-        private ToolStripMenuItem dishToolStripMenuItem;
         private ToolStripMenuItem clientToolStripMenuItem;
         private ToolStripMenuItem shopsToolStripMenuItem;
         private ToolStripMenuItem reportToolStripMenuItem;
@@ -363,7 +285,6 @@
         private ToolStripMenuItem ClientToolStripMenuItem;
         private ToolStripMenuItem исполнителиToolStripMenuItem;
         private ToolStripMenuItem DoWorkToolStripMenuItem;
-        private ToolStripMenuItem исполнителиToolStripMenuItem1;
         private Button buttonSetToFinish;
         private ToolStripMenuItem письмаToolStripMenuItem;
         private ToolStripMenuItem createBackupToolStripMenuItem;

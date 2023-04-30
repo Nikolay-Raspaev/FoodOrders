@@ -1,5 +1,6 @@
 ﻿using FoodOrdersContracts.BindingModels;
 using FoodOrdersContracts.BusinessLogicsContracts;
+using FoodOrdersContracts.DI;
 using Microsoft.Extensions.Logging;
 namespace FoodOrdersView
 {
@@ -71,39 +72,27 @@ namespace FoodOrdersView
         }
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormShop));
-            if (service is FormShop form)
+            var form = DependencyManager.Instance.Resolve<FormShop>();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
+                LoadData();
             }
         }
         private void ButtonEdit_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormShop));
-                if (service is FormShop form)
-                {
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
+                var form = DependencyManager.Instance.Resolve<FormShop>();
+                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                LoadData();
             }
         }
         private void ButtonSellDishes_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSellDishes));
-            if (service is FormSellDishes form)
+            var form = DependencyManager.Instance.Resolve<FormSellDishes>();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
+                LoadData();
             }
         }
     }

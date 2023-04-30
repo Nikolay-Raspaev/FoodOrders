@@ -2,6 +2,7 @@
 using FoodOrdersContracts.BusinessLogicsContracts;
 using FoodOrdersView;
 using FoodOrdersContracts.ViewModels;
+using FoodOrdersContracts.DI;
 
 namespace FoodOrdersView
 {
@@ -89,13 +90,10 @@ namespace FoodOrdersView
 
 		private void dataGridView_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
 		{
-			var service = Program.ServiceProvider?.GetService(typeof(FormReplyMail));
-			if (service is FormReplyMail form)
-			{
-				form.MessageId = (string)dataGridView.Rows[e.RowIndex].Cells["MessageId"].Value;
-				form.ShowDialog();
-				MailLoad();
-			}
+            var form = DependencyManager.Instance.Resolve<FormReplyMail>();
+			form.MessageId = (string)dataGridView.Rows[e.RowIndex].Cells["MessageId"].Value;
+			form.ShowDialog();
+			MailLoad();
 		}
 	}
 }

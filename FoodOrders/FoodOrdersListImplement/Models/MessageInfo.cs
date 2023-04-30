@@ -62,6 +62,8 @@ namespace FoodOrdersListImplement.Models
             SenderName = SenderName,
             DateDelivery = DateDelivery,
         };
+
+        public int Id => throw new NotImplementedException();
     }
 
 }
