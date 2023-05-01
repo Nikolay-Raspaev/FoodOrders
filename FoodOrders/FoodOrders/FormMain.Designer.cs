@@ -40,11 +40,11 @@
             ordersToolStripMenuItem = new ToolStripMenuItem();
             DoWorkToolStripMenuItem = new ToolStripMenuItem();
             письмаToolStripMenuItem = new ToolStripMenuItem();
+            createBackupToolStripMenuItem = new ToolStripMenuItem();
             buttonUpdate = new Button();
             buttonSetToFinish = new Button();
             buttonCreateOrder = new Button();
             dataGridView = new DataGridView();
-            createBackupToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -54,7 +54,7 @@
             menuStrip.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem, отчётыToolStripMenuItem, DoWorkToolStripMenuItem, письмаToolStripMenuItem, createBackupToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(975, 24);
+            menuStrip.Size = new Size(1070, 24);
             menuStrip.TabIndex = 0;
             menuStrip.Text = "menuStrip1";
             // 
@@ -135,9 +135,16 @@
             письмаToolStripMenuItem.Text = "Письма";
             письмаToolStripMenuItem.Click += MailsToolStripMenuItem_Click;
             // 
+            // createBackupToolStripMenuItem
+            // 
+            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
+            createBackupToolStripMenuItem.Size = new Size(97, 20);
+            createBackupToolStripMenuItem.Text = "Создать бекап";
+            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
+            // 
             // buttonUpdate
             // 
-            buttonUpdate.Location = new Point(780, 230);
+            buttonUpdate.Location = new Point(871, 205);
             buttonUpdate.Margin = new Padding(3, 2, 3, 2);
             buttonUpdate.Name = "buttonUpdate";
             buttonUpdate.Size = new Size(170, 58);
@@ -148,7 +155,7 @@
             // 
             // buttonSetToFinish
             // 
-            buttonSetToFinish.Location = new Point(780, 149);
+            buttonSetToFinish.Location = new Point(871, 124);
             buttonSetToFinish.Margin = new Padding(3, 2, 3, 2);
             buttonSetToFinish.Name = "buttonSetToFinish";
             buttonSetToFinish.Size = new Size(170, 58);
@@ -159,7 +166,7 @@
             // 
             // buttonCreateOrder
             // 
-            buttonCreateOrder.Location = new Point(780, 66);
+            buttonCreateOrder.Location = new Point(871, 41);
             buttonCreateOrder.Margin = new Padding(3, 2, 3, 2);
             buttonCreateOrder.Name = "buttonCreateOrder";
             buttonCreateOrder.Size = new Size(170, 58);
@@ -177,21 +184,14 @@
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.RowTemplate.Height = 29;
-            dataGridView.Size = new Size(755, 426);
+            dataGridView.Size = new Size(841, 426);
             dataGridView.TabIndex = 7;
-            // 
-            // createBackupToolStripMenuItem
-            // 
-            createBackupToolStripMenuItem.Name = "createBackupToolStripMenuItem";
-            createBackupToolStripMenuItem.Size = new Size(97, 20);
-            createBackupToolStripMenuItem.Text = "Создать бекап";
-            createBackupToolStripMenuItem.Click += createBackupToolStripMenuItem_Click;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(975, 450);
+            ClientSize = new Size(1070, 450);
             Controls.Add(buttonUpdate);
             Controls.Add(buttonSetToFinish);
             Controls.Add(buttonCreateOrder);
