@@ -86,6 +86,11 @@ namespace FoodOrdersView
             DependencyManager.Instance.RegisterType<FormReportDishComponents>();
             DependencyManager.Instance.RegisterType<FormReportOrders>();
             DependencyManager.Instance.RegisterType<FormClients>();
+            DependencyManager.Instance.RegisterType<FormDishes>();
+            DependencyManager.Instance.RegisterType<FormCreateOrder>();
+            DependencyManager.Instance.RegisterType<FormImplementer>();
+            DependencyManager.Instance.RegisterType<FormMails>();
+            DependencyManager.Instance.RegisterType<FormViewImplementers>();
         }
 
         private static void MailCheck(object obj) => DependencyManager.Instance.Resolve<AbstractMailWorker>()?.MailCheck();

@@ -49,12 +49,12 @@ namespace FoodOrdersView
         }
         private void DishToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            var form = DependencyManager.Instance.Resolve<FormDishes>();
             form.ShowDialog();
         }
         private void ButtonCreateOrder_Click(object sender, EventArgs e)
         {
-            var form = DependencyManager.Instance.Resolve<FormComponents>();
+            var form = DependencyManager.Instance.Resolve<FormCreateOrder>();
             form.ShowDialog();
             LoadData();
         }
