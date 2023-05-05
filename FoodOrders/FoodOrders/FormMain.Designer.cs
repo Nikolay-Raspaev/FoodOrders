@@ -88,7 +88,7 @@
             // clientToolStripMenuItem
             // 
             clientToolStripMenuItem.Name = "clientToolStripMenuItem";
-            clientToolStripMenuItem.Size = new Size(149, 22);
+            clientToolStripMenuItem.Size = new Size(180, 22);
             clientToolStripMenuItem.Text = "Клиенты";
             clientToolStripMenuItem.Click += ClientToolStripMenuItem_Click;
             // 
@@ -102,7 +102,7 @@
             // shopsToolStripMenuItem
             // 
             shopsToolStripMenuItem.Name = "shopsToolStripMenuItem";
-            shopsToolStripMenuItem.Size = new Size(149, 22);
+            shopsToolStripMenuItem.Size = new Size(180, 22);
             shopsToolStripMenuItem.Text = "Магазины";
             shopsToolStripMenuItem.Click += ShopsToolStripMenuItem_Click;
             // 
