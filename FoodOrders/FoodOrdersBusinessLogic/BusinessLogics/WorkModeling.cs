@@ -75,7 +75,6 @@ namespace FoodOrdersBusinessLogic.BusinessLogics
                         _orderLogic.FinishOrder(new OrderBindingModel
                         {
                             Id = order.Id,
-                            ImplementerId = implementer.Id
                         });
                         // отдыхаем
                         Thread.Sleep(implementer.Qualification * _rnd.Next(10, 100));
